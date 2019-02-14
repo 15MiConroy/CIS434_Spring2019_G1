@@ -1,13 +1,21 @@
 window.onload = function(){
-    document.getElementById('stopButton').onclick = illuminateRed;
-    document.getElementById('slowButton').onclick = illuminateYellow;
-    document.getElementById('goButton').onclick= illuminateGreen;
+    document.getElementById('stopButton').onclick = stop;
+    document.getElementById('goButton').onclick= go;
+
+    function stop(){
+        illuminateYellow();
+        setTimeout(illuminateRed,5000);
+    }
+
+    function go(){
+        illuminateYellow2();
+        setTimeout(illuminateGreen,5000)
+    }
 
     function illuminateRed() {
     clearLights();
     document.getElementById('stopLight-yn').style.backgroundColor = "red";
     document.getElementById('stopLight-ys').style.backgroundColor = "red";
-
     document.getElementById('goLight-xe').style.backgroundColor = "green";
     document.getElementById('goLight-xw').style.backgroundColor = "green";
     }
@@ -19,6 +27,14 @@ window.onload = function(){
 
     document.getElementById('stopLight-xe').style.backgroundColor = "red";
     document.getElementById('stopLight-xw').style.backgroundColor = "red";
+    }
+        function illuminateYellow2() {
+    clearLights();
+    document.getElementById('slowLight-xe').style.backgroundColor = "yellow";
+    document.getElementById('slowLight-xw').style.backgroundColor = "yellow";
+
+    document.getElementById('stopLight-yn').style.backgroundColor = "red";
+    document.getElementById('stopLight-ys').style.backgroundColor = "red";
     }
 
     function illuminateGreen() {
