@@ -4,27 +4,35 @@ body {
   
   #controlPanel {
     float: left;
-    padding-top: 30px;
+    padding-top: 3px;
   }
   
   .button {
     background-color: gray;
     color: white;
-    border-radius: 10px;
-    padding: 20px;
+    border-radius: 1px;
+    padding: 2px;
     text-align: center;
-    margin: 90px 40px;
+    margin: 9px 4px;
     cursor: pointer;
   }
-  
-  #traffic-light-yn,#traffic-light-ys,#traffic-light-xe,#traffic-light-xw {
-    height: 550px;
-    width: 200px;
+  #traffic-light-yn,#traffic-light-ys{
+    height: 55px;
+    width: 20px;
     float: left;
     background-color: #333;
-    border-radius: 40px;
-    margin: 30px 0;
-    padding: 20px;
+    border-radius: 4px;
+    margin: 3px 115px;
+    padding: 2px;
+  }
+ #traffic-light-xe,#traffic-light-xw {
+    height: 55px;
+    width: 20px;
+    float: left;
+    background-color: #333;
+    border-radius: 4px;
+    margin: 3px 50px;
+    padding: 2px;
   }
 
   .clear {
@@ -32,10 +40,10 @@ body {
   }
   
   .bulb {
-    height: 150px;
-    width: 150px;
+    height: 15px;
+    width: 15px;
     background-color: #111;
     border-radius: 50%;
-    margin: 25px auto;
+    margin: 2.5px auto;
     transition: background 500ms;
   }

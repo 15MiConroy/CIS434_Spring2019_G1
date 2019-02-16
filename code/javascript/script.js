@@ -8,8 +8,10 @@ window.onload = function(){
     }
 
     function go(){
-        illuminateYellow2();
-        setTimeout(illuminateGreen,5000)
+        if(document.getElementById('stopLight-yn').style.backgroundColor == "red"){
+            illuminateYellow2();
+            setTimeout(illuminateGreen,5000)
+        }
     }
 
     function illuminateRed() {
