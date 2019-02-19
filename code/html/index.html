@@ -3,32 +3,46 @@
 <link href="../css/main.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../javascript/jquery-3.3.1.js"></script>
 <script type="text/javascript" src="../javascript/script.js"></script>
-
-        <div id="controlPanel">
-          <h id="stopButton" class="button">Stop</h>
-          <h id="goButton" class="button">Go</h>
-        </div>
-        <div id="traffic-light-yn" class="clear">
-          <div id="stopLight-yn" class="bulb"></div>
-          <div id="slowLight-yn" class="bulb"></div>
-          <div id="goLight-yn" class="bulb"></div>
-        </div>
-        <div class="clear">     
-          <div id="traffic-light-xe">
-            <div id="stopLight-xe" class="bulb"></div>
-            <div id="slowLight-xe" class="bulb"></div>
-            <div id="goLight-xe" class="bulb"></div>
-          </div>
-        </div>
+  <body>
+  <div class="grid-container">
+    <div class="grid-item-outside">
+      <div id="controlPanel">
+        <h id="stopButton" class="button">Stop</h>
+        <h id="goButton" class="button">Go</h>
+      </div>
+    </div>
+    <div class="grid-item-inside">
+      <div id="traffic-light-yn" class="clear">
+        <div id="stopLight-yn" class="bulb"></div>
+        <div id="slowLight-yn" class="bulb"></div>
+        <div id="goLight-yn" class="bulb"></div>
+      </div>
+    </div>
+    <div class="grid-item-outside"></div>  
+    <div class="grid-item-inside">
+      <div id="traffic-light-xe">
+        <div id="stopLight-xe" class="bulb"></div>
+        <div id="slowLight-xe" class="bulb"></div>
+        <div id="goLight-xe" class="bulb"></div>
+      </div>
+    </div>
+    <div class="grid-item-inside"></div>
+    <div class="grid-item-inside">
       <div id="traffic-light-xw">
         <div id="stopLight-xw" class="bulb"></div>
         <div id="slowLight-xw" class="bulb"></div>
         <div id="goLight-xw" class="bulb"></div>
       </div>
-      <div class="clear"> 
+    </div>  
+    <div class="grid-item-outside"></div>
+    <div class="grid-item-inside">
       <div id="traffic-light-ys">
         <div id="stopLight-ys" class="bulb"></div>
         <div id="slowLight-ys" class="bulb"></div>
         <div id="goLight-ys" class="bulb"></div>
       </div>
-      </div>
+    </div>
+    <div class="grid-item-outside"></div>  
+  </div>
+  </body>
+</hmtl>
