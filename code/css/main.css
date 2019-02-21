@@ -16,7 +16,17 @@ body {
     margin: 9px 4px;
     cursor: pointer;
   }
-  #traffic-light-yn,#traffic-light-ys{
+  #traffic-light-yn{
+    height: 55px;
+    width: 20px;
+    float: left;
+    background-color: #333;
+    transform: rotate(180deg);
+    border-radius: 4px;
+    margin: 3px 115px;
+    padding: 2px;
+  }
+  #traffic-light-ys{
     height: 55px;
     width: 20px;
     float: left;
@@ -25,10 +35,21 @@ body {
     margin: 3px 115px;
     padding: 2px;
   }
- #traffic-light-xe,#traffic-light-xw {
+ #traffic-light-xe{
     height: 55px;
     width: 20px;
     float: left;
+    transform: rotate(90deg);
+    background-color: #333;
+    border-radius: 4px;
+    margin: 3px 50px;
+    padding: 2px;
+  }
+  #traffic-light-xw{
+    height: 55px;
+    width: 20px;
+    float: left;
+    transform: rotate(-90deg);
     background-color: #333;
     border-radius: 4px;
     margin: 3px 50px;
@@ -42,7 +63,7 @@ body {
   .bulb {
     height: 15px;
     width: 15px;
-    background-color: #111;
+    background-color: black;
     border-radius: 50%;
     margin: 2.5px auto;
     transition: background 500ms;
@@ -53,15 +74,15 @@ body {
     padding: 10px;
   }
   .grid-item-inside {
-    background-color: rgba(0, 0, 0, 1);
-    border: 1px solid rgba(255, 255, y, 0.8);
+    background-color: black;
+    border-top-color: 1px solid white;
     padding: 20px;
     font-size: 30px;
     text-align: center;
   }
   .grid-item-outside {
     background-color: green;
-    border: 1px solid rgba(255, 255, y, 0.8);
+    border: 1px solid gray;
     padding: 20px;
     font-size: 30px;
     text-align: center;
