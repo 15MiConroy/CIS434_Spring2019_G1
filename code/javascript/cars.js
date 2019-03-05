@@ -33,9 +33,10 @@ class Car {
     isNotMoving() {
         return !this.moving;
     }
-        this.isMoving = true;
+    move() {
+        this.moving = true;
     }
     stop() {
-        this.isMoving = false;
+        this.moving = false;
     }
 }
