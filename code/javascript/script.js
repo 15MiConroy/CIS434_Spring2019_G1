@@ -51,14 +51,3 @@ function setup() {
     //    car();
     x--;
   }
-/*
-  class Car {
-    constructor() {
-        this.x = ; //one of 4 x position o
-        this.y = ; //one of 4 y position options
-        fill(colorR, colorG, colorB);
-        circle(0, y, 10);
-        var isMoving = true;
-    }
-  }
-  */
