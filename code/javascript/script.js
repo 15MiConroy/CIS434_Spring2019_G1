@@ -1,3 +1,9 @@
+/* Create the 4 Lanes */
+let north = new Lane("north");
+let east  = new Lane("east");
+let south = new Lane("south");
+let west  = new Lane("west"); 
+
 var h = 480;
 var w = 640;
 var x = w;
