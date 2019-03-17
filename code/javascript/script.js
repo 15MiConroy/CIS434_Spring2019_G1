@@ -4,6 +4,7 @@ let laneE = new Lane("east");
 let laneS = new Lane("south");
 let laneW = new Lane("west");
 
+/* Create the 4 Lights */
 let lightN = new Light("north");
 let lightE = new Light("east");
 let LightS = new Light("south");
