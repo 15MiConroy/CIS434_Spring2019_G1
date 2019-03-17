@@ -93,3 +93,25 @@ class Car {
         this._moving = false;
     }
 }
+
+class Light {
+    constructor(name) {
+        this._name = name;
+        this._color = "red";
+    }
+    get name() {
+        return this._name;
+    }
+    get color() {
+        return this._color;
+    }
+    set color(color) {
+        this._color = color;
+    }
+    isGreen() {
+        return this._color == "green";
+    }
+    isRed() {
+        return this._color == "red";
+    }
+}
