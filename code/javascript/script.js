@@ -2,7 +2,7 @@
 let laneN = new Lane("north");
 let laneE = new Lane("east");
 let laneS = new Lane("south");
-let laneW  = new Lane("west"); 
+let laneW = new Lane("west"); 
 
 var h = 480;
 var w = 640;
