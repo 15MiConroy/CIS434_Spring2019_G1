@@ -4,6 +4,11 @@ let laneE = new Lane("east");
 let laneS = new Lane("south");
 let laneW = new Lane("west");
 
+let lightN = new Light("north");
+let lightE = new Light("east");
+let LightS = new Light("south");
+let LightW = new Light("west");
+
 var h = 480;
 var w = 640;
 var x = w;
