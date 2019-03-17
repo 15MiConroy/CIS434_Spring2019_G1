@@ -108,10 +108,10 @@ class Light {
     set color(color) {
         this._color = color;
     }
-    isGreen() {
+    get isGreen() {
         return this._color == "green";
     }
-    isRed() {
+    get isRed() {
         return this._color == "red";
     }
 }
