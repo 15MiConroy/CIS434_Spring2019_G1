@@ -97,7 +97,7 @@ class Car {
 class Light {
     constructor(name) {
         this._name = name;
-        this._color = "red";
+        this._color = "R";
     }
     get name() {
         return this._name;
