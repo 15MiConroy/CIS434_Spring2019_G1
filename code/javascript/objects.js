@@ -114,4 +114,8 @@ class Light {
     get isRed() {
         return this._color == "red";
     }
-}
+    // non-yellow, non-left light combos
+    // 1: GRGR
+    // 2: RGRG
+    // 3: RRRR
+    // Pattern: 1 => 3 => 2 => 3 => 1 etc.
