@@ -1,14 +1,8 @@
-/* Create the 4 Lights */
-let lightN = new Light("north");
-let lightE = new Light("east");
-let lightS = new Light("south");
-let lightW = new Light("west");
-
 /* Create the 4 Lanes */
-let laneN = new Lane("north", lightN);
-let laneE = new Lane("east",  lightE);
-let laneS = new Lane("south", lightS);
-let laneW = new Lane("west",  lightW);
+let laneN = new Lane("north");
+let laneE = new Lane("east");
+let laneS = new Lane("south");
+let laneW = new Lane("west");
 
 var h = 480;
 var w = 640;
