@@ -123,6 +123,9 @@ class LightControl {
         this._s = s;
         this._w = w;
         this._timer = 0;
+        // start with N and S green
+        this._n.color = "G";
+        this._s.color = "G";
     }
     // non-yellow, non-left light combos
     // 1: GRGR
