@@ -128,12 +128,45 @@ class LightControl {
         this._w = w;
         this._timer = 3;
         // start with N and S green
-        this._n.color = "G";
-        this._s.color = "G";
+        this.nsG();
     }
-    // non-yellow, non-left light combos
-    // 1: GRGR
-    // 2: RGRG
-    // 3: RRRR
-    // Pattern: 1 => 3 => 2 => 3 => 1 etc.
+    // TODO: Find a better way to represent the states
+    nsG() {
+        if (this._state == "nsG") {
+            return;
+        }
+        this._state = "nsG";
+        this._n.color = "R";
+        this._e.color = "G";
+        this._s.color = "R";
+        this._w.color = "G";
+    }
+    ewG() {
+        if (this._state != "ewG") {
+            return;
+        }
+        this._state = "ewG";
+        this._n.color = "G";
+        this._e.color = "R";
+        this._s.color = "G";
+        this._w.color = "R";
+    }
+    allR() {
+        if (this._state == "allR") {
+            return;
+        }
+        this._state = "allR";
+        this._n.color = "R";
+        this._e.color = "R";
+        this._s.color = "R";
+        this._w.color = "R";    
+    }
+    switchLight() {
+        if (this._state == "nsG") {
+            ewG();
+        } else {
+            nsG();
+        }
+    }
+    }
 }
