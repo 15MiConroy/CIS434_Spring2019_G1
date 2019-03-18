@@ -4,6 +4,12 @@ let laneE = new Lane("east");
 let laneS = new Lane("south");
 let laneW = new Lane("west");
 
+let lightControl = new LightControl(laneN, laneE, laneS, laneW);
+
+// while (true) {
+loop = setInterval(() => lightControl.progress(), 1000);
+// }
+
 var h = 480;
 var w = 640;
 var x = w;

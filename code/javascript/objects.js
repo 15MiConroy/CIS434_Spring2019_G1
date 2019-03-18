@@ -168,5 +168,14 @@ class LightControl {
             this.nsG();
         }
     }
+    // Move 1 second at a time down the list
+    progress() {
+        this._timer -= 1;
+        if (this._timer <= 0) {
+            this.switchLight();
+            this._timer = 3;
+        }
+        console.log("State: " + this._state);
+        console.log("N: " + this._n.color + ", E: " + this._e.color + ", S: " + this._s.color + ", W: " + this._e.color);
     }
 }
