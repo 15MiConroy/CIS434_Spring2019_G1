@@ -99,9 +99,9 @@ class Car {
 }
 
 class Light {
-    constructor(lane) {
-        this._lane = lane;
-        this._color = "red";
+    constructor(name) {
+        this._name = name;
+        this._color = "R";
     }
     get lane() {
         return this._lane;
@@ -118,4 +118,22 @@ class Light {
     get isRed() {
         return this._color == "red";
     }
+}
+
+class LightControl {
+    constructor(n, e, s, w) {
+        this._n = n;
+        this._e = e;
+        this._s = s;
+        this._w = w;
+        this._timer = 0;
+        // start with N and S green
+        this._n.color = "G";
+        this._s.color = "G";
+    }
+    // non-yellow, non-left light combos
+    // 1: GRGR
+    // 2: RGRG
+    // 3: RRRR
+    // Pattern: 1 => 3 => 2 => 3 => 1 etc.
 }
