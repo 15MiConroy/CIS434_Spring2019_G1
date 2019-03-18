@@ -136,20 +136,20 @@ class LightControl {
             return;
         }
         this._state = "nsG";
-        this._n.color = "R";
-        this._e.color = "G";
-        this._s.color = "R";
-        this._w.color = "G";
-    }
-    ewG() {
-        if (this._state != "ewG") {
-            return;
-        }
-        this._state = "ewG";
         this._n.color = "G";
         this._e.color = "R";
         this._s.color = "G";
         this._w.color = "R";
+    }
+    ewG() {
+        if (this._state == "ewG") {
+            return;
+        }
+        this._state = "ewG";
+        this._n.color = "R";
+        this._e.color = "G";
+        this._s.color = "R";
+        this._w.color = "G";
     }
     allR() {
         if (this._state == "allR") {
@@ -163,9 +163,9 @@ class LightControl {
     }
     switchLight() {
         if (this._state == "nsG") {
-            ewG();
+            this.ewG();
         } else {
-            nsG();
+            this.nsG();
         }
     }
     }
