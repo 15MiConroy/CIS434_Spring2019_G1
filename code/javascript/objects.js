@@ -3,6 +3,7 @@ let LANE_LENGTH = 5;
 class Lane {
     constructor(name) {
         this._name = name;
+        this._light = new Light(this);
         this._straightLane = [];
         this._maxIndex = -1;
         for (let i = 0; i < LANE_LENGTH; i++) {
@@ -11,6 +12,9 @@ class Lane {
     }
     get name() {
         return this._name;
+    }
+    get light() {
+        return this._light;
     }
     get numCars() {
         return this._maxIndex + 1;
@@ -99,8 +103,8 @@ class Light {
         this._name = name;
         this._color = "R";
     }
-    get name() {
-        return this._name;
+    get lane() {
+        return this._lane;
     }
     get color() {
         return this._color;
