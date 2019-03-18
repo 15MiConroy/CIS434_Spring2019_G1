@@ -103,6 +103,9 @@ class Light {
         this._lane = lane;
         this._color = "red";
     }
+    get lane() {
+        return this._lane;
+    }
     get color() {
         return this._color;
     }
