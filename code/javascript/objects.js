@@ -114,8 +114,19 @@ class Light {
     get isRed() {
         return this._color == "red";
     }
+}
+
+class LightControl {
+    constructor(n, e, s, w) {
+        this._n = n;
+        this._e = e;
+        this._s = s;
+        this._w = w;
+        this._timer = 0;
+    }
     // non-yellow, non-left light combos
     // 1: GRGR
     // 2: RGRG
     // 3: RRRR
     // Pattern: 1 => 3 => 2 => 3 => 1 etc.
+}
