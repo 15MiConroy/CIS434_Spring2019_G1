@@ -1,13 +1,16 @@
 /* Create the 4 Lanes */
-let laneN = new Lane("north");
-let laneE = new Lane("east");
-let laneS = new Lane("south");
-let laneW = new Lane("west");
+let laneN = new Lane("north", 3);
+let laneE = new Lane("east", 3.5);
+let laneS = new Lane("south", 2);
+let laneW = new Lane("west", 2.5);
 
 let lightControl = new LightControl(laneN, laneE, laneS, laneW);
 
-lightControlLoop = setInterval(() => lightControl.progress(), 2000);
-laneNLoop = setInterval(() => laneN.progress(), 2000);
+lightControlLoop = setInterval(() => lightControl.progress(), 4000);
+laneNLoop = setInterval(() => laneN.progress(), 4000);
+laneELoop = setInterval(() => laneE.progress(), 4000);
+laneSLoop = setInterval(() => laneS.progress(), 4000);
+laneWLoop = setInterval(() => laneW.progress(), 4000);
 
 
 var h = 480;
