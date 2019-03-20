@@ -29,6 +29,9 @@ class Lane {
     get frequency() {
       return this._frequency;
     }
+    set light(l) {
+        this._light = l;
+    }
     set frequency(f) {
       this._frequency = f;
     }
