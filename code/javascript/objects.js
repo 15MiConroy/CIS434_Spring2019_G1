@@ -1,12 +1,12 @@
 let LANE_LENGTH = 5;
 
 class Lane {
-    constructor(name) {
+    constructor(name, frequency = 3, ) {
         this._name = name;
         this._light = "R";
         this._straightLane = [];
         this._maxIndex = -1;
-        this._frequency = 3;
+        this._frequency = frequency;
         this._timer = this._frequency;
         for (let i = 0; i < LANE_LENGTH; i++) {
             this._straightLane[i] = null;
