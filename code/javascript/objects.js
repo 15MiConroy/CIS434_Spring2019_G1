@@ -56,7 +56,8 @@ class Lane {
         }
         this._straightLane[this._maxIndex] = null;
         this._maxIndex -= 1;
-        return car;
+        car.move();
+        return true;
     }
     progress() {
       this._timer -= 1;
