@@ -61,18 +61,20 @@ class Lane {
     }
     progress() {
       this._timer -= 1;
-        console.log("Adding a car.")
+      let added = "";
+      let removed = "";
       if (this._timer <= 0) {
+        added = "added";
         this.addCar();
         this._timer += this._frequency;
       }
       if (this._light == "G") {
-        console.log("Removing a car.");
-        this.removeCar();
+        if (this.removeCar() == true) {
+            removed = "removed";
+        }
       }
       let numCars = this._maxIndex + 1;
-      console.log("There are " + numCars + " in this lane.");
-      console.log("");
+      console.log("There are " + numCars + " cars in the " + this._name + " lane. (" + added + " / " + removed + ")");
     }
 }
 
