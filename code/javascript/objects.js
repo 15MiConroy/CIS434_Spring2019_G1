@@ -39,7 +39,7 @@ class Lane {
     addCar() {
         if (this._maxIndex >= 4) {
             console.log("There are too many cars in this lane.");
-            return;
+            return false;
         }
         this._maxIndex += 1;
         let car = new Car(0, 0, "", this);
@@ -47,7 +47,7 @@ class Lane {
     }
     removeCar() {
         if (this._maxIndex == -1) {
-            console.log("No cars in this lane.");
+            // console.log("No cars in this lane.");
             return;
         }
         let car = this._straightLane[0];
