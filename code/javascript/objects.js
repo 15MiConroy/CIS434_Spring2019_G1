@@ -57,6 +57,24 @@ class Lane {
         this._maxIndex -= 1;
         return car;
     }
+    progress() {
+      this._timer -= 1;
+      if (this._timer < 1) {
+        let c = new Car(0, 0, "B", this);
+        console.log("Adding a car.")
+        this.addCar(c);
+        this._timer += frequency;
+      }
+      if (this._light.color == "G") {
+        console.log("Removing a car.");
+        this.removeCar();
+      }
+      console.log("Here are the current cars:");
+      for (let i = 0; i <= this._maxIndex; i++) {
+        console.log("Car at Position " + i);
+      }
+      console.log("");
+    }
 }
 
 class Car {
