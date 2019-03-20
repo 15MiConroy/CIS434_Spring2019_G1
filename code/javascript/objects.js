@@ -1,7 +1,7 @@
 let LANE_LENGTH = 5;
 
 class Lane {
-    constructor(name, frequency = 3, ) {
+    constructor(name, frequency = 3) {
         this._name = name;
         this._light = "R";
         this._straightLane = [];
