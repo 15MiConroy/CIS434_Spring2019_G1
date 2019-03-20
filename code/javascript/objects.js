@@ -3,7 +3,7 @@ let LANE_LENGTH = 5;
 class Lane {
     constructor(name) {
         this._name = name;
-        this._light = new Light(this);
+        this._light = "R";
         this._straightLane = [];
         this._maxIndex = -1;
         this._frequency = 3;
@@ -65,7 +65,7 @@ class Lane {
         this.addCar(c);
         this._timer += frequency;
       }
-      if (this._light.color == "G") {
+      if (this._light == "G") {
         console.log("Removing a car.");
         this.removeCar();
       }
@@ -120,28 +120,6 @@ class Car {
     }
     stop() {
         this._moving = false;
-    }
-}
-
-class Light {
-    constructor(name) {
-        this._name = name;
-        this._color = "R";
-    }
-    get lane() {
-        return this._lane;
-    }
-    get color() {
-        return this._color;
-    }
-    set color(color) {
-        this._color = color;
-    }
-    get isGreen() {
-        return this._color == "green";
-    }
-    get isRed() {
-        return this._color == "red";
     }
 }
 
