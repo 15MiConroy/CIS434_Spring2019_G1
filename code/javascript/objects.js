@@ -179,6 +179,7 @@ class LightControl {
             this.switchLight();
             this._timer = 3;
         }
+        console.log("");
         console.log("State: " + this._state);
         console.log("N: " + this._n.light + ", E: " + this._e.light + ", S: " + this._s.light + ", W: " + this._e.light);
     }
