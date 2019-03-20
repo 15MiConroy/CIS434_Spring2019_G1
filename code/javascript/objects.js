@@ -61,8 +61,8 @@ class Lane {
     }
     progress() {
       this._timer -= 1;
-      if (this._timer < 1) {
         console.log("Adding a car.")
+      if (this._timer <= 0) {
         this.addCar();
         this._timer += this._frequency;
       }
