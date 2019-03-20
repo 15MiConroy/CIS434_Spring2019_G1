@@ -7,6 +7,7 @@ class Lane {
         this._straightLane = [];
         this._maxIndex = -1;
         this._frequency = 3;
+        this._timer = this._frequency;
         for (let i = 0; i < LANE_LENGTH; i++) {
             this._straightLane[i] = null;
         }
@@ -66,7 +67,7 @@ class Lane {
         let c = new Car(0, 0, "B", this);
         console.log("Adding a car.")
         this.addCar(c);
-        this._timer += frequency;
+        this._timer += this._frequency;
       }
       if (this._light == "G") {
         console.log("Removing a car.");
