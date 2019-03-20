@@ -6,6 +6,7 @@ class Lane {
         this._light = new Light(this);
         this._straightLane = [];
         this._maxIndex = -1;
+        this._frequency = 3;
         for (let i = 0; i < LANE_LENGTH; i++) {
             this._straightLane[i] = null;
         }
@@ -24,6 +25,12 @@ class Lane {
             return null;
         }
         return this._straightLane[0];
+    }
+    get frequency() {
+      return this._frequency;
+    }
+    set frequency(f) {
+      this._frequency = f;
     }
     addCar(car) {
         if (!(car instanceof Car)) {
