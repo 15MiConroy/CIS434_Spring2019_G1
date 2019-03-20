@@ -130,7 +130,7 @@ class LightControl {
         this._e = e;
         this._s = s;
         this._w = w;
-        this._timer = 3;
+        this._timer = 4;
         // start with N and S green
         this.nsG();
     }
