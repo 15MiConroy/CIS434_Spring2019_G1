@@ -136,30 +136,30 @@ class LightControl {
             return;
         }
         this._state = "nsG";
-        this._n.color = "G";
-        this._e.color = "R";
-        this._s.color = "G";
-        this._w.color = "R";
+        this._n.light.color = "G";
+        this._e.light.color = "R";
+        this._s.light.color = "G";
+        this._w.light.color = "R";
     }
     ewG() {
         if (this._state == "ewG") {
             return;
         }
         this._state = "ewG";
-        this._n.color = "R";
-        this._e.color = "G";
-        this._s.color = "R";
-        this._w.color = "G";
+        this._n.light.color = "R";
+        this._e.light.color = "G";
+        this._s.light.color = "R";
+        this._w.light.color = "G";
     }
     allR() {
         if (this._state == "allR") {
             return;
         }
         this._state = "allR";
-        this._n.color = "R";
-        this._e.color = "R";
-        this._s.color = "R";
-        this._w.color = "R";    
+        this._n.light.color = "R";
+        this._e.light.color = "R";
+        this._s.light.color = "R";
+        this._w.light.color = "R";    
     }
     switchLight() {
         if (this._state == "nsG") {
@@ -176,6 +176,6 @@ class LightControl {
             this._timer = 3;
         }
         console.log("State: " + this._state);
-        console.log("N: " + this._n.color + ", E: " + this._e.color + ", S: " + this._s.color + ", W: " + this._e.color);
+        console.log("N: " + this._n.light.color + ", E: " + this._e.light.color + ", S: " + this._s.light.color + ", W: " + this._e.light.color);
     }
 }
