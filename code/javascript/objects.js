@@ -36,16 +36,13 @@ class Lane {
     set frequency(f) {
       this._frequency = f;
     }
-    addCar(car) {
-        if (!(car instanceof Car)) {
-            console.log("addCar() does not work: input must be a Car");
-            return;
-        }
+    addCar() {
         if (this._maxIndex >= 4) {
             console.log("There are too many cars in this lane.");
             return;
         }
         this._maxIndex += 1;
+        let car = new Car(0, 0, "", this);
         this._straightLane[this._maxIndex] = car;
     }
     removeCar() {
@@ -64,19 +61,16 @@ class Lane {
     progress() {
       this._timer -= 1;
       if (this._timer < 1) {
-        let c = new Car(0, 0, "B", this);
         console.log("Adding a car.")
-        this.addCar(c);
+        this.addCar();
         this._timer += this._frequency;
       }
       if (this._light == "G") {
         console.log("Removing a car.");
         this.removeCar();
       }
-      console.log("Here are the current cars:");
-      for (let i = 0; i <= this._maxIndex; i++) {
-        console.log("Car at Position " + i);
-      }
+      let numCars = this._maxIndex + 1;
+      console.log("There are " + numCars + " in this lane.");
       console.log("");
     }
 }
