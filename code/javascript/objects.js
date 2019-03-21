@@ -133,42 +133,20 @@ class LightControl {
         // start with N and S green
         this.nsG();
     }
-    // TODO: Find a better way to represent the states
-    nsG() {
-        if (this._state == "nsG") {
+    changeState(newState) {
+        if (this._state == newState) {
             return;
         }
-        this._state = "nsG";
-        this._n.light = "G";
-        this._e.light = "R";
-        this._s.light = "G";
-        this._w.light = "R";
-    }
-    ewG() {
-        if (this._state == "ewG") {
-            return;
-        }
-        this._state = "ewG";
-        this._n.light = "R";
-        this._e.light = "G";
-        this._s.light = "R";
-        this._w.light = "G";
-    }
-    allR() {
-        if (this._state == "allR") {
-            return;
-        }
-        this._state = "allR";
-        this._n.light = "R";
-        this._e.light = "R";
-        this._s.light = "R";
-        this._w.light = "R";    
+        this._n = newState[0];
+        this._e = newState[1];
+        this._s = newState[2];
+        this._w = newState[3];
     }
     switchLight() {
-        if (this._state == "nsG") {
-            this.ewG();
+        if (this._state == "GRGR") {
+            this.changeState("RGRG");
         } else {
-            this.nsG();
+            this.changeState("GRGR");
         }
     }
     // Move 1 second at a time down the list
