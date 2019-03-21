@@ -137,6 +137,7 @@ class LightControl {
         if (this._state == newState) {
             return;
         }
+        this._state = newState;
         this._n = newState[0];
         this._e = newState[1];
         this._s = newState[2];
