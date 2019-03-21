@@ -47,8 +47,7 @@ class Lane {
     }
     removeCar() {
         if (this._maxIndex == -1) {
-            // console.log("No cars in this lane.");
-            return;
+            return false;
         }
         let car = this._straightLane[0];
         for (let i = 0; i < this._maxIndex; i++) {
