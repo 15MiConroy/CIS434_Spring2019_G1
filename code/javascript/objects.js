@@ -131,7 +131,7 @@ class LightControl {
         this._w = w;
         this._timer = 4;
         // start with N and S green
-        this.nsG();
+        this.changeState("GRGR");
     }
     changeState(newState) {
         if (this._state == newState) {
