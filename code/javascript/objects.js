@@ -125,10 +125,7 @@ class Car {
 
 class LightControl {
     constructor(n, e, s, w) {
-        this._n = n;
-        this._e = e;
-        this._s = s;
-        this._w = w;
+        this._lanes = [n, e, s, w];
         this._timer = 4;
         // start with N and S green
         this.changeState("GRGR");
@@ -138,10 +135,9 @@ class LightControl {
             return;
         }
         this._state = newState;
-        this._n = newState[0];
-        this._e = newState[1];
-        this._s = newState[2];
-        this._w = newState[3];
+        for (let i = 0; i < 4; i ++) {
+            this._lanes[i].light = newState[i]
+        }
     }
     switchLight() {
         if (this._state == "GRGR") {
@@ -159,6 +155,6 @@ class LightControl {
         }
         console.log("");
         console.log("State: " + this._state);
-        console.log("N: " + this._n.light + ", E: " + this._e.light + ", S: " + this._s.light + ", W: " + this._e.light);
+        console.log("N: " + this._lanes[0].light + ", E: " + this._lanes[1].light + ", S: " + this._lanes[2].light + ", W: " + this._lanes[3].light);
     }
 }
