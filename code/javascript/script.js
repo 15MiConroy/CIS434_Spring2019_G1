@@ -6,12 +6,21 @@ let laneW = new Lane("west", 2.5);
 
 let lightControl = new LightControl(laneN, laneE, laneS, laneW);
 
-lightControlLoop = setInterval(() => lightControl.progress(), 4000);
-laneNLoop = setInterval(() => laneN.progress(), 4000);
-laneELoop = setInterval(() => laneE.progress(), 4000);
-laneSLoop = setInterval(() => laneS.progress(), 4000);
-laneWLoop = setInterval(() => laneW.progress(), 4000);
+function progress() {
+    lightControl.progress();
+    laneN.progress();
+    laneE.progress();
+    laneS.progress();
+    laneW.progress();
+}
 
+let loopVar;
+function startSimulation() {
+    loopVar = setInterval(progress, 4000);
+}
+function stopSimulation() {
+    clearInterval(loopVar);
+}
 
 var h = 480;
 var w = 640;
