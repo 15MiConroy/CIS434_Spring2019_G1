@@ -1,11 +1,13 @@
 let LANE_LENGTH = 5;
 
 class Lane {
-    constructor(name) {
+    constructor(name, frequency = 3) {
         this._name = name;
-        this._light = new Light(this);
+        this._light = "R";
         this._straightLane = [];
         this._maxIndex = -1;
+        this._frequency = frequency;
+        this._timer = this._frequency;
         for (let i = 0; i < LANE_LENGTH; i++) {
             this._straightLane[i] = null;
         }
@@ -25,22 +27,27 @@ class Lane {
         }
         return this._straightLane[0];
     }
-    addCar(car) {
-        if (!(car instanceof Car)) {
-            console.log("addCar() does not work: input must be a Car");
-            return;
-        }
+    get frequency() {
+      return this._frequency;
+    }
+    set light(l) {
+        this._light = l;
+    }
+    set frequency(f) {
+      this._frequency = f;
+    }
+    addCar() {
         if (this._maxIndex >= 4) {
             console.log("There are too many cars in this lane.");
-            return;
+            return false;
         }
         this._maxIndex += 1;
+        let car = new Car(0, 0, "", this);
         this._straightLane[this._maxIndex] = car;
     }
     removeCar() {
         if (this._maxIndex == -1) {
-            console.log("No cars in this lane.");
-            return;
+            return false;
         }
         let car = this._straightLane[0];
         for (let i = 0; i < this._maxIndex; i++) {
@@ -48,7 +55,25 @@ class Lane {
         }
         this._straightLane[this._maxIndex] = null;
         this._maxIndex -= 1;
-        return car;
+        car.move();
+        return true;
+    }
+    progress() {
+      this._timer -= 1;
+      let added = "";
+      let removed = "";
+      if (this._timer <= 0) {
+        added = "added";
+        this.addCar();
+        this._timer += this._frequency;
+      }
+      if (this._light == "G") {
+        if (this.removeCar() == true) {
+            removed = "removed";
+        }
+      }
+      let numCars = this._maxIndex + 1;
+      console.log("There are " + numCars + " cars in the " + this._name + " lane. (" + added + " / " + removed + ")");
     }
 }
 
@@ -139,42 +164,63 @@ class Car {
     }
 }
 
-class Light {
-    constructor(name) {
-        this._name = name;
-        this._color = "R";
-    }
-    get lane() {
-        return this._lane;
-    }
-    get color() {
-        return this._color;
-    }
-    set color(color) {
-        this._color = color;
-    }
-    get isGreen() {
-        return this._color == "green";
-    }
-    get isRed() {
-        return this._color == "red";
-    }
-}
-
 class LightControl {
     constructor(n, e, s, w) {
         this._n = n;
         this._e = e;
         this._s = s;
         this._w = w;
-        this._timer = 0;
+        this._timer = 4;
         // start with N and S green
-        this._n.color = "G";
-        this._s.color = "G";
+        this.nsG();
     }
-    // non-yellow, non-left light combos
-    // 1: GRGR
-    // 2: RGRG
-    // 3: RRRR
-    // Pattern: 1 => 3 => 2 => 3 => 1 etc.
+    // TODO: Find a better way to represent the states
+    nsG() {
+        if (this._state == "nsG") {
+            return;
+        }
+        this._state = "nsG";
+        this._n.light = "G";
+        this._e.light = "R";
+        this._s.light = "G";
+        this._w.light = "R";
+    }
+    ewG() {
+        if (this._state == "ewG") {
+            return;
+        }
+        this._state = "ewG";
+        this._n.light = "R";
+        this._e.light = "G";
+        this._s.light = "R";
+        this._w.light = "G";
+    }
+    allR() {
+        if (this._state == "allR") {
+            return;
+        }
+        this._state = "allR";
+        this._n.light = "R";
+        this._e.light = "R";
+        this._s.light = "R";
+        this._w.light = "R";    
+    }
+    switchLight() {
+        if (this._state == "nsG") {
+            this.ewG();
+        } else {
+            this.nsG();
+        }
+    }
+    // Move 1 second at a time down the list
+    progress() {
+        this._timer -= 1;
+        if (this._timer <= 0) {
+            this.switchLight();
+            this._timer = 3;
+        }
+        console.log("");
+        console.log("State: " + this._state);
+        console.log("N: " + this._n.light + ", E: " + this._e.light + ", S: " + this._s.light + ", W: " + this._e.light);
+    }
 }
