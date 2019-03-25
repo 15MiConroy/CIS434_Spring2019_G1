@@ -36,6 +36,9 @@ class Lane {
     set frequency(f) {
       this._frequency = f;
     }
+    hasCar() {
+        return this._maxIndex > -1;
+    }
     addCar() {
         if (this._maxIndex >= 4) {
             console.log("There are too many cars in this lane.");
