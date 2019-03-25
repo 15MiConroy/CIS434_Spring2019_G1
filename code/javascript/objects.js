@@ -129,33 +129,45 @@ class Car {
 class LightControl {
     constructor(n, e, s, w) {
         this._lanes = [n, e, s, w];
-        this._timer = 4;
-        // start with N and S green
-        this.changeState("GRGR");
+        this._queue = [];
+        this._state = "GRGR";
+        this._lastState = "RGRG";
+        this._timer = 0;
     }
     changeState(newState) {
         if (this._state == newState) {
             return;
+        }
+        if (this._state != "RRRR") {
+            this._lastState = this._state;
         }
         this._state = newState;
         for (let i = 0; i < 4; i ++) {
             this._lanes[i].light = newState[i]
         }
     }
-    switchLight() {
-        if (this._state == "GRGR") {
-            this.changeState("RGRG");
+    updateQueue() {
+        this._queue.unshift(1);
+        this._queue.unshift("RRRR");
+        this._queue.unshift(3);
+        if (this._lastState == "GRGR") {
+            this._queue.unshift("RGRG");
         } else {
-            this.changeState("GRGR");
+            this._queue.unshift("GRGR");
         }
     }
-    // Move 1 second at a time down the list
     progress() {
         this._timer -= 1;
-        if (this._timer <= 0) {
-            this.switchLight();
-            this._timer = 3;
+        if (this._timer <= 0) { // swap before displaying
+            if (this._queue.length == 0) {
+                this.updateQueue();
+            }
+            this._timer = this._queue.pop();
+            this.changeState(this._queue.pop());
         }
+        this.printLights();
+    }
+    printLights() {
         console.log("");
         console.log("State: " + this._state);
         console.log("N: " + this._lanes[0].light + ", E: " + this._lanes[1].light + ", S: " + this._lanes[2].light + ", W: " + this._lanes[3].light);
