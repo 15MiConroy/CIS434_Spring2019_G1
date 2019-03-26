@@ -36,6 +36,9 @@ class Lane {
     set frequency(f) {
       this._frequency = f;
     }
+    hasCar() {
+        return this._maxIndex > -1;
+    }
     addCar() {
         if (this._maxIndex >= 4) {
             console.log("There are too many cars in this lane.");
@@ -166,61 +169,48 @@ class Car {
 
 class LightControl {
     constructor(n, e, s, w) {
-        this._n = n;
-        this._e = e;
-        this._s = s;
-        this._w = w;
-        this._timer = 4;
-        // start with N and S green
-        this.nsG();
+        this._lanes = [n, e, s, w];
+        this._queue = [];
+        this._state = "GRGR";
+        this._lastState = "RGRG";
+        this._timer = 0;
     }
-    // TODO: Find a better way to represent the states
-    nsG() {
-        if (this._state == "nsG") {
+    changeState(newState) {
+        if (this._state == newState) {
             return;
         }
-        this._state = "nsG";
-        this._n.light = "G";
-        this._e.light = "R";
-        this._s.light = "G";
-        this._w.light = "R";
-    }
-    ewG() {
-        if (this._state == "ewG") {
-            return;
+        if (this._state != "RRRR") {
+            this._lastState = this._state;
         }
-        this._state = "ewG";
-        this._n.light = "R";
-        this._e.light = "G";
-        this._s.light = "R";
-        this._w.light = "G";
-    }
-    allR() {
-        if (this._state == "allR") {
-            return;
+        this._state = newState;
+        for (let i = 0; i < 4; i ++) {
+            this._lanes[i].light = newState[i]
         }
-        this._state = "allR";
-        this._n.light = "R";
-        this._e.light = "R";
-        this._s.light = "R";
-        this._w.light = "R";    
     }
-    switchLight() {
-        if (this._state == "nsG") {
-            this.ewG();
+    updateQueue() {
+        this._queue.unshift(1);
+        this._queue.unshift("RRRR");
+        this._queue.unshift(3);
+        if (this._lastState == "GRGR") {
+            this._queue.unshift("RGRG");
         } else {
-            this.nsG();
+            this._queue.unshift("GRGR");
         }
     }
-    // Move 1 second at a time down the list
     progress() {
         this._timer -= 1;
-        if (this._timer <= 0) {
-            this.switchLight();
-            this._timer = 3;
+        if (this._timer <= 0) { // swap before displaying
+            if (this._queue.length == 0) {
+                this.updateQueue();
+            }
+            this._timer = this._queue.pop();
+            this.changeState(this._queue.pop());
         }
+        this.printLights();
+    }
+    printLights() {
         console.log("");
         console.log("State: " + this._state);
-        console.log("N: " + this._n.light + ", E: " + this._e.light + ", S: " + this._s.light + ", W: " + this._e.light);
+        console.log("N: " + this._lanes[0].light + ", E: " + this._lanes[1].light + ", S: " + this._lanes[2].light + ", W: " + this._lanes[3].light);
     }
 }
