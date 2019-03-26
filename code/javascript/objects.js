@@ -81,12 +81,37 @@ class Lane {
 }
 
 class Car {
-    constructor(initX, initY, color, lane) {
-        this._x = initX;
-        this._y = initY;
+    constructor(positionIndex, color, lane) {
+        
+        //need an array of x initial positions
+        var xPosition = [265, w, 370, 0]; 
+        //need an array of y initial positions
+        var yPosition = [0, 170, h, 270];
+
+        this._x = xPosition[positionIndex];
+        this._y = yPosition[positionIndex];
+        
         this._color = color;    
         this._moving = false;
         this._lane = lane;
+        
+        //setting speed of car (x and y direction)
+        if(positionIndex == 0){
+            this.xSpeed = 0;
+            this.ySpeed = 1;
+        }
+        else if(positionIndex == 1){
+            this.xSpeed = -1;
+            this.ySpeed = 0;
+        }
+        else if(positionIndex == 2){
+            this.xSpeed = 0;
+            this.ySpeed = -1;
+        }
+        else if(positionIndex == 3){
+            this.xSpeed = 1;
+            this.ySpeed = 0;
+        }
     }
     get x() {
         return this._x;
@@ -103,6 +128,12 @@ class Car {
     get moving() {
         return this._moving;
     }
+    get xSpeed() {
+        return this._xSpeed;
+    }
+    get ySpeed() {
+        return this._ySpeed
+    }
     set x(newX) {
         this._x = newX;
     }
@@ -111,6 +142,12 @@ class Car {
     }
     set color(color) {
         this._color = color;
+    }
+    set xSpeed(xSpeed){
+        this._xSpeed = xSpeed;
+    }
+    set ySpeed(ySpeed){
+        this._ySpeed = ySpeed;
     }
     isMoving() {
         return this._moving;
@@ -123,6 +160,10 @@ class Car {
     }
     stop() {
         this._moving = false;
+    }
+    display() {
+        fill(this._color);
+        circle(this._x, this._y, 10);
     }
 }
 
