@@ -171,7 +171,7 @@ class LightControl {
     constructor(n, e, s, w) {
         this._lanes = [n, e, s, w];
         this._queue = [];
-        this._state = "GRGR";
+        this._state = "RRRR";
         this._lastState = "RGRG";
         this._timer = 0;
     }
