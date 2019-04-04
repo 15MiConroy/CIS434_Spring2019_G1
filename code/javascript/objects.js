@@ -13,6 +13,9 @@ class Lane {
         this._straightLane = [];
         this._maxIndex = -1;
         this._timer = this._frequency;
+        this._carPos = carPos;
+        this._sign = sign;
+        this.dLine = dLine;
         for (let i = 0; i < LANE_LENGTH; i++) {
             this._straightLane[i] = null;
         }
@@ -66,9 +69,18 @@ class Lane {
     //     car.move();
     //     return true;
     // }
+    pastDottedLine(car) {
+        if(this._pos == "x"){
+            return car.x * _sign > dLine;
+        }
+        else
+        {
+            return car.y * _sign > dLine;
+        }
+    }
     progress() {
       this._timer -= 1;
-      let added = "";
+      let adde  
       let removed = "";
       if (this._timer <= 0) {
         added = "added";
@@ -86,16 +98,15 @@ class Lane {
 }
 
 class Car {
-    constructor(positionIndex, color, lane) {
+    constructor(startX, startY, color, lane) {
         
         //need an array of x initial positions
         var xPosition = [265, w, 370, 0]; 
         //need an array of y initial positions
         var yPosition = [0, 170, h, 270];
 
-        this._x = xPosition[positionIndex];
-        this._y = yPosition[positionIndex];
-        
+        this._x = startX;
+        this._y = startY;
         this._color = color;    
         this._moving = false;
         this._lane = lane;
@@ -165,6 +176,20 @@ class Car {
     }
     stop() {
         this._moving = false;
+    }
+    update() {
+        if(this.light == 'G'){
+            this._x = this._x + this._xSpeed;
+            this._y = this._y + this._ySpeed;
+        }
+        else if(this.light.pastDottedLine(this)){
+            this._x = this._x + this._xSpeed;
+            this._y = this._y + this._ySpeed;
+        }
+        //if(space in front)
+        //if(this.light.pastDottedLine(this)){
+            
+        //}
     }
     display() {
         fill(this._color);
