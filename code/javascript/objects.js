@@ -1,13 +1,16 @@
 let LANE_LENGTH = 5;
 
 class Lane {
-    constructor(name, frequency = 3) {
+    constructor(name, frequency = 3,  carPos, sign, dLine) {
         this._name = name;
         this._light = "R";
         this._straightLane = [];
         this._maxIndex = -1;
         this._frequency = frequency;
         this._timer = this._frequency;
+        this._carPos = carPos;
+        this._sign = sign;
+        this.dLine = dLine;
         for (let i = 0; i < LANE_LENGTH; i++) {
             this._straightLane[i] = null;
         }
@@ -45,7 +48,7 @@ class Lane {
             return false;
         }
         this._maxIndex += 1;
-        let car = new Car(0, 0, "", this);
+        let car = new Car(0, "Red", this);
         this._straightLane[this._maxIndex] = car;
     }
     removeCar() {
@@ -61,9 +64,18 @@ class Lane {
         car.move();
         return true;
     }
+    pastDottedLine(car) {
+        if(this._pos == "x"){
+            return car.x * _sign > dLine;
+        }
+        else
+        {
+            return car.y * _sign > dLine;
+        }
+    }
     progress() {
       this._timer -= 1;
-      let added = "";
+      let adde  
       let removed = "";
       if (this._timer <= 0) {
         added = "added";
@@ -71,7 +83,7 @@ class Lane {
         this._timer += this._frequency;
       }
       if (this._light == "G") {
-        if (this.removeCar() == true) {
+        *if (this.removeCar() == true) {
             removed = "removed";
         }
       }
@@ -90,7 +102,6 @@ class Car {
 
         this._x = xPosition[positionIndex];
         this._y = yPosition[positionIndex];
-        
         this._color = color;    
         this._moving = false;
         this._lane = lane;
@@ -160,6 +171,20 @@ class Car {
     }
     stop() {
         this._moving = false;
+    }
+    update() {
+        if(this.light == 'G'){
+            this._x = this._x + this._xSpeed;
+            this._y = this._y + this._ySpeed;
+        }
+        else if(this.light.pastDottedLine(this)){
+            this._x = this._x + this._xSpeed;
+            this._y = this._y + this._ySpeed;
+        }
+        //if(space in front)
+        //if(this.light.pastDottedLine(this)){
+            
+        //}
     }
     display() {
         fill(this._color);
