@@ -1,7 +1,7 @@
 let LANE_LENGTH = 5;
 
 class Lane {
-    constructor(name, frequency = 90, pos, sign, dline, startX, startY) {
+    constructor(name, frequency = 90, pos, sign, dline, startX, startY, carPos) {
         this._name = name;
         this._frequency = frequency;
         this._pos = pos;
@@ -9,13 +9,11 @@ class Lane {
         this._dline = dline;
         this._startX = startX;
         this._startY = startY;
+        this._carPos = carPos;
         this._light = "R";
         this._straightLane = [];
         this._maxIndex = -1;
         this._timer = this._frequency;
-        this._carPos = carPos;
-        this._sign = sign;
-        this.dLine = dLine;
         for (let i = 0; i < LANE_LENGTH; i++) {
             this._straightLane[i] = null;
         }
@@ -53,7 +51,7 @@ class Lane {
         //     return false;
         // }
         this._maxIndex += 1;
-        let car = new Car(this._startX, this._startY, "Red", this);
+        let car = new Car(this._carPos, this._startX, this._startY, "Red", this);
         this._straightLane[this._maxIndex] = car;
     }
     // removeCar() {
@@ -80,7 +78,7 @@ class Lane {
     }
     progress() {
       this._timer -= 1;
-      let adde  
+      let added 
       let removed = "";
       if (this._timer <= 0) {
         added = "added";
@@ -98,13 +96,12 @@ class Lane {
 }
 
 class Car {
-    constructor(startX, startY, color, lane) {
+    constructor(positionIndex, startX, startY, color, lane) {
         
         //need an array of x initial positions
         var xPosition = [265, w, 370, 0]; 
         //need an array of y initial positions
         var yPosition = [0, 170, h, 270];
-
         this._x = startX;
         this._y = startY;
         this._color = color;    
