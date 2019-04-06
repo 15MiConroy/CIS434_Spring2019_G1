@@ -51,7 +51,7 @@ class Lane {
         //     return false;
         // }
         this._maxIndex += 1;
-        let car = new Car(this._carPos, this._startX, this._startY, "Red", this);
+        let car = new Car(this._carPos, this._startX, this._startY, colorGen(), this);
         this._straightLane[this._maxIndex] = car;
     }
     // removeCar() {
@@ -78,7 +78,7 @@ class Lane {
     }
     progress() {
       this._timer -= 1;
-      let added 
+      let added
       let removed = "";
       if (this._timer <= 0) {
         added = "added";
@@ -97,17 +97,17 @@ class Lane {
 
 class Car {
     constructor(positionIndex, startX, startY, color, lane) {
-        
+
         //need an array of x initial positions
-        var xPosition = [265, w, 370, 0]; 
+        var xPosition = [265, w, 370, 0];
         //need an array of y initial positions
         var yPosition = [0, 170, h, 270];
         this._x = startX;
         this._y = startY;
-        this._color = color;    
+        this._color = color;
         this._moving = false;
         this._lane = lane;
-        
+
         //setting speed of car (x and y direction)
         if(positionIndex == 0){
             this.xSpeed = 0;
@@ -185,7 +185,7 @@ class Car {
         }
         //if(space in front)
         //if(this.light.pastDottedLine(this)){
-            
+
         //}
     }
     display() {

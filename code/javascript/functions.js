@@ -13,7 +13,15 @@
        laneW._straightLane[i].display();
     }
   }
-
+  function colorGen() {
+    //Generate random color
+    var hexChars = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += hexChars[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
 // function updateCars() {
 //     if(car2.lane.light == "G" || car2._y > 110)
 //     {
@@ -36,4 +44,4 @@
 //         car4._y = car4._y + car4.ySpeed/2;
 //     }
 // }
-//   
+//
