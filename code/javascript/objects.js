@@ -1,12 +1,12 @@
 let LANE_LENGTH = 5;
 
 class Lane {
-    constructor(name, frequency = 90, pos, sign, dline, startX, startY, carPos) {
+    constructor(name, frequency = 90, pos, sign, dLine, startX, startY, carPos) {
         this._name = name;
         this._frequency = frequency;
         this._pos = pos;
         this._sign = sign;
-        this._dline = dline;
+        this._dLine = dLine;
         this._startX = startX;
         this._startY = startY;
         this._carPos = carPos;
@@ -68,12 +68,10 @@ class Lane {
     //     return true;
     // }
     pastDottedLine(car) {
-        if(this._pos == "x"){
-            return car.x * _sign > dLine;
-        }
-        else
-        {
-            return car.y * _sign > dLine;
+        if(this._pos == "x") {
+            return car.x * this._sign > this._dLine;
+        } else {
+            return car.y * this._sign > this._dLine;
         }
     }
     progress() {
@@ -175,11 +173,11 @@ class Car {
         this._moving = false;
     }
     update() {
-        if(this.light == 'G'){
+        if(this.lane.light == 'G'){
             this._x = this._x + this._xSpeed;
             this._y = this._y + this._ySpeed;
         }
-        else if(this.light.pastDottedLine(this)){
+        else if(this._lane.pastDottedLine(this)){
             this._x = this._x + this._xSpeed;
             this._y = this._y + this._ySpeed;
         }
@@ -215,7 +213,7 @@ class LightControl {
         }
     }
     updateQueue() {
-        this._queue.unshift(30);
+        this._queue.unshift(60);
         this._queue.unshift("RRRR");
         this._queue.unshift(90);
         if (this._lastState == "GRGR") {

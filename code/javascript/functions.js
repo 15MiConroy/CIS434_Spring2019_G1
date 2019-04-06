@@ -1,17 +1,9 @@
 lanes = [laneN, laneE, laneS, laneW]
 function updateCars() {
-  for (let i = 0; i < laneN.numCars; i++) {
-    laneN._straightLane[i].update();
-  }
-  for (let i = 0; i < laneE.numCars; i++) {
-    laneN._straightLane[i].update();
-  }
-  for (let i = 0; i < laneS.numCars; i++) {
-    laneN._straightLane[i].update();
-  }
-  for (let i = 0; i < laneW.numCars; i++) {
-    laneN._straightLane[i].update();
-  }
+  for (let lane of lanes)
+    for (let i = 0; i < lane.numCars; i++) {
+      lane._straightLane[i].update();
+    }
 }
 function displayCars() {
   for (let lane of lanes) {
