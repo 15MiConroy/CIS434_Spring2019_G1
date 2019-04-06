@@ -1,18 +1,12 @@
-  function displayCars() {
-    for (let i = 0; i < laneN.numCars; i++) {
-       laneN._straightLane[i].display();
-       console.log(i)
-    }
-    for (let i = 0; i < laneE.numCars; i++) {
-       laneE._straightLane[i].display();
-    }
-    for (let i = 0; i < laneS.numCars; i++) {
-       laneS._straightLane[i].display();
-    }
-    for (let i = 0; i < laneW.numCars; i++) {
-       laneW._straightLane[i].display();
+lanes = [laneN, laneE, laneS, laneW]
+
+function displayCars() {
+  for (let lane of lanes) {
+    for (let i = 0; i < lane.numCars; i++) {
+      lane._straightLane[i].display();
     }
   }
+}
 
 // function updateCars() {
 //     if(car2.lane.light == "G" || car2._y > 110)
