@@ -39,7 +39,5 @@ function draw() {
     progress();
     drawBackground();
     displayCars();
-    x++;
-    console.log(x)
-    // updateCars();
+    updateCars();
 }
