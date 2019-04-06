@@ -36,5 +36,5 @@ function setup() {
 function draw() {
     drawBackground();
     //displayCars();
-    //updateCars();
+    updateCars();
 }
