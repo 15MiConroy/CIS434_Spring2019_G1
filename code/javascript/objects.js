@@ -33,6 +33,9 @@ class Lane {
     get frequency() {
       return this._frequency;
     }
+    get sign() {
+        return this._sign;
+    }
     set light(l) {
         this._light = l;
     }
@@ -148,6 +151,9 @@ class Car {
     }
     get ySpeed() {
         return this._ySpeed
+    }
+    get sign() {
+        return this._lane.sign;
     }
     set x(newX) {
         this._x = newX;
