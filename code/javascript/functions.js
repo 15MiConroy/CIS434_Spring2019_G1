@@ -11,27 +11,23 @@ function displayCars() {
       lane._straightLane[i].display();
     }
   }
-<<<<<<< HEAD
-  function colorGen() {
-    //Generate random color
-    var hexChars = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++) {
-      color += hexChars[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
-  var freq;
-  function changeFrequency(freq) {
-    laneN._frequency=freq;
-    laneE._frequency=freq;
-    laneS._frequency=freq;
-    laneW._frequency=freq;
-=======
 }
->>>>>>> de702501bef0f0826ae629bc0dabc426a5fcf249
-
+function colorGen() {
+  //Generate random color
+  var hexChars = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += hexChars[Math.floor(Math.random() * 16)];
   }
+  return color;
+}
+var freq;
+function changeFrequency(freq) {
+  laneN._frequency=freq;
+  laneE._frequency=freq;
+  laneS._frequency=freq;
+  laneW._frequency=freq;
+}
 // function updateCars() {
 //     if(car2.lane.light == "G" || car2._y > 110)
 //     {
