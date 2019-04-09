@@ -188,26 +188,33 @@ class Car {
     }
     update() {
         if(this.lane.light == 'G') {
-            this._move();
+            this.move();
         } else if(this._lane.pastDottedLine(this)) {
-            this._move();
+            this.move();
+        } else {
+            let nextCar = this._lane._straightLane[this._myIndex - 1];
+            if (this._lane._pos == "x") {
+                if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
+                    if (this._x  * this.sign < (this._lane._dLine - (30 * this.sign)) * this.sign) {
+                        this.move();
+                    }
+                } else {
+                    if (!this._lane.pastDottedLine(nextCar) && this._x * this.sign < (nextCar._x - (30 * this.sign)) * this.sign) {
+                        this.move();
+                    }
+                }
+            } else if (this._lane._pos == "y") {
+                if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
+                    if (this._y  * this.sign < (this._lane._dLine - (30 * this.sign)) * this.sign) {
+                        this.move();
+                    }
+                } else {
+                    if (!this._lane.pastDottedLine(nextCar) && this._y * this.sign < (nextCar._y - (30 * this.sign)) * this.sign) {
+                        this.move();
+                    }
+                }
+            }
         }
-        // } else {
-        //     if (this._lane._pos == "x") {
-        //         if (this._x < this._lane._straightLane[this._myIndex - 1]._x - 10) {
-        //             this._move();
-        //         }
-        //     } else if (this._lane._pos = "y") {
-        //         // 
-        //     }
-        // }
-        // else if (this._x < this._lane._straightLane[this.index - 1]._x + 10)
-        
-
-        //if(space in front)
-        //if(this.light.pastDottedLine(this)){
-
-        //}
     }
     display() {
         fill(this._color);
