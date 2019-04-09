@@ -12,6 +12,16 @@ function displayCars() {
     }
   }
 }
+function updateLightColor() {
+        fill(laneN._light);
+        circle(180, 25, 15);
+        fill(laneE._light);
+        circle(615, 100, 15);
+        fill(laneW._light);
+        circle(25, 350, 15);
+        fill(laneS._light);
+        circle(440, 450, 15);
+}
 
 // function updateCars() {
 //     if(car2.lane.light == "G" || car2._y > 110)

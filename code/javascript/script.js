@@ -40,4 +40,5 @@ function draw() {
     drawBackground();
     displayCars();
     updateCars();
+    updateLightColor();
 }
