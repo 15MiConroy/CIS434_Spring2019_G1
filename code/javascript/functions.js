@@ -1,18 +1,25 @@
-  function displayCars() {
-    for (let i = 0; i < laneN.numCars; i++) {
-       laneN._straightLane[i].display();
-       console.log(i)
-    }
-    for (let i = 0; i < laneE.numCars; i++) {
-       laneE._straightLane[i].display();
-    }
-    for (let i = 0; i < laneS.numCars; i++) {
-       laneS._straightLane[i].display();
-    }
-    for (let i = 0; i < laneW.numCars; i++) {
-       laneW._straightLane[i].display();
+lanes = [laneN, laneE, laneS, laneW]
+function updateCars() {
+  for (let i = 0; i < laneN.numCars; i++) {
+    laneN._straightLane[i].update();
+  }
+  for (let i = 0; i < laneE.numCars; i++) {
+    laneN._straightLane[i].update();
+  }
+  for (let i = 0; i < laneS.numCars; i++) {
+    laneN._straightLane[i].update();
+  }
+  for (let i = 0; i < laneW.numCars; i++) {
+    laneN._straightLane[i].update();
+  }
+}
+function displayCars() {
+  for (let lane of lanes) {
+    for (let i = 0; i < lane.numCars; i++) {
+      lane._straightLane[i].display();
     }
   }
+<<<<<<< HEAD
   function colorGen() {
     //Generate random color
     var hexChars = '0123456789ABCDEF';
@@ -28,6 +35,9 @@
     laneE._frequency=freq;
     laneS._frequency=freq;
     laneW._frequency=freq;
+=======
+}
+>>>>>>> de702501bef0f0826ae629bc0dabc426a5fcf249
 
   }
 // function updateCars() {
