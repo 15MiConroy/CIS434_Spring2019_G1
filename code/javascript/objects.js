@@ -14,9 +14,6 @@ class Lane {
         this._straightLane = [];
         this._maxIndex = -1;
         this._timer = this._frequency;
-        for (let i = 0; i < LANE_LENGTH; i++) {
-            this._straightLane[i] = null;
-        }
     }
     get name() {
         return this._name;
