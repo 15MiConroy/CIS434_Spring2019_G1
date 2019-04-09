@@ -69,9 +69,9 @@ class Lane {
     // }
     pastDottedLine(car) {
         if(this._pos == "x") {
-            return car.x * this._sign > this._dLine;
+            return car.x * this._sign > this._dLine * this._sign;
         } else {
-            return car.y * this._sign > this._dLine;
+            return car.y * this._sign > this._dLine * this._sign;
         }
     }
     progress() {
