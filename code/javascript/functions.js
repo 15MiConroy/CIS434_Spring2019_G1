@@ -60,7 +60,7 @@ function startDeadSimulation() {
   laneS._frequency=bigboi;
   laneW._timer=bigboi;
   laneW._frequency=bigboi;
-    loop();
+  loop();
 }
 // function updateCars() {
 //     if(car2.lane.light == "G" || car2._y > 110)
