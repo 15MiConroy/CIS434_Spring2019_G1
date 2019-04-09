@@ -1,7 +1,7 @@
 let LANE_LENGTH = 5;
 
 class Lane {
-    constructor(name, frequency = 90, pos, sign, dLine, startX, startY, carPos) {
+    constructor(name, frequency = 777777777777777777, pos, sign, dLine, startX, startY, carPos) {
         this._name = name;
         this._frequency = frequency;
         this._pos = pos;
