@@ -22,11 +22,45 @@ function colorGen() {
   return color;
 }
 var freq;
+var low=360;
+var high=120;
+var bigboi=77777777777777777777777777777777;
 function changeFrequency(freq) {
+  laneN._timer=freq;
   laneN._frequency=freq;
+  laneE._timer=freq;
   laneE._frequency=freq;
+  laneS._timer=freq;
   laneS._frequency=freq;
+  laneW._timer=freq;
   laneW._frequency=freq;
+}
+function changeNFrequency(freq) {
+  laneN._timer=freq;
+  laneN._frequency=freq;
+}
+function changeEFrequency(freq) {
+  laneE._timer=freq;
+  laneE._frequency=freq;
+}
+function changeSFrequency(freq) {
+  laneS._timer=freq;
+  laneS._frequency=freq;
+}
+function changeWFrequency(freq) {
+  laneW._timer=freq;
+  laneW._frequency=freq;
+}
+function startDeadSimulation() {
+  laneN._timer=bigboi;
+  laneN._frequency=bigboi;
+  laneE._timer=bigboi;
+  laneE._frequency=bigboi;
+  laneS._timer=bigboi;
+  laneS._frequency=bigboi;
+  laneW._timer=bigboi;
+  laneW._frequency=bigboi;
+    loop();
 }
 // function updateCars() {
 //     if(car2.lane.light == "G" || car2._y > 110)

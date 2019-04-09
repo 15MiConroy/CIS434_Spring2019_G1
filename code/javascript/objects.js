@@ -1,7 +1,7 @@
 let LANE_LENGTH = 5;
 
 class Lane {
-    constructor(name, frequency = 90, pos, sign, dLine, startX, startY, carPos) {
+    constructor(name, frequency = 777777777777777777, pos, sign, dLine, startX, startY, carPos) {
         this._name = name;
         this._frequency = frequency;
         this._pos = pos;
@@ -185,21 +185,21 @@ class Car {
     }
     update() {
         if(this.lane.light == 'G') {
-            this._move();
+            this.move();
         } else if(this._lane.pastDottedLine(this)) {
-            this._move();
+            this.move();
         }
         // } else {
         //     if (this._lane._pos == "x") {
         //         if (this._x < this._lane._straightLane[this._myIndex - 1]._x - 10) {
-        //             this._move();
+        //             this.move();
         //         }
         //     } else if (this._lane._pos = "y") {
-        //         // 
+        //         //
         //     }
         // }
         // else if (this._x < this._lane._straightLane[this.index - 1]._x + 10)
-        
+
 
         //if(space in front)
         //if(this.light.pastDottedLine(this)){
