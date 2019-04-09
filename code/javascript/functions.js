@@ -22,6 +22,14 @@
     }
     return color;
   }
+  var freq;
+  function changeFrequency(freq) {
+    laneN._frequency=freq;
+    laneE._frequency=freq;
+    laneS._frequency=freq;
+    laneW._frequency=freq;
+
+  }
 // function updateCars() {
 //     if(car2.lane.light == "G" || car2._y > 110)
 //     {
