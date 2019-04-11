@@ -77,7 +77,7 @@ class Lane {
       this._timer -= 1;
       // let added
       // let removed = "";
-      var randCarGen = [Math.floor(Math.random() * (40*this._frequency))];
+      randCarGen = [Math.floor(Math.random() * (40*this._frequency))];
       if (this._timer <= 0) {
         // added = "added";
         this._timer += this._frequency;
