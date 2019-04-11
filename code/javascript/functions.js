@@ -12,6 +12,7 @@ function displayCars() {
     }
   }
 }
+
 function updateLightColor() {
     if (laneN._light == "R"){
         fill("red");
@@ -50,7 +51,56 @@ function updateLightColor() {
         circle(440, 450, 15);
     }
 }
-
+function colorGen() {
+  //Generate random color
+  var hexChars = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += hexChars[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+var freq;
+var low=360;
+var high=120;
+var bigboi=77777777777777777777777777777777;
+function changeFrequency(freq) {
+  laneN._timer=freq;
+  laneN._frequency=freq;
+  laneE._timer=freq;
+  laneE._frequency=freq;
+  laneS._timer=freq;
+  laneS._frequency=freq;
+  laneW._timer=freq;
+  laneW._frequency=freq;
+}
+function changeNFrequency(freq) {
+  laneN._timer=freq;
+  laneN._frequency=freq;
+}
+function changeEFrequency(freq) {
+  laneE._timer=freq;
+  laneE._frequency=freq;
+}
+function changeSFrequency(freq) {
+  laneS._timer=freq;
+  laneS._frequency=freq;
+}
+function changeWFrequency(freq) {
+  laneW._timer=freq;
+  laneW._frequency=freq;
+}
+function startDeadSimulation() {
+  laneN._timer=bigboi;
+  laneN._frequency=bigboi;
+  laneE._timer=bigboi;
+  laneE._frequency=bigboi;
+  laneS._timer=bigboi;
+  laneS._frequency=bigboi;
+  laneW._timer=bigboi;
+  laneW._frequency=bigboi;
+    loop();
+}
 // function updateCars() {
 //     if(car2.lane.light == "G" || car2._y > 110)
 //     {
@@ -73,4 +123,4 @@ function updateLightColor() {
 //         car4._y = car4._y + car4.ySpeed/2;
 //     }
 // }
-//   
+//
