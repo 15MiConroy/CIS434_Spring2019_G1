@@ -235,7 +235,7 @@ class Car {
 class LightControl {
     constructor(n, e, s, w) {
         this._a = [n, s];
-        this._i = [we, w];
+        this._i = [e, w];
         this._lanes = [n, e, s, w];
         this._q = [];
         this._state = "RRRR";
