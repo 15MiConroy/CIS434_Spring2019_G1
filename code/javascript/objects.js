@@ -187,12 +187,15 @@ class Car {
         this._x = this._x + this._xSpeed;
         this._y = this._y + this._ySpeed;
     }
+    turn(){
+        if(this._direction == "R" & this.lane.name == "north" & this._lane.pastDottedLine(this)) {
+            this._xSpeed = -1;
+            this._ySpeed = 0;
+        } else if
+    }
     update() {
         if(this.lane.light == 'G') {
             this.move();
-        } else if(this._direction == "R" & this.lane.name == "north" & this._lane.pastDottedLine(this)) {
-            this._xSpeed = -1;
-            this._ySpeed = 0;
         } else if(this._lane.pastDottedLine(this)) {
             this.move();
         } else {

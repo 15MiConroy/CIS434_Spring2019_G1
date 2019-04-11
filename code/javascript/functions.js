@@ -105,6 +105,6 @@ function startDeadSimulation() {
   laneS._frequency=bigboi;
   laneW._timer=bigboi;
   laneW._frequency=bigboi;
-  loop();
+    loop();
 }
 
