@@ -7,6 +7,7 @@ class Lane {
         this._pos = pos;
         this._sign = sign;
         this._dLine = dLine;
+        this._rightTurnLine = this._dLine + 50 * sign;
         this._startX = startX;
         this._startY = startY;
         this._carPos = carPos;
@@ -51,21 +52,9 @@ class Lane {
         //     return false;
         // }
         this._maxIndex += 1;
-        let car = new Car(this._carPos, this._startX, this._startY, colorGen(), this._maxIndex, this);
+        let car = new Car(this._carPos, this._startX, this._startY, colorGen(), this._maxIndex, this, directionGen());
         this._straightLane[this._maxIndex] = car;
     }
-    // removeCar() {
-    //     if (this._maxIndex == -1) {
-    //         return false;
-    //     }
-    //     let car = this._straightLane[0];
-    //     for (let i = 0; i < this._maxIndex; i++) {
-    //         this._straightLane[i] = this._straightLane[i + 1];
-    //     }
-    //     this._straightLane[this._maxIndex] = null;
-    //     this._maxIndex -= 1;
-    //     return true;
-    // }
     pastDottedLine(car) {
         if(this._pos == "x") {
             return car.x * this._sign > this._dLine * this._sign;
@@ -73,10 +62,15 @@ class Lane {
             return car.y * this._sign > this._dLine * this._sign;
         }
     }
+    pastRightTurnLine(car) {
+        if(this._pos == "x") {
+            return car.x * this._sign > this._rightTurnLine * this._sign;
+        } else {
+            return car.y * this._sign > this._rightTurnLine * this._sign;
+        }
+    }
     progress() {
       this._timer -= 1;
-      // let added
-      // let removed = "";
       if (this._timer <= 0) {
         // added = "added";
         this.addCar();
@@ -100,18 +94,20 @@ class Lane {
 }
 
 class Car {
-    constructor(positionIndex, startX, startY, color, myIndex, lane) {
+    constructor(positionIndex, startX, startY, color, myIndex, lane, direction) {
 
         //need an array of x initial positions
-        var xPosition = [265, w, 370, 0];
+        var xPosition = [265, w+5, 370, -5];
         //need an array of y initial positions
-        var yPosition = [0, 170, h, 270];
+        var yPosition = [-5, 170, h+5, 270];
+        this._direction = direction;
         this._x = startX;
         this._y = startY;
         this._color = color;
         this._moving = false;
         this._lane = lane;
         this._myIndex = myIndex;
+        this._turned = false;
 
         //setting speed of car (x and y direction)
         if(positionIndex == 0){
@@ -186,6 +182,26 @@ class Car {
         this._x = this._x + this._xSpeed;
         this._y = this._y + this._ySpeed;
     }
+    turn(){
+        if(this._direction == "R" & this.lane.name == "north" & this._lane.pastRightTurnLine(this)) {
+            this._xSpeed = -1;
+            this._ySpeed = 0;
+            this._turned = true;
+        } else if(this._direction == "R" & this.lane.name == "east" & this._lane.pastRightTurnLine(this)){
+            this._xSpeed = 0;
+            this._ySpeed = -1;
+            this._turned = true;
+        } else if(this._direction == "R" & this.lane.name == "west" & this._lane.pastRightTurnLine(this)){
+            this._xSpeed = 0;
+            this._ySpeed = 1;
+            this._turned = true;
+        }
+        else if(this._direction == "R" & this.lane.name == "south" & this._lane.pastRightTurnLine(this)){
+            this._xSpeed = 1;
+            this._ySpeed = 0;
+            this._turned = true;
+        }
+    }
     update() {
         if(this.lane.light == 'G') {
             this.move();
@@ -214,6 +230,9 @@ class Car {
                     }
                 }
             }
+        }
+        if(!this._turned){
+            this.turn();
         }
     }
     display() {
