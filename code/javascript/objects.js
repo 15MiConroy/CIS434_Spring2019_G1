@@ -12,6 +12,7 @@ class Lane {
         this._carPos = carPos;
         this._light = "R";
         this._straightLane = [];
+        this._leftLane = [];
         this._maxIndex = -1;
         this._timer = this._frequency;
     }
@@ -42,8 +43,17 @@ class Lane {
     set frequency(f) {
       this._frequency = f;
     }
+    hasLeft() {
+        if (this._leftLane.length == 0) {
+            return false;
+        }
+        return !pastDottedLine(this._leftLane[this._leftLane.length - 1]);
+    }
     hasCar() {
-        return this._maxIndex > -1;
+        if (this._straightLane.length == 0) {
+            return false;
+        }
+        return !pastDottedLine(this._straightLane[this._straightLane.length - 1]);
     }
     addCar() {
         // if (this._maxIndex >= 4) {
