@@ -51,7 +51,7 @@ class Lane {
         //     return false;
         // }
         this._maxIndex += 1;
-        let car = new Car(this._carPos, this._startX, this._startY, colorGen(), this._maxIndex, this);
+        let car = new Car(this._carPos, this._startX, this._startY, colorGen(), this._maxIndex, this, directionGen());
         this._straightLane[this._maxIndex] = car;
     }
     // removeCar() {
@@ -100,12 +100,13 @@ class Lane {
 }
 
 class Car {
-    constructor(positionIndex, startX, startY, color, myIndex, lane) {
+    constructor(positionIndex, startX, startY, color, myIndex, lane, direction) {
 
         //need an array of x initial positions
-        var xPosition = [265, w, 370, 0];
+        var xPosition = [265, w+5, 370, -5];
         //need an array of y initial positions
-        var yPosition = [0, 170, h, 270];
+        var yPosition = [-5, 170, h+5, 270];
+        this._direction = direction;
         this._x = startX;
         this._y = startY;
         this._color = color;
@@ -186,6 +187,9 @@ class Car {
     update() {
         if(this.lane.light == 'G') {
             this.move();
+        } else if(this._direction == "R" & this.lane.name == "north" & this._lane.pastDottedLine(this)) {
+            this._xSpeed = -1;
+            this._ySpeed = 0;
         } else if(this._lane.pastDottedLine(this)) {
             this.move();
         }
