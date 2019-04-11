@@ -12,6 +12,45 @@ function displayCars() {
     }
   }
 }
+
+function updateLightColor() {
+    if (laneN._light == "R"){
+        fill("red");
+        circle(180, 25, 15);
+    }
+    else if (laneN._light == "G")
+    {
+        fill("green");
+        circle(180, 25, 15);
+    }
+    if (laneE._light == "R"){
+        fill("red");
+        circle(615, 100, 15);
+    }
+    else if (laneE._light == "G")
+    {
+        fill("green");
+        circle(615, 100, 15);
+    }
+    if (laneW._light == "R"){
+        fill("red");
+        circle(25, 350, 15);
+    }
+    else if (laneW._light == "G")
+    {
+        fill("green");
+        circle(25, 350, 15);
+    }
+    if (laneS._light == "R"){
+        fill("red");
+        circle(440, 450, 15);
+    }
+    else if (laneS._light == "G")
+    {
+        fill("green");
+        circle(440, 450, 15);
+    }
+}
 function colorGen() {
   //Generate random color
   var hexChars = '0123456789ABCDEF';
