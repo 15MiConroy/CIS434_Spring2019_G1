@@ -14,9 +14,6 @@ class Lane {
         this._straightLane = [];
         this._maxIndex = -1;
         this._timer = this._frequency;
-        for (let i = 0; i < LANE_LENGTH; i++) {
-            this._straightLane[i] = null;
-        }
     }
     get name() {
         return this._name;
@@ -35,6 +32,9 @@ class Lane {
     }
     get frequency() {
       return this._frequency;
+    }
+    get sign() {
+        return this._sign;
     }
     set light(l) {
         this._light = l;
@@ -152,6 +152,9 @@ class Car {
     get ySpeed() {
         return this._ySpeed
     }
+    get sign() {
+        return this._lane.sign;
+    }
     set x(newX) {
         this._x = newX;
     }
@@ -188,23 +191,30 @@ class Car {
             this.move();
         } else if(this._lane.pastDottedLine(this)) {
             this.move();
+        } else {
+            let nextCar = this._lane._straightLane[this._myIndex - 1];
+            if (this._lane._pos == "x") {
+                if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
+                    if (this._x  * this.sign < (this._lane._dLine - (30 * this.sign)) * this.sign) {
+                        this.move();
+                    }
+                } else {
+                    if (!this._lane.pastDottedLine(nextCar) && this._x * this.sign < (nextCar._x - (30 * this.sign)) * this.sign) {
+                        this.move();
+                    }
+                }
+            } else if (this._lane._pos == "y") {
+                if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
+                    if (this._y  * this.sign < (this._lane._dLine - (30 * this.sign)) * this.sign) {
+                        this.move();
+                    }
+                } else {
+                    if (!this._lane.pastDottedLine(nextCar) && this._y * this.sign < (nextCar._y - (30 * this.sign)) * this.sign) {
+                        this.move();
+                    }
+                }
+            }
         }
-        // } else {
-        //     if (this._lane._pos == "x") {
-        //         if (this._x < this._lane._straightLane[this._myIndex - 1]._x - 10) {
-        //             this.move();
-        //         }
-        //     } else if (this._lane._pos = "y") {
-        //         //
-        //     }
-        // }
-        // else if (this._x < this._lane._straightLane[this.index - 1]._x + 10)
-
-
-        //if(space in front)
-        //if(this.light.pastDottedLine(this)){
-
-        //}
     }
     display() {
         fill(this._color);
@@ -216,7 +226,7 @@ class LightControl {
     constructor(n, e, s, w) {
         this._lanes = [n, e, s, w];
         this._queue = [];
-        this._state = "GRGR";
+        this._state = "RRRR";
         this._lastState = "RGRG";
         this._timer = 0;
     }
