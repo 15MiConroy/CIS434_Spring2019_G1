@@ -224,42 +224,115 @@ class Car {
 
 class LightControl {
     constructor(n, e, s, w) {
+        this._a = [n, s];
+        this._i = [we, w];
         this._lanes = [n, e, s, w];
-        this._queue = [];
+        this._q = [];
         this._state = "RRRR";
         this._lastState = "RGRG";
         this._timer = 0;
     }
-    changeState(newState) {
-        if (this._state == newState) {
+    changeState(newState, duration) {
+        if (newstate == "handoff") {
+            this.handoff();
+            this.createPattern();
+            this.changeState(this._q.pop(), this._q.pop());
             return;
         }
-        if (this._state != "RRRR") {
-            this._lastState = this._state;
-        }
-        this._state = newState;
         for (let i = 0; i < 4; i ++) {
-            this._lanes[i].light = newState[i]
+            this._state[i] = newState[i];
+        }
+        this._timer = duration;
+        // if (this._state == newState) {
+        //     return;
+        // }
+        // if (this._state != "RRRR") {
+        //     this._lastState = this._state;
+        // }
+        // this._state = newState;
+        // for (let i = 0; i < 4; i ++) {
+        //     this._lanes[i].light = newState[i]
+        // }
+    }
+    handoff() {
+        if (this._i[0].hasCar() || this._i[1].hasCar()) {
+            let temp = [this._a[0], this._a[1]];
+            this._a = [this._i[0], this._i[1]];
+            this._i = [temp[0], temp[1]];
         }
     }
-    updateQueue() {
-        this._queue.unshift(180);
-        this._queue.unshift("RRRR");
-        this._queue.unshift(180);
-        if (this._lastState == "GRGR") {
-            this._queue.unshift("RGRG");
-        } else {
-            this._queue.unshift("GRGR");
+    createPattern() {
+        this._q = [];
+        let tQ = [];
+        if (this._a[0].hasLeft() && this._a[1].hasLeft()) {
+            tQ.unshift(this.bothLeft());
+            tQ.unshift(180);
+        } else if (this._a[0].hasLeft() || a[1].hasLeft()) {
+            let left = 0;
+            if (a[1].hasLeft()) {
+                left = 1;
+            }
+            tQ.unshift(this.singleDisplay(left));
+            tQ.unshift(180);
         }
+        tQ.unshift(this.bothStraight());
+        tQ.unshift(300);
+        let prevPos = -1;
+        while (!tQ.isEmpty()) {
+            let nextState = tQ.pop();
+            let dur = tQ.pop();
+            let prevState;
+            if (prevPos == -1) {
+                prevState = this._state;
+            } else {
+                prevState = this._q[prevPos];
+            }
+        }
+        let trans = prevState;
+        for (let i = 0; i < 4; i++) {
+            if (prevState[i] != "R" && prevState[i] != nextState[i]) {
+                if (prevState[i] == "A") {
+                    trans[i] = "G";
+                } else if (prevState[i] == "L") {
+                    trans[i] = "R";
+                } else { // prevState[i] == "G"
+                    if (nextState[i] == "A") {
+                        trans[i] = "G";
+                    } else {
+                        trans[i] = "Y";
+                    }
+                }
+            }
+        }
+        if (trans != nextState) {
+            if (trans.includes("Y")) {
+                this._q.unshift(trans);
+                this._q.unshift(120);
+                trans.replace("Y", "R");
+                this._q.unshift(trans);
+                this._q.unshift(180);
+            } else {
+                this._q.unshift(trans);
+                this._q.unshift(180);
+            }
+        }
+        this._q.unshift(nextState);
+        this._q.unshift(300);
     }
+    // updateQueue() {
+    //     this._queue.unshift(180);
+    //     this._queue.unshift("RRRR");
+    //     this._queue.unshift(180);
+    //     if (this._lastState == "GRGR") {
+    //         this._queue.unshift("RGRG");
+    //     } else {
+    //         this._queue.unshift("GRGR");
+    //     }
+    // }
     progress() {
         this._timer -= 1;
-        if (this._timer <= 0) { // swap before displaying
-            if (this._queue.length == 0) {
-                this.updateQueue();
-            }
-            this._timer = this._queue.pop();
-            this.changeState(this._queue.pop());
+        if (this._timer <= 0) {
+            this.changeState(this._q.pop(), this._q.pop());
         }
         // this.printLights();
     }
