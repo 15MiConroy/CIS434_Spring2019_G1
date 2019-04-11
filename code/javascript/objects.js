@@ -7,6 +7,7 @@ class Lane {
         this._pos = pos;
         this._sign = sign;
         this._dLine = dLine;
+        this._rightTurnLine = this._dLine + 50 * sign;
         this._startX = startX;
         this._startY = startY;
         this._carPos = carPos;
@@ -54,18 +55,6 @@ class Lane {
         let car = new Car(this._carPos, this._startX, this._startY, colorGen(), this._maxIndex, this, directionGen());
         this._straightLane[this._maxIndex] = car;
     }
-    // removeCar() {
-    //     if (this._maxIndex == -1) {
-    //         return false;
-    //     }
-    //     let car = this._straightLane[0];
-    //     for (let i = 0; i < this._maxIndex; i++) {
-    //         this._straightLane[i] = this._straightLane[i + 1];
-    //     }
-    //     this._straightLane[this._maxIndex] = null;
-    //     this._maxIndex -= 1;
-    //     return true;
-    // }
     pastDottedLine(car) {
         if(this._pos == "x") {
             return car.x * this._sign > this._dLine * this._sign;
@@ -73,10 +62,15 @@ class Lane {
             return car.y * this._sign > this._dLine * this._sign;
         }
     }
+    pastRightTurnLine(car) {
+        if(this._pos == "x") {
+            return car.x * this._sign > this._rightTurnLine * this._sign;
+        } else {
+            return car.y * this._sign > this._rightTurnLine * this._sign;
+        }
+    }
     progress() {
       this._timer -= 1;
-      // let added
-      // let removed = "";
       if (this._timer <= 0) {
         // added = "added";
         this.addCar();
@@ -113,6 +107,7 @@ class Car {
         this._moving = false;
         this._lane = lane;
         this._myIndex = myIndex;
+        this._turned = false;
 
         //setting speed of car (x and y direction)
         if(positionIndex == 0){
@@ -188,10 +183,24 @@ class Car {
         this._y = this._y + this._ySpeed;
     }
     turn(){
-        if(this._direction == "R" & this.lane.name == "north" & this._lane.pastDottedLine(this)) {
+        if(this._direction == "R" & this.lane.name == "north" & this._lane.pastRightTurnLine(this)) {
             this._xSpeed = -1;
             this._ySpeed = 0;
-        } else if
+            this._turned = true;
+        } else if(this._direction == "R" & this.lane.name == "east" & this._lane.pastRightTurnLine(this)){
+            this._xSpeed = 0;
+            this._ySpeed = -1;
+            this._turned = true;
+        } else if(this._direction == "R" & this.lane.name == "west" & this._lane.pastRightTurnLine(this)){
+            this._xSpeed = 0;
+            this._ySpeed = 1;
+            this._turned = true;
+        }
+        else if(this._direction == "R" & this.lane.name == "south" & this._lane.pastRightTurnLine(this)){
+            this._xSpeed = 1;
+            this._ySpeed = 0;
+            this._turned = true;
+        }
     }
     update() {
         if(this.lane.light == 'G') {
@@ -221,6 +230,9 @@ class Car {
                     }
                 }
             }
+        }
+        if(!this._turned){
+            this.turn();
         }
     }
     display() {
