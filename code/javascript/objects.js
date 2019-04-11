@@ -264,6 +264,33 @@ class LightControl {
         //     this._lanes[i].light = newState[i]
         // }
     }
+    orthogonal() {
+        // returns 0 if N/S, 1 if E/W
+        if (a[0] == this._lanes[0]) {
+            return 0;
+        }
+        return 1;
+    }
+    bothLeft() {
+        let s = "RRRR";
+        let ortho = this.orthogonal();
+        s[ortho] = "L";
+        s[ortho + 2] = "L";
+        return s;
+    }
+    bothStraight() {
+        let s = "RRRR";
+        let ortho = this.orthogonal();
+        s[ortho] = "G";
+        s[ortho + 2] = "G";
+        return s;
+    }
+    singleDisplay(n) {
+        let s = "RRRR";
+        let ortho = this.orthogonal();
+        s[2 * n + ortho] = "A";
+        return s;
+    }
     handoff() {
         if (this._i[0].hasCar() || this._i[1].hasCar()) {
             let temp = [this._a[0], this._a[1]];
