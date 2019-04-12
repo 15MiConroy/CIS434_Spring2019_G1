@@ -56,26 +56,10 @@ class Lane {
         return !this.pastDottedLine(this._straightLane[this._straightLane.length - 1]);
     }
     addCar() {
-        // if (this._maxIndex >= 4) {
-        //     console.log("There are too many cars in this lane.");
-        //     return false;
-        // }
         this._maxIndex += 1;
         let car = new Car(this._carPos, this._startX, this._startY, colorGen(), this._maxIndex, this);
         this._straightLane[this._maxIndex] = car;
     }
-    // removeCar() {
-    //     if (this._maxIndex == -1) {
-    //         return false;
-    //     }
-    //     let car = this._straightLane[0];
-    //     for (let i = 0; i < this._maxIndex; i++) {
-    //         this._straightLane[i] = this._straightLane[i + 1];
-    //     }
-    //     this._straightLane[this._maxIndex] = null;
-    //     this._maxIndex -= 1;
-    //     return true;
-    // }
     pastDottedLine(car) {
         if(this._pos == "x") {
             return car.x * this._sign > this._dLine * this._sign;
@@ -96,20 +80,6 @@ class Lane {
         //   this.addCar();
         // }
       }
-      // if (this.frontCar != null) {
-      //   if (this.frontCar._x < -5 || this.frontCar._x > 645 || this.frontCar._y < -5 || this.frontCar._y > 485) {
-      //     this.removeCar();
-      //     // this._straightLane.splice(1, this._straightLane.length - 1);
-      //     console.log(this.name + ": Car = Dead");
-      //   }
-      // }
-      // if (this._light == "G") {
-      //   if (this.removeCar() == true) {
-      //       removed = "removed";
-      //   }
-      // }
-      // let numCars = this._maxIndex + 1;
-      // console.log("There are " + numCars + " cars in the " + this._name + " lane. (" + added + " / " + removed + ")");
     }
 }
 
@@ -258,16 +228,6 @@ class LightControl {
             this._lanes[i].light = newState[i];
         }
         this._timer = duration;
-        // if (this._state == newState) {
-        //     return;
-        // }
-        // if (this._state != "RRRR") {
-        //     this._lastState = this._state;
-        // }
-        // this._state = newState;
-        // for (let i = 0; i < 4; i ++) {
-        //     this._lanes[i].light = newState[i]
-        // }
     }
     orthogonal() {
         // returns 0 if N/S, 1 if E/W
@@ -367,26 +327,14 @@ class LightControl {
             prevPos += 4;
         }
     }
-    // updateQueue() {
-    //     this._queue.unshift(180);
-    //     this._queue.unshift("RRRR");
-    //     this._queue.unshift(180);
-    //     if (this._lastState == "GRGR") {
-    //         this._queue.unshift("RGRG");
-    //     } else {
-    //         this._queue.unshift("GRGR");
-    //     }
-    // }
     progress() {
         this._timer -= 1;
         if (this._timer <= 0) {
             this.changeState(this._q.pop(), this._q.pop());
         }
-        // this.printLights();
     }
     printLights() {
         console.log("");
         console.log("State: " + this._state);
-        // console.log("N: " + this._lanes[0].light + ", E: " + this._lanes[1].light + ", S: " + this._lanes[2].light + ", W: " + this._lanes[3].light);
     }
 }
