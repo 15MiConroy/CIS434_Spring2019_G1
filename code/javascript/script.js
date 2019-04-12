@@ -1,6 +1,9 @@
 /* Independent Global Parameters */
 var h = 480;
 var w = 640;
+String.prototype.replaceAt=function(index, replacement) {
+    return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
+}
 
 /* Create the 4 Lanes */
 let laneN = new Lane("north", 275, "y",  1, 110, 265, 0,   0);
