@@ -60,11 +60,6 @@ function colorGen() {
   }
   return color;
 }
-var freq;
-var randCarGen;
-var low=400;
-var high=200;
-var bigboi=7777777777777777777777777777777777777777777777777777777777;
 function changeFrequency(lane, freq) {
   lane._timer = freq;
   lane._frequency = freq;
@@ -77,14 +72,9 @@ function changeAllFrequencies(freq) {
     changeFrequency(lane, freq);
   }
 }
-function startDeadSimulation() {
-  laneN._timer=bigboi;
-  laneN._frequency=bigboi;
-  laneE._timer=bigboi;
-  laneE._frequency=bigboi;
-  laneS._timer=bigboi;
-  laneS._frequency=bigboi;
-  laneW._timer=bigboi;
-  laneW._frequency=bigboi;
-  loop();
+function startSimulation() {
+    loop();
+}
+function stopSimulation() {
+    noLoop();
 }
