@@ -61,7 +61,7 @@ function colorGen() {
   return color;
 }
 function changeFrequency(lane, freq) {
-  lane._timer = freq;
+  lane._timer = freq + lane._timer - lane._frequency;
   lane._frequency = freq;
 }
 function changeLaneFrequency(laneIndex, freq) {
