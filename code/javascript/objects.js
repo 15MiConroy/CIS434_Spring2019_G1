@@ -9,7 +9,6 @@ class Lane {
         this._dLine = dLine;
         this._startX = startX;
         this._startY = startY;
-        this._carPos = carPos;
         this._light = "R";
         this._straightLane = [];
         this._leftLane = [];
