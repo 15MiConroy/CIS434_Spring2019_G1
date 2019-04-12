@@ -10,7 +10,7 @@ class Lane {
         this._light = "R";
         this._straightLane = [];
         this._leftLane = [];
-        this._timer = this._frequency;
+        this.resetTimer();
     }
     get name() {
         return this._name;
@@ -32,6 +32,9 @@ class Lane {
     }
     set frequency(f) {
       this._frequency = f;
+    }
+    resetTimer() {
+        this._timer = Math.floor(this._frequency * getGaussian());
     }
     hasLeft() {
         if (this._leftLane.length == 0) {
@@ -61,7 +64,7 @@ class Lane {
       // randCarGen = [Math.floor(Math.random() * (40*this._frequency))];
       if (this._timer <= 0) {
         this.addCar();
-        this._timer += this._frequency;
+        this.resetTimer();
         // if (this._frequency>=randCarGen){
         //   this.addCar();
         // }
