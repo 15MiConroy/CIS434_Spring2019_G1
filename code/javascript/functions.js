@@ -62,34 +62,20 @@ function colorGen() {
 }
 var freq;
 var randCarGen;
-var low=15;
-var high=10;
+var low=400;
+var high=200;
 var bigboi=7777777777777777777777777777777777777777777777777777777777;
-function changeFrequency(freq) {
-  laneN._timer=freq;
-  laneN._frequency=freq;
-  laneE._timer=freq;
-  laneE._frequency=freq;
-  laneS._timer=freq;
-  laneS._frequency=freq;
-  laneW._timer=freq;
-  laneW._frequency=freq;
+function changeFrequency(lane, freq) {
+  lane._timer = freq;
+  lane._frequency = freq;
 }
-function changeNFrequency(freq) {
-  laneN._timer=freq;
-  laneN._frequency=freq;
+function changeLaneFrequency(laneIndex, freq) {
+  changeFrequency(lanes[laneIndex], freq);
 }
-function changeEFrequency(freq) {
-  laneE._timer=freq;
-  laneE._frequency=freq;
-}
-function changeSFrequency(freq) {
-  laneS._timer=freq;
-  laneS._frequency=freq;
-}
-function changeWFrequency(freq) {
-  laneW._timer=freq;
-  laneW._frequency=freq;
+function changeAllFrequencies(freq) {
+  for (let lane of lanes) {
+    changeFrequency(lane, freq);
+  }
 }
 function startDeadSimulation() {
   laneN._timer=bigboi;
