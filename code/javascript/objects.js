@@ -1,5 +1,3 @@
-let LANE_LENGTH = 5;
-
 class Lane {
     constructor(name, frequency = bigboi, pos, sign, dLine, startX, startY) {
         this._name = name;
