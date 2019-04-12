@@ -1,7 +1,7 @@
 let LANE_LENGTH = 5;
 
 class Lane {
-    constructor(name, frequency = bigboi, pos, sign, dLine, startX, startY, carPos) {
+    constructor(name, frequency = bigboi, pos, sign, dLine, startX, startY) {
         this._name = name;
         this._frequency = frequency;
         this._pos = pos;
@@ -49,7 +49,7 @@ class Lane {
         return !this.pastDottedLine(this._straightLane[this._straightLane.length - 1]);
     }
     addCar() {
-        let car = new Car(this._carPos, this._startX, this._startY, colorGen(), this._straightLane.length, this);
+        let car = new Car(this._startX, this._startY, colorGen(), this._straightLane.length, this);
         this._straightLane[this._straightLane.length] = car;
     }
     pastDottedLine(car) {
@@ -76,12 +76,7 @@ class Lane {
 }
 
 class Car {
-    constructor(positionIndex, startX, startY, color, myIndex, lane) {
-
-        //need an array of x initial positions
-        var xPosition = [265, w, 370, 0];
-        //need an array of y initial positions
-        var yPosition = [0, 170, h, 270];
+    constructor(startX, startY, color, myIndex, lane) {
         this._x = startX;
         this._y = startY;
         this._color = color;
@@ -90,19 +85,19 @@ class Car {
         this._myIndex = myIndex;
 
         //setting speed of car (x and y direction)
-        if(positionIndex == 0){
+        if(lane.name == "north"){
             this.xSpeed = 0;
             this.ySpeed = 1;
         }
-        else if(positionIndex == 1){
+        else if(lane.name == "east"){
             this.xSpeed = -1;
             this.ySpeed = 0;
         }
-        else if(positionIndex == 2){
+        else if(lane.name == "south"){
             this.xSpeed = 0;
             this.ySpeed = -1;
         }
-        else if(positionIndex == 3){
+        else if(lane.name == "west"){
             this.xSpeed = 1;
             this.ySpeed = 0;
         }
