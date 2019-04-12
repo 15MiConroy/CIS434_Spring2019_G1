@@ -25,12 +25,6 @@ class Lane {
     get numCars() {
         return this._maxIndex + 1;
     }
-    get frontCar() {
-        if (this._maxIndex == -1) {
-            return null;
-        }
-        return this._straightLane[0];
-    }
     get frequency() {
       return this._frequency;
     }
@@ -153,18 +147,6 @@ class Car {
     }
     set ySpeed(ySpeed){
         this._ySpeed = ySpeed;
-    }
-    isMoving() {
-        return this._moving;
-    }
-    isNotMoving() {
-        return !this._moving;
-    }
-    move() {
-        this._moving = true;
-    }
-    stop() {
-        this._moving = false;
     }
     move() {
         this._x = this._x + this._xSpeed;
@@ -332,9 +314,5 @@ class LightControl {
         if (this._timer <= 0) {
             this.changeState(this._q.pop(), this._q.pop());
         }
-    }
-    printLights() {
-        console.log("");
-        console.log("State: " + this._state);
     }
 }
