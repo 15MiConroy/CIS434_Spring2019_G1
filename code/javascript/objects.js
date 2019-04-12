@@ -238,19 +238,20 @@ class LightControl {
         this._i = [e, w];
         this._lanes = [n, e, s, w];
         this._q = [];
-        this._state = "RRRR";
-        this._lastState = "RGRG";
+        this._state = "GRGR";
         this._timer = 0;
+        this.createPattern();
     }
     changeState(newState, duration) {
-        if (newstate == "handoff") {
+        if (newState == "handoff") {
             this.handoff();
             this.createPattern();
             this.changeState(this._q.pop(), this._q.pop());
             return;
         }
-        for (let i = 0; i < 4; i ++) {
-            this._state[i] = newState[i];
+        for (let i = 0; i < 4; i++) {
+            this._state = this._state.replaceAt(i, newState[i]);
+            this._lanes[i].light = newState[i];
         }
         this._timer = duration;
         // if (this._state == newState) {
@@ -266,7 +267,7 @@ class LightControl {
     }
     orthogonal() {
         // returns 0 if N/S, 1 if E/W
-        if (a[0] == this._lanes[0]) {
+        if (this._a[0] == this._lanes[0]) {
             return 0;
         }
         return 1;
@@ -274,21 +275,21 @@ class LightControl {
     bothLeft() {
         let s = "RRRR";
         let ortho = this.orthogonal();
-        s[ortho] = "L";
-        s[ortho + 2] = "L";
+        s = s.replaceAt(ortho, "L");
+        s = s.replaceAt(ortho + 2, "L");
         return s;
     }
     bothStraight() {
         let s = "RRRR";
         let ortho = this.orthogonal();
-        s[ortho] = "G";
-        s[ortho + 2] = "G";
+        s = s.replaceAt(ortho, "G");
+        s = s.replaceAt(ortho + 2, "G");
         return s;
     }
     singleDisplay(n) {
         let s = "RRRR";
         let ortho = this.orthogonal();
-        s[2 * n + ortho] = "A";
+        s = s.replaceAt(2 * n + ortho, "A");
         return s;
     }
     handoff() {
@@ -304,9 +305,9 @@ class LightControl {
         if (this._a[0].hasLeft() && this._a[1].hasLeft()) {
             tQ.unshift(this.bothLeft());
             tQ.unshift(180);
-        } else if (this._a[0].hasLeft() || a[1].hasLeft()) {
+        } else if (this._a[0].hasLeft() || this._a[1].hasLeft()) {
             let left = 0;
-            if (a[1].hasLeft()) {
+            if (this._a[1].hasLeft()) {
                 left = 1;
             }
             tQ.unshift(this.singleDisplay(left));
@@ -315,7 +316,7 @@ class LightControl {
         tQ.unshift(this.bothStraight());
         tQ.unshift(300);
         let prevPos = -1;
-        while (!tQ.isEmpty()) {
+        while (tQ.length > 0) {
             let nextState = tQ.pop();
             let dur = tQ.pop();
             let prevState;
@@ -324,37 +325,43 @@ class LightControl {
             } else {
                 prevState = this._q[prevPos];
             }
-        }
-        let trans = prevState;
-        for (let i = 0; i < 4; i++) {
-            if (prevState[i] != "R" && prevState[i] != nextState[i]) {
-                if (prevState[i] == "A") {
-                    trans[i] = "G";
-                } else if (prevState[i] == "L") {
-                    trans[i] = "R";
-                } else { // prevState[i] == "G"
-                    if (nextState[i] == "A") {
-                        trans[i] = "G";
-                    } else {
-                        trans[i] = "Y";
+            let trans = prevState;
+            for (let i = 0; i < 4; i++) {
+                if (prevState[i] != "R" && prevState[i] != nextState[i]) {
+                    if (prevState[i] == "A") {
+                        trans = trans.replaceAt(i, "G");
+                    } else if (prevState[i] == "L") {
+                        trans = trans.replaceAt(i, "R");
+                    } else { // prevState[i] == "G"
+                        if (nextState[i] == "A") {
+                            trans = trans.replaceAt(i, "G");
+                        } else {
+                            trans = trans.replaceAt(i, "Y");
+                        }
                     }
                 }
             }
-        }
-        if (trans != nextState) {
-            if (trans.includes("Y")) {
-                this._q.unshift(trans);
-                this._q.unshift(120);
-                trans.replace("Y", "R");
-                this._q.unshift(trans);
-                this._q.unshift(180);
-            } else {
-                this._q.unshift(trans);
-                this._q.unshift(180);
+            if (trans != nextState) {
+                if (trans.includes("Y")) {
+                    this._q.unshift(trans);
+                    this._q.unshift(120);
+                    trans = trans.replace("Y", "R");
+                    trans = trans.replace("Y", "R");
+                    this._q.unshift(trans);
+                    this._q.unshift(180);
+                    prevPos += 4;
+                } else {
+                    this._q.unshift(trans);
+                    this._q.unshift(180);
+                    prevPos += 2;
+                }
             }
+            this._q.unshift(nextState);
+            this._q.unshift(300);
+            this._q.unshift("handoff");
+            this._q.unshift(0);
+            prevPos += 4;
         }
-        this._q.unshift(nextState);
-        this._q.unshift(300);
     }
     // updateQueue() {
     //     this._queue.unshift(180);
