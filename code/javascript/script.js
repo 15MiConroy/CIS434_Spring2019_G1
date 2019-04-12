@@ -13,9 +13,9 @@ String.prototype.replaceAt = function(index, replacement) {
 
 /* Create the 4 Lanes */
 let lightControl;
-let laneN = new Lane("north", 275, "y",  1, 110, 265, 0);
-let laneE = new Lane("east",  300, "x", -1, 413, w,   170);
-let laneS = new Lane("south", 325, "y", -1, 320, 370, h);
+let laneN = new Lane("north", 350, "y",  1, 110, 265, 0);
+let laneE = new Lane("east",  350, "x", -1, 413, w,   170);
+let laneS = new Lane("south", 350, "y", -1, 320, 370, h);
 let laneW = new Lane("west",  350, "x",  1, 205, 0,   270);
 
 function fillGaussian() {
