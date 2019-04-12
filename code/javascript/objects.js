@@ -13,7 +13,6 @@ class Lane {
         this._light = "R";
         this._straightLane = [];
         this._leftLane = [];
-        this._maxIndex = -1;
         this._timer = this._frequency;
     }
     get name() {
@@ -23,7 +22,7 @@ class Lane {
         return this._light;
     }
     get numCars() {
-        return this._maxIndex + 1;
+        return this._straightLane.length;
     }
     get frequency() {
       return this._frequency;
@@ -50,9 +49,8 @@ class Lane {
         return !this.pastDottedLine(this._straightLane[this._straightLane.length - 1]);
     }
     addCar() {
-        this._maxIndex += 1;
-        let car = new Car(this._carPos, this._startX, this._startY, colorGen(), this._maxIndex, this);
-        this._straightLane[this._maxIndex] = car;
+        let car = new Car(this._carPos, this._startX, this._startY, colorGen(), this._straightLane.length, this);
+        this._straightLane[this._straightLane.length] = car;
     }
     pastDottedLine(car) {
         if(this._pos == "x") {
