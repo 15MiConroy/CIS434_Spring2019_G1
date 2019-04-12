@@ -87,13 +87,14 @@ class Lane {
       this._timer -= 1;
       // let added
       // let removed = "";
-      randCarGen = [Math.floor(Math.random() * (40*this._frequency))];
+      // randCarGen = [Math.floor(Math.random() * (40*this._frequency))];
       if (this._timer <= 0) {
         // added = "added";
+        this.addCar();
         this._timer += this._frequency;
-        if (this._frequency>=randCarGen){
-          this.addCar();
-        }
+        // if (this._frequency>=randCarGen){
+        //   this.addCar();
+        // }
       }
       // if (this.frontCar != null) {
       //   if (this.frontCar._x < -5 || this.frontCar._x > 645 || this.frontCar._y < -5 || this.frontCar._y > 485) {
