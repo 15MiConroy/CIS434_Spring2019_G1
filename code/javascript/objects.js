@@ -47,13 +47,13 @@ class Lane {
         if (this._leftLane.length == 0) {
             return false;
         }
-        return !pastDottedLine(this._leftLane[this._leftLane.length - 1]);
+        return !this.pastDottedLine(this._leftLane[this._leftLane.length - 1]);
     }
     hasCar() {
         if (this._straightLane.length == 0) {
             return false;
         }
-        return !pastDottedLine(this._straightLane[this._straightLane.length - 1]);
+        return !this.pastDottedLine(this._straightLane[this._straightLane.length - 1]);
     }
     addCar() {
         // if (this._maxIndex >= 4) {
