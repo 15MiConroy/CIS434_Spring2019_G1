@@ -60,16 +60,11 @@ function colorGen() {
   }
   return color;
 }
-function directionGen() {
-    //Generate random direction
-    var directionArray = ["L","R","S"];
-    var direction = directionArray[Math.floor(Math.random() * 3) - 1];
-    return direction;
-  }
 var freq;
-var low=360;
-var high=120;
-var bigboi=77777777777777777777777777777777;
+var randCarGen;
+var low=15;
+var high=10;
+var bigboi=7777777777777777777777777777777777777777777777777777777777;
 function changeFrequency(freq) {
   laneN._timer=freq;
   laneN._frequency=freq;
@@ -105,6 +100,28 @@ function startDeadSimulation() {
   laneS._frequency=bigboi;
   laneW._timer=bigboi;
   laneW._frequency=bigboi;
-    loop();
+  loop();
 }
-
+// function updateCars() {
+//     if(car2.lane.light == "G" || car2._y > 110)
+//     {
+//         car2._x = car2._x + car2.xSpeed/2;//N
+//         car2._y = car2._y + car2.ySpeed/2;
+//     }
+//     if(car1.lane.light == "G" || car1._x > 205)
+//     {
+//         car1._x = car1._x + car1.xSpeed/2;//W
+//         car1._y = car1._y + car1.ySpeed/2;
+//     }
+//     if(car3.lane.light == "G" || car3._x < 413)
+//     {
+//         car3._x = car3._x + car3.xSpeed/2; //E
+//         car3._y = car3._y + car3.ySpeed/2;
+//     }
+//     if(car4.lane.light == "G" || car4._y < 320)
+//     {
+//         car4._x = car4._x + car4.xSpeed/2; //S
+//         car4._y = car4._y + car4.ySpeed/2;
+//     }
+// }
+//
