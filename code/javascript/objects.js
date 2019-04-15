@@ -264,7 +264,7 @@ class LightControl {
     updateQueue() {
         this._queue.unshift(180);
         this._queue.unshift("RRRR");
-        this._queue.unshift(180);
+        this._queue.unshift(600);
         if (this._lastState == "GRGR") {
             this._queue.unshift("RGRG");
         } else {
