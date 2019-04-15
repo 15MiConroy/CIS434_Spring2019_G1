@@ -302,7 +302,6 @@ class LightControl {
             this._i = [temp[0], temp[1]];
         }
     }
-<<<<<<< HEAD
     updateQueue() {
         this._queue.unshift(180);
         this._queue.unshift("RRRR");
@@ -311,7 +310,8 @@ class LightControl {
             this._queue.unshift("RGRG");
         } else {
             this._queue.unshift("GRGR");
-=======
+        }
+    }
     createPattern() {
         this._q = [];
         let tQ = [];
@@ -374,7 +374,6 @@ class LightControl {
             this._q.unshift("handoff");
             this._q.unshift(0);
             prevPos += 4;
->>>>>>> c1d4d7906e48e6a1561e3bda9c541026d293487b
         }
     }
     // updateQueue() {
