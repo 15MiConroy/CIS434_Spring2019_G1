@@ -61,9 +61,10 @@ function colorGen() {
   return color;
 }
 var freq;
+var randCarGen;
 var low=15;
 var high=10;
-var bigboi=77777777777777777777777777777777;
+var bigboi=7777777777777777777777777777777777777777777777777777777777;
 function changeFrequency(freq) {
   laneN._timer=freq;
   laneN._frequency=freq;
