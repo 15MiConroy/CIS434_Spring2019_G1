@@ -16,39 +16,80 @@ function displayCars() {
 function updateLightColor() {
     if (laneN._light == "R"){
         fill("red");
-        circle(180, 25, 15);
+        circle(195, 15, 12);
+    }
+    else if (laneN._light == "Y")
+    {
+        fill("yellow");
+        circle(195, 40, 12);
     }
     else if (laneN._light == "G")
     {
         fill("green");
-        circle(180, 25, 15);
+        circle(195, 65, 12);
     }
-    if (laneE._light == "R"){
+    else if (laneN._light == "L")
+    {
+        fill("blue");
+        circle(195, 90, 12);
+    }
+    if (laneE._light == "R")
+    {
         fill("red");
-        circle(615, 100, 15);
+        circle(620, 105, 12);
+    }
+    else if (laneE._light == "Y")
+    {
+        fill("yellow");
+        circle(595, 105, 12);
     }
     else if (laneE._light == "G")
     {
         fill("green");
-        circle(615, 100, 15);
+        circle(570, 105, 12);
+    }
+    else if (laneE._light == "L")
+    {
+        fill("blue");
+        circle(570, 130, 12);
     }
     if (laneW._light == "R"){
         fill("red");
-        circle(25, 350, 15);
+        circle(20, 335, 12);
+    }
+    else if (laneW._light == "Y")
+    {
+        fill("yellow");
+        circle(45, 335, 12);
     }
     else if (laneW._light == "G")
     {
         fill("green");
-        circle(25, 350, 15);
+        circle(70, 335, 12);
+    }
+    else if (laneW._light == "L")
+    {
+        fill("blue");
+        circle(95, 335, 12);
     }
     if (laneS._light == "R"){
         fill("red");
-        circle(440, 450, 15);
+        circle(430, 460, 12);
+    }
+    else if (laneS._light == "Y")
+    {
+        fill("yellow");
+        circle(430, 435, 12);
     }
     else if (laneS._light == "G")
     {
         fill("green");
-        circle(440, 450, 15);
+        circle(430, 410, 12);
+    }
+    else if (laneS._light == "L")
+    {
+        fill("blue");
+        circle(430, 385, 12);
     }
 }
 function colorGen() {
@@ -60,11 +101,11 @@ function colorGen() {
   }
   return color;
 }
-function directionGen() {	
-    //Generate random direction	
-    var directionArray = ["L","R","S"];	
-    var direction = directionArray[Math.floor(Math.random() * 3) - 1];	
-    return direction;	
+function directionGen() {
+    //Generate random direction
+    var directionArray = ["L","R","S"];
+    var direction = directionArray[Math.floor(Math.random() * 3) - 1];
+    return direction;
 }
 var freq;
 var randCarGen;

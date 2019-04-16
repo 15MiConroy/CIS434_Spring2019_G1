@@ -68,18 +68,17 @@ class Lane {
             return car.y * this._sign > this._dLine * this._sign;
         }
     }
-    pastRightTurnLine(car) {	
-        if(this._pos == "x") {	
-            return car.x * this._sign > this._rightTurnLine * this._sign;	
-        } else {	
-            return car.y * this._sign > this._rightTurnLine * this._sign;	
-        }	
+    pastRightTurnLine(car) {
+        if(this._pos == "x") {
+            return car.x * this._sign > this._rightTurnLine * this._sign;
+        } else {
+            return car.y * this._sign > this._rightTurnLine * this._sign;
+        }
     }
     progress(){
     this._timer -= 1;
       randCarGen = [Math.floor(Math.random() * (40*this._frequency))];
       if (this._timer <= 0) {
-        this.addCar();
         this._timer += this._frequency;
         if (this._frequency>=randCarGen){
           this.addCar();
@@ -177,25 +176,25 @@ class Car {
         this._x = this._x + this._xSpeed;
         this._y = this._y + this._ySpeed;
     }
-    turn(){	
-        if(this._direction == "R" & this.lane.name == "north" & this._lane.pastRightTurnLine(this)) {	
-            this._xSpeed = -1;	
-            this._ySpeed = 0;	
-            this._turned = true;	
-        } else if(this._direction == "R" & this.lane.name == "east" & this._lane.pastRightTurnLine(this)){	
-            this._xSpeed = 0;	
-            this._ySpeed = -1;	
-            this._turned = true;	
-        } else if(this._direction == "R" & this.lane.name == "west" & this._lane.pastRightTurnLine(this)){	
-            this._xSpeed = 0;	
-            this._ySpeed = 1;	
-            this._turned = true;	
-        }	
-        else if(this._direction == "R" & this.lane.name == "south" & this._lane.pastRightTurnLine(this)){	
-            this._xSpeed = 1;	
-            this._ySpeed = 0;	
-            this._turned = true;	
-        }	
+    turn(){
+        if(this._direction == "R" & this.lane.name == "north" & this._lane.pastRightTurnLine(this)) {
+            this._xSpeed = -1;
+            this._ySpeed = 0;
+            this._turned = true;
+        } else if(this._direction == "R" & this.lane.name == "east" & this._lane.pastRightTurnLine(this)){
+            this._xSpeed = 0;
+            this._ySpeed = -1;
+            this._turned = true;
+        } else if(this._direction == "R" & this.lane.name == "west" & this._lane.pastRightTurnLine(this)){
+            this._xSpeed = 0;
+            this._ySpeed = 1;
+            this._turned = true;
+        }
+        else if(this._direction == "R" & this.lane.name == "south" & this._lane.pastRightTurnLine(this)){
+            this._xSpeed = 1;
+            this._ySpeed = 0;
+            this._turned = true;
+        }
     }
     update() {
         if(this.lane.light == 'G') {
@@ -226,8 +225,8 @@ class Car {
                 }
             }
         }
-        if(!this._turned){	
-            this.turn();	
+        if(!this._turned){
+            this.turn();
         }
     }
     display() {
