@@ -42,4 +42,16 @@
     //West Horizontal White
     fill(255, 255, 255);
     rect(0, 388, 256, 10);
+    //North Light Box
+    fill(0)
+    rect(208,33,58,200)
+    //East Light Box
+    fill(0)
+    rect(500,175,200,58)
+    //South Light Box
+    fill(0)
+    rect(500,468,58,200)
+    //West Light Box
+    fill(0)
+    rect(66,468,200,58)
  }

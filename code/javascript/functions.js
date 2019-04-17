@@ -14,83 +14,112 @@ function displayCars() {
 }
 
 function updateLightColor() {
+  greyLights();
+  circle();
+  //North
     if (laneN._light == "R"){
         fill("red");
-        circle(195, 15, 12);
+        circle(238, 65, 20);
     }
     else if (laneN._light == "Y")
     {
         fill("yellow");
-        circle(195, 40, 12);
+        circle(238, 111, 20);
     }
     else if (laneN._light == "G")
     {
         fill("green");
-        circle(195, 65, 12);
+        circle(238, 157, 20);
     }
     else if (laneN._light == "L")
     {
         fill("blue");
-        circle(195, 90, 12);
+        circle(238, 203, 20);
     }
+    //East
     if (laneE._light == "R")
     {
         fill("red");
-        circle(620, 105, 12);
+        circle(672, 204, 20);
     }
     else if (laneE._light == "Y")
     {
         fill("yellow");
-        circle(595, 105, 12);
+        circle(626, 204, 20);
     }
     else if (laneE._light == "G")
     {
         fill("green");
-        circle(570, 105, 12);
+        circle(580, 204, 20);
     }
     else if (laneE._light == "L")
     {
         fill("blue");
-        circle(570, 130, 12);
+        circle(532, 204, 20);
     }
+    //West
     if (laneW._light == "R"){
         fill("red");
-        circle(20, 335, 12);
+        circle(96, 497, 20);
     }
     else if (laneW._light == "Y")
     {
         fill("yellow");
-        circle(45, 335, 12);
+        circle(142, 497, 20);
     }
     else if (laneW._light == "G")
     {
         fill("green");
-        circle(70, 335, 12);
+        circle(188, 497, 20);
     }
     else if (laneW._light == "L")
     {
         fill("blue");
-        circle(95, 335, 12);
+        circle(234, 497, 20);
     }
+    //South
     if (laneS._light == "R"){
         fill("red");
-        circle(430, 460, 12);
+        circle(530, 636, 20);
     }
     else if (laneS._light == "Y")
     {
         fill("yellow");
-        circle(430, 435, 12);
+        circle(530, 590, 20);
     }
     else if (laneS._light == "G")
     {
         fill("green");
-        circle(430, 410, 12);
+        circle(530, 544, 20);
     }
     else if (laneS._light == "L")
     {
         fill("blue");
-        circle(430, 385, 12);
+        circle(530, 498, 20);
     }
+}
+function greyLights() {
+  fill("grey");
+  //South
+  circle(530, 498, 20);
+  circle(530, 544, 20);
+  circle(530, 590, 20);
+  circle(530, 636, 20);
+  //West
+  circle(96, 497, 20);
+  circle(142, 497, 20);
+  circle(188, 497, 20);
+  circle(234, 497, 20);
+  //North
+  circle(238, 65, 20);
+  circle(238, 111, 20);
+  circle(238, 157, 20);
+  circle(238, 203, 20);
+  //East
+  circle(672, 204, 20);
+  circle(626, 204, 20);
+  circle(580, 204, 20);
+  circle(534, 204, 20);
 }
 function colorGen() {
   //Generate random color
