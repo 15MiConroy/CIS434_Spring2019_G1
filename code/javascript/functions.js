@@ -1,14 +1,21 @@
 lanes = [laneN, laneE, laneS, laneW]
 function updateCars() {
-  for (let lane of lanes)
+  for (let lane of lanes){
     for (let i = 0; i < lane.numCars; i++) {
       lane._straightLane[i].update();
     }
+    for (let i = 0; i < lane.numLeftCars; i++) {
+        lane._leftLane[i].updateLeft();
+    }
+  }
 }
 function displayCars() {
   for (let lane of lanes) {
     for (let i = 0; i < lane.numCars; i++) {
       lane._straightLane[i].display();
+    }
+    for (let i = 0; i < lane.numLeftCars; i++) {
+        lane._leftLane[i].display();
     }
   }
 }
