@@ -17,8 +17,8 @@ class Lane {
         this._leftLane = [];
         this._maxIndex = -1;
         this._timer = this._frequency;
-        this._leftX = this.startX;
-        this._leftY = this.startY;
+        this._leftX = this._startX;
+        this._leftY = this._startY;
     }
     get name() {
         return this._name;
@@ -74,7 +74,7 @@ class Lane {
             } else {
                 this._leftX = this._startX - 10;
             }
-            let car = new Car(this._carPos, this.leftX, this.leftY, colorGen(), this, direction);
+            let car = new Car(this._carPos, this._leftX, this._leftY, colorGen(), this, direction);
             this._leftLane[this._leftLane.length] = car;
             car._myIndex = this._leftLane.length;
         } else {
