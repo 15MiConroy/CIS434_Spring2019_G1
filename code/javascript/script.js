@@ -1,6 +1,6 @@
 /* Independent Global Parameters */
-var h = 480;
-var w = 640;
+var h = 700;
+var w = 800;
 String.prototype.replaceAt=function(index, replacement) {
     return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
 }
