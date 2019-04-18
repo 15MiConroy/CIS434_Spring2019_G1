@@ -25,7 +25,7 @@ class Lane {
         } else if (this._name == "east") {
             this._leftY = this._startY + 60;
         } else if (this._name == "west"){
-            this._leftX = this._startX - 50;
+            this._leftY = this._startX - 50;
         }
     }
     get name() {
