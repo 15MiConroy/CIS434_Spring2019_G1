@@ -7,10 +7,10 @@ String.prototype.replaceAt=function(index, replacement) {
 
 /* Create the 4 Lanes */
 let lightControl;
-let laneN = new Lane("north", 275, "y",  1, 110, 265, 0,   0);
-let laneE = new Lane("east",  300, "x", -1, 413, w,   170, 1);
-let laneS = new Lane("south", 325, "y", -1, 320, 370, h,   2);
-let laneW = new Lane("west",  350, "x",  1, 205, 0,   270, 3);
+let laneN = new Lane("north", 275, "y",  1, 230, 300, 0,   0);
+let laneE = new Lane("east",  300, "x", -1, 490, w,   265, 1);
+let laneS = new Lane("south", 325, "y", -1, 460, 475, h,   2);
+let laneW = new Lane("west",  350, "x",  1, 280, 0,   440, 3);
 
 let x = 0;
 
