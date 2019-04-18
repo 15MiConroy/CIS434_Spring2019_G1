@@ -1,16 +1,16 @@
 /* Independent Global Parameters */
-var h = 480;
-var w = 640;
+var h = 700;
+var w = 800;
 String.prototype.replaceAt=function(index, replacement) {
     return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
 }
 
 /* Create the 4 Lanes */
 let lightControl;
-let laneN = new Lane("north", 275, "y",  1, 110, 265, 0,   0);
-let laneE = new Lane("east",  300, "x", -1, 413, w,   170, 1);
-let laneS = new Lane("south", 325, "y", -1, 320, 370, h,   2);
-let laneW = new Lane("west",  350, "x",  1, 205, 0,   270, 3);
+let laneN = new Lane("north", 275, "y",  1, 230, 300, 0,   0);
+let laneE = new Lane("east",  300, "x", -1, 505, w,   265, 1);
+let laneS = new Lane("south", 325, "y", -1, 475, 475, h,   2);
+let laneW = new Lane("west",  350, "x",  1, 275, 0,   440, 3);
 
 let x = 0;
 
