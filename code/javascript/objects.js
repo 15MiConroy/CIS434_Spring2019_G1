@@ -332,16 +332,6 @@ class LightControl {
             this._lanes[i].light = newState[i];
         }
         this._timer = duration;
-        // if (this._state == newState) {
-        //     return;
-        // }
-        // if (this._state != "RRRR") {
-        //     this._lastState = this._state;
-        // }
-        // this._state = newState;
-        // for (let i = 0; i < 4; i ++) {
-        //     this._lanes[i].light = newState[i]
-        // }
     }
     orthogonal() {
         // returns 0 if N/S, 1 if E/W
@@ -480,26 +470,10 @@ class LightControl {
         this._q.unshift("handoff");
         this._q.unshift(0);
     }
-    // updateQueue() {
-    //     this._queue.unshift(180);
-    //     this._queue.unshift("RRRR");
-    //     this._queue.unshift(180);
-    //     if (this._lastState == "GRGR") {
-    //         this._queue.unshift("RGRG");
-    //     } else {
-    //         this._queue.unshift("GRGR");
-    //     }
-    // }
     progress() {
         this._timer -= 1;
         if (this._timer <= 0) {
             this.changeState(this._q.pop(), this._q.pop());
         }
-        // this.printLights();
-    }
-    printLights() {
-        console.log("");
-        console.log("State: " + this._state);
-        // console.log("N: " + this._lanes[0].light + ", E: " + this._lanes[1].light + ", S: " + this._lanes[2].light + ", W: " + this._lanes[3].light);
     }
 }
