@@ -97,32 +97,17 @@ class Lane {
     pastRightTurnLine(car) {
         return this.compare(car, this._rightTurnLine);
     }
-<<<<<<< HEAD
     pastLeftTurnLine(car) {
-        return this.compare(car, this._leftTurnLine);
-    }
-    progress(){
-    this._timer -= 1;
-       randCarGen = [Math.floor(Math.random() * (40*this._frequency))];
-      if (this._timer <= 0) {
-        this._timer += this._frequency;
-         if (this._frequency>=randCarGen){
-           this.addCar();
-         }
-=======
-    pastLeftTurnLine(car) {	
         return this.compare(car, this._leftTurnLine);	
     }
     progress(){
     this._timer -= 1;
-      // randCarGen = [Math.floor(Math.random() * (40*this._frequency))];
+    randCarGen = [Math.floor(Math.random() * (40*this._frequency))];
       if (this._timer <= 0) {
         this._timer += this._frequency;
-        this.addCar();
-        // if (this._frequency>=randCarGen){
-        //   this.addCar();
-        // }
->>>>>>> develop
+          if (this._frequency>=randCarGen){
+           this.addCar();
+         }
       }
     }
 }
@@ -212,7 +197,6 @@ class Car {
         this._x = this._x + this._xSpeed;
         this._y = this._y + this._ySpeed;
     }
-<<<<<<< HEAD
     turn(){
         if(this._direction == "R" & this.lane.name == "north" & this._lane.pastRightTurnLine(this)) {
             this._xSpeed = -1;
@@ -249,44 +233,6 @@ class Car {
             this._ySpeed = 0;
             this._turned = true;
         }
-=======
-    turn(){	
-        if(this._direction == "R" & this.lane.name == "north" & this._lane.pastRightTurnLine(this)) {	
-            this._xSpeed = -1;	
-            this._ySpeed = 0;	
-            this._turned = true;	
-        } else if(this._direction == "R" & this.lane.name == "east" & this._lane.pastRightTurnLine(this)){	
-            this._xSpeed = 0;	
-            this._ySpeed = -1;	
-            this._turned = true;	
-        } else if(this._direction == "R" & this.lane.name == "west" & this._lane.pastRightTurnLine(this)){	
-            this._xSpeed = 0;	
-            this._ySpeed = 1;	
-            this._turned = true;	
-        }	
-        else if(this._direction == "R" & this.lane.name == "south" & this._lane.pastRightTurnLine(this)){	
-            this._xSpeed = 1;	
-            this._ySpeed = 0;	
-            this._turned = true;	
-        } else if(this._direction == "L" & this.lane.name == "north" & this._lane.pastLeftTurnLine(this)) {	
-            this._xSpeed = 1;	
-            this._ySpeed = 0;	
-            this._turned = true;	
-        } else if(this._direction == "L" & this.lane.name == "east" & this._lane.pastLeftTurnLine(this)){	
-            this._xSpeed = 0;	
-            this._ySpeed = 1;	
-            this._turned = true;	
-        } else if(this._direction == "L" & this.lane.name == "west" & this._lane.pastLeftTurnLine(this)){	
-            this._xSpeed = 0;	
-            this._ySpeed = -1;	
-            this._turned = true;	
-        }	
-        else if(this._direction == "L" & this.lane.name == "south" & this._lane.pastLeftTurnLine(this)){	
-            this._xSpeed = -1;	
-            this._ySpeed = 0;	
-            this._turned = true;	
-        }	
->>>>>>> develop
     }
     update() {
         if(this.lane.light == 'G' || this.lane.light == 'A') {
@@ -352,39 +298,6 @@ class Car {
         }
         if(!this._turned){
             this.turn();
-        }
-    }
-    updateLeft() {
-        if(this.lane.light == 'L' || this.lane.light == 'A') {
-            this.move();
-        } else if(this._lane.pastDottedLine(this)) {
-            this.move();
-        } else {
-            let nextCar = this._lane._leftLane[this._myIndex - 1];
-            if (this._lane._pos == "x") {
-                if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
-                    if (this._x  * this.sign < (this._lane._dLine - (30 * this.sign)) * this.sign) {
-                        this.move();
-                    }
-                } else {
-                    if (!this._lane.pastDottedLine(nextCar) && this._x * this.sign < (nextCar._x - (30 * this.sign)) * this.sign) {
-                        this.move();
-                    }
-                }
-            } else if (this._lane._pos == "y") {
-                if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
-                    if (this._y  * this.sign < (this._lane._dLine - (30 * this.sign)) * this.sign) {
-                        this.move();
-                    }
-                } else {
-                    if (!this._lane.pastDottedLine(nextCar) && this._y * this.sign < (nextCar._y - (30 * this.sign)) * this.sign) {
-                        this.move();
-                    }
-                }
-            }
-        }
-        if(!this._turned){	
-            this.turn();	
         }
     }
     display() {
@@ -559,8 +472,4 @@ class LightControl {
             this.changeState(this._q.pop(), this._q.pop());
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> develop
