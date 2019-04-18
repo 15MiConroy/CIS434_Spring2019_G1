@@ -8,7 +8,7 @@ class Lane {
         this._sign = sign;
         this._dLine = dLine;
         this._rightTurnLine = this._dLine + 50 * sign;
-        this._leftTurnLine = this._dLine + 150 * sign;
+        this._leftTurnLine = this._dLine + 190 * sign;
         this._startX = startX;
         this._startY = startY;
         this._carPos = carPos;
@@ -19,12 +19,12 @@ class Lane {
         this._leftX = this._startX;
         this._leftY = this._startY;
         if(this._name == "north") {
-            this._leftX = this._startX + 50;
+            this._leftX = this._startX + 65;
         } else if(this._name == "south"){
-            this._leftY = this._startY + 50;
+            this._leftY = this._startY - 35;
         } else if (this._name == "east") {
-            this._leftY = this._startY - 50;
-        } else {
+            this._leftY = this._startY + 60;
+        } else if (this._name == "west"){
             this._leftX = this._startX - 50;
         }
     }
