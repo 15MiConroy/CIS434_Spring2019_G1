@@ -22,7 +22,7 @@ function displayCars() {
 
 function updateLightColor() {
   greyLights();
-  circle();
+  // circle();
   //North
     if (laneN._light == "R"){
         fill("red");

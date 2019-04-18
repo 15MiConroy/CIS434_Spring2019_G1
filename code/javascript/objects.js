@@ -15,7 +15,6 @@ class Lane {
         this._light = "R";
         this._straightLane = [];
         this._leftLane = [];
-        this._maxIndex = -1;
         this._timer = this._frequency;
         this._leftX = this._startX;
         this._leftY = this._startY;
@@ -27,13 +26,13 @@ class Lane {
         return this._light;
     }
     get numCars() {
-        return this._maxIndex + 1;
+        return this._straightLane.length - 1;
     }
     get numLeftCars() {
         return this._leftLane.length - 1;
     }
     get frontCar() {
-        if (this._maxIndex == -1) {
+        if (this._straightLane.length == 0) {
             return null;
         }
         return this._straightLane[0];
@@ -79,9 +78,8 @@ class Lane {
             car._myIndex = this._leftLane.length;
         } else {
             let car = new Car(this._carPos, this._startX, this._startY, colorGen(), this, direction);
-            this._maxIndex += 1;
-            car._myIndex = this._maxIndex;
-            this._straightLane[this._maxIndex] = car;
+            car._myIndex = this._straightLane.length;
+            this._straightLane[this._straightLane.length] = car;
         }
     }
     pastDottedLine(car) {
@@ -107,12 +105,13 @@ class Lane {
     }
     progress(){
     this._timer -= 1;
-      randCarGen = [Math.floor(Math.random() * (40*this._frequency))];
+      // randCarGen = [Math.floor(Math.random() * (40*this._frequency))];
       if (this._timer <= 0) {
         this._timer += this._frequency;
-        if (this._frequency>=randCarGen){
-          this.addCar();
-        }
+        this.addCar();
+        // if (this._frequency>=randCarGen){
+        //   this.addCar();
+        // }
       }
     }
 }
