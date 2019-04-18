@@ -70,7 +70,7 @@ class Lane {
                 this._leftY = this._startY + 50;
             } else if (this._name == "east") {
                 this._leftY = this._startY - 50;
-            } else {
+            } else if (this._name == "west"){
                 this._leftX = this._startX - 50;
             }
             let car = new Car(this._carPos, this._leftX, this._leftY, colorGen(), this, direction);
