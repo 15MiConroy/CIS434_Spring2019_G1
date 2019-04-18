@@ -82,6 +82,9 @@ class Lane {
             this._straightLane[this._straightLane.length] = car;
         }
     }
+    compareX(car) {
+        
+    }
     pastDottedLine(car) {
         if(this._pos == "x") {
             return car.x * this._sign > this._dLine * this._sign;
