@@ -18,6 +18,15 @@ class Lane {
         this._timer = this._frequency;
         this._leftX = this._startX;
         this._leftY = this._startY;
+        if(this._name == "north") {
+            this._leftX = this._startX + 50;
+        } else if(this._name == "south"){
+            this._leftY = this._startY + 50;
+        } else if (this._name == "east") {
+            this._leftY = this._startY - 50;
+        } else {
+            this._leftX = this._startX - 50;
+        }
     }
     get name() {
         return this._name;
@@ -64,15 +73,6 @@ class Lane {
     addCar() {
         let direction = directionGen();
         if(direction  == "L") {
-            if(this._name == "north") {
-                this._leftX = this._startX + 50;
-            } else if(this._name == "south"){
-                this._leftY = this._startY + 50;
-            } else if (this._name == "east") {
-                this._leftY = this._startY - 50;
-            } else {
-                this._leftX = this._startX - 50;
-            }
             let car = new Car(this._carPos, this._leftX, this._leftY, colorGen(), this, direction);
             this._leftLane[this._leftLane.length] = car;
             car._myIndex = this._leftLane.length;
