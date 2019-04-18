@@ -18,6 +18,15 @@ class Lane {
         this._timer = this._frequency;
         this._leftX = this._startX;
         this._leftY = this._startY;
+        if(this._name == "north") {
+            this._leftX = this._startX + 50;
+        } else if(this._name == "south"){
+            this._leftY = this._startY + 50;
+        } else if (this._name == "east") {
+            this._leftY = this._startY - 50;
+        } else {
+            this._leftX = this._startX - 50;
+        }
     }
     get name() {
         return this._name;
@@ -64,15 +73,6 @@ class Lane {
     addCar() {
         let direction = directionGen();
         if(direction  == "L") {
-            if(this._name == "north") {
-                this._leftX = this._startX + 50;
-            } else if(this._name == "south"){
-                this._leftY = this._startY + 50;
-            } else if (this._name == "east") {
-                this._leftY = this._startY - 50;
-            } else if (this._name == "west"){
-                this._leftX = this._startX - 50;
-            }
             let car = new Car(this._carPos, this._leftX, this._leftY, colorGen(), this, direction);
             this._leftLane[this._leftLane.length] = car;
             car._myIndex = this._leftLane.length;
@@ -82,26 +82,23 @@ class Lane {
             this._straightLane[this._straightLane.length] = car;
         }
     }
-    pastDottedLine(car) {
-        if(this._pos == "x") {
-            return car.x * this._sign > this._dLine * this._sign;
+    compare(car, reference) {
+        let dim;
+        if (this._pos == "x") {
+            dim = car.x;
         } else {
-            return car.y * this._sign > this._dLine * this._sign;
+            dim = car.y;
         }
+        return dim * this._sign > reference * this._sign;
     }
-    pastRightTurnLine(car) {    
-        if(this._pos == "x") {  
-            return car.x * this._sign > this._rightTurnLine * this._sign;   
-        } else {    
-            return car.y * this._sign > this._rightTurnLine * this._sign;   
-        }   
+    pastDottedLine(car) {
+        return this.compare(car, this._dLine);
+    }
+    pastRightTurnLine(car) {
+        return this.compare(car, this._rightTurnLine);
     }
     pastLeftTurnLine(car) {	
-        if(this._pos == "x") {	
-            return car.x * this._sign > this._leftTurnLine * this._sign;	
-        } else {	
-            return car.y * this._sign > this._leftTurnLine * this._sign;	
-        }	
+        return this.compare(car, this._leftTurnLine);	
     }
     progress(){
     this._timer -= 1;
@@ -332,16 +329,6 @@ class LightControl {
             this._lanes[i].light = newState[i];
         }
         this._timer = duration;
-        // if (this._state == newState) {
-        //     return;
-        // }
-        // if (this._state != "RRRR") {
-        //     this._lastState = this._state;
-        // }
-        // this._state = newState;
-        // for (let i = 0; i < 4; i ++) {
-        //     this._lanes[i].light = newState[i]
-        // }
     }
     orthogonal() {
         // returns 0 if N/S, 1 if E/W
@@ -480,26 +467,10 @@ class LightControl {
         this._q.unshift("handoff");
         this._q.unshift(0);
     }
-    // updateQueue() {
-    //     this._queue.unshift(180);
-    //     this._queue.unshift("RRRR");
-    //     this._queue.unshift(180);
-    //     if (this._lastState == "GRGR") {
-    //         this._queue.unshift("RGRG");
-    //     } else {
-    //         this._queue.unshift("GRGR");
-    //     }
-    // }
     progress() {
         this._timer -= 1;
         if (this._timer <= 0) {
             this.changeState(this._q.pop(), this._q.pop());
         }
-        // this.printLights();
-    }
-    printLights() {
-        console.log("");
-        console.log("State: " + this._state);
-        // console.log("N: " + this._lanes[0].light + ", E: " + this._lanes[1].light + ", S: " + this._lanes[2].light + ", W: " + this._lanes[3].light);
     }
 }
