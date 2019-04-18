@@ -91,12 +91,12 @@ class Lane {
             return car.y * this._sign > this._dLine * this._sign;
         }
     }
-    pastRightTurnLine(car) {	
-        if(this._pos == "x") {	
-            return car.x * this._sign > this._rightTurnLine * this._sign;	
-        } else {	
-            return car.y * this._sign > this._rightTurnLine * this._sign;	
-        }	
+    pastRightTurnLine(car) {    
+        if(this._pos == "x") {  
+            return car.x * this._sign > this._rightTurnLine * this._sign;   
+        } else {    
+            return car.y * this._sign > this._rightTurnLine * this._sign;   
+        }   
     }
     pastLeftTurnLine(car) {	
         if(this._pos == "x") {	
@@ -109,7 +109,6 @@ class Lane {
     this._timer -= 1;
       randCarGen = [Math.floor(Math.random() * (40*this._frequency))];
       if (this._timer <= 0) {
-        this.addCar();
         this._timer += this._frequency;
         if (this._frequency>=randCarGen){
           this.addCar();
@@ -269,8 +268,8 @@ class Car {
                 }
             }
         }
-        if(!this._turned){	
-            this.turn();	
+        if(!this._turned){  
+            this.turn();    
         }
     }
     updateLeft() {
@@ -372,12 +371,41 @@ class LightControl {
         s = s.replaceAt(2 * n + ortho, "A");
         return s;
     }
+    manualUpdate(laneReference, command) {
+        if (laneReference == "N" || laneReference == "S") {
+            // make sure N & S are active
+            if (this._a[0] != this._lanes[0]) {
+                forceHandoff();
+            }
+        } else {
+            if (this._a[0] != this._lanes[1]) {
+                forceHandoff();
+            }
+        }
+        let gen;
+        if (command == "bothLeft") {
+            gen = this.bothLeft();
+        } else if (command == "bothStraight") {
+            gen = this.bothStraight();
+        } else if (command == "singleDisplay") {
+            if (laneReference == "N" || laneReference == "E") {
+                gen = this.singleDisplay(0);
+            } else {
+                gen = this.singleDisplay(1);
+            }
+        }
+        this._q = [];
+        changeState(gen, 300);
+    }
     handoff() {
         if (this._i[0].hasCar() || this._i[1].hasCar()) {
-            let temp = [this._a[0], this._a[1]];
-            this._a = [this._i[0], this._i[1]];
-            this._i = [temp[0], temp[1]];
+            this.forceHandoff();
         }
+    }
+    forceHandoff() {
+        let temp = [this._a[0], this._a[1]];
+        this._a = [this._i[0], this._i[1]];
+        this._i = [temp[0], temp[1]];
     }
     updateQueue() {
         this._queue.unshift(180);
