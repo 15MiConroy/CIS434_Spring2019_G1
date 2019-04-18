@@ -74,8 +74,8 @@ class Lane {
         let direction = directionGen();
         if(direction  == "L") {
             let car = new Car(this._carPos, this._leftX, this._leftY, colorGen(), this, direction);
-            this._leftLane[this._leftLane.length] = car;
             car._myIndex = this._leftLane.length;
+            this._leftLane[this._leftLane.length] = car;
         } else {
             let car = new Car(this._carPos, this._startX, this._startY, colorGen(), this, direction);
             car._myIndex = this._straightLane.length;
