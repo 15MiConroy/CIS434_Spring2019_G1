@@ -1,21 +1,27 @@
 lanes = [laneN, laneE, laneS, laneW]
 function updateCars() {
-  for (let lane of lanes)
+  for (let lane of lanes){
     for (let i = 0; i < lane.numCars; i++) {
       lane._straightLane[i].update();
     }
+    for (let i = 0; i < lane.numLeftCars; i++) {
+        lane._leftLane[i].updateLeft();
+    }
+  }
 }
 function displayCars() {
   for (let lane of lanes) {
     for (let i = 0; i < lane.numCars; i++) {
       lane._straightLane[i].display();
     }
+    for (let i = 0; i < lane.numLeftCars; i++) {
+        lane._leftLane[i].display();
+    }
   }
 }
 
 function updateLightColor() {
   greyLights();
-  circle();
   //North
     if (laneN._light == "R"){
         fill("red");
@@ -141,40 +147,28 @@ var randCarGen;
 var low=15;
 var high=10;
 var bigboi=7777777777777777777777777777777777777777777777777777777777;
+function changeSingleFrequency(lane, freq) {
+  lane._timer = freq;
+  lane._frequency = freq;
+}
 function changeFrequency(freq) {
-  laneN._timer=freq;
-  laneN._frequency=freq;
-  laneE._timer=freq;
-  laneE._frequency=freq;
-  laneS._timer=freq;
-  laneS._frequency=freq;
-  laneW._timer=freq;
-  laneW._frequency=freq;
+  for (let lane of lanes) {
+    changeSingleFrequency(lane, freq);
+  }
 }
 function changeNFrequency(freq) {
-  laneN._timer=freq;
-  laneN._frequency=freq;
+  changeSingleFrequency(laneN, freq);
 }
 function changeEFrequency(freq) {
-  laneE._timer=freq;
-  laneE._frequency=freq;
+  changeSingleFrequency(laneE, freq);
 }
 function changeSFrequency(freq) {
-  laneS._timer=freq;
-  laneS._frequency=freq;
+  changeSingleFrequency(laneS, freq);
 }
 function changeWFrequency(freq) {
-  laneW._timer=freq;
-  laneW._frequency=freq;
+  changeSingleFrequency(laneW, freq);
 }
 function startDeadSimulation() {
-  laneN._timer=bigboi;
-  laneN._frequency=bigboi;
-  laneE._timer=bigboi;
-  laneE._frequency=bigboi;
-  laneS._timer=bigboi;
-  laneS._frequency=bigboi;
-  laneW._timer=bigboi;
-  laneW._frequency=bigboi;
-  loop();
+  changeFrequency(bigboi);
+  startSimulation();
 }
