@@ -65,13 +65,13 @@ class Lane {
         let direction = directionGen();
         if(direction  == "L") {
             if(this._name == "north") {
-                this._leftX = this._startX + 10;
+                this._leftX = this._startX + 50;
             } else if(this._name == "south"){
-                this._leftY = this._startY + 10;
+                this._leftY = this._startY + 50;
             } else if (this._name == "east") {
-                this._leftY = this._startY - 10;
+                this._leftY = this._startY - 50;
             } else {
-                this._leftX = this._startX - 10;
+                this._leftX = this._startX - 50;
             }
             let car = new Car(this._carPos, this._leftX, this._leftY, colorGen(), this, direction);
             this._leftLane[this._leftLane.length] = car;
@@ -239,7 +239,7 @@ class Car {
         }	
     }
     update() {
-        if(this.lane.light == 'G') {
+        if(this.lane.light == 'G' || this.lane.light == 'A') {
             this.move();
         } else if(this._lane.pastDottedLine(this)) {
             this.move();
