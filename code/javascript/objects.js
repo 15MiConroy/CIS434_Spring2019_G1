@@ -19,13 +19,13 @@ class Lane {
         this._leftX = this._startX;
         this._leftY = this._startY;
         if(this._name == "north") {
-            this._leftX = this._startX + 75;
+            this._leftX = this._startX + 95;
         } else if(this._name == "south"){
-            this._leftX = this._startX - 75;
+            this._leftX = this._startX - 102;
         } else if (this._name == "east") {
-            this._leftY = this._startY + 75;
+            this._leftY = this._startY + 95;
         } else if (this._name == "west"){
-            this._leftY = this._startY - 75;
+            this._leftY = this._startY - 100;
         }
     }
     get name() {
