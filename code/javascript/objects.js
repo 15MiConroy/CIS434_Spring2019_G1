@@ -475,10 +475,10 @@ class LightControl {
             }
             this._q.unshift(nextState);
             this._q.unshift(300);
-            this._q.unshift("handoff");
-            this._q.unshift(0);
-            prevPos += 4;
+            prevPos += 2;
         }
+        this._q.unshift("handoff");
+        this._q.unshift(0);
     }
     // updateQueue() {
     //     this._queue.unshift(180);
