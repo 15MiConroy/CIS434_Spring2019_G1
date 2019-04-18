@@ -8,6 +8,7 @@ class Lane {
         this._sign = sign;
         this._dLine = dLine;
         this._rightTurnLine = this._dLine + 50 * sign;
+        this._leftTurnLine = this._dLine + 150 * sign;
         this._startX = startX;
         this._startY = startY;
         this._carPos = carPos;
@@ -16,6 +17,8 @@ class Lane {
         this._leftLane = [];
         this._maxIndex = -1;
         this._timer = this._frequency;
+        this._leftX = this._startX;
+        this._leftY = this._startY;
     }
     get name() {
         return this._name;
@@ -25,6 +28,9 @@ class Lane {
     }
     get numCars() {
         return this._maxIndex + 1;
+    }
+    get numLeftCars() {
+        return this._leftLane.length - 1;
     }
     get frontCar() {
         if (this._maxIndex == -1) {
@@ -57,9 +63,26 @@ class Lane {
         return !this.pastDottedLine(this._straightLane[this._straightLane.length - 1]);
     }
     addCar() {
-        this._maxIndex += 1;
-        let car = new Car(this._carPos, this._startX, this._startY, colorGen(), this._maxIndex, this, directionGen());
-        this._straightLane[this._maxIndex] = car;
+        let direction = directionGen();
+        if(direction  == "L") {
+            if(this._name == "north") {
+                this._leftX = this._startX + 10;
+            } else if(this._name == "south"){
+                this._leftY = this._startY + 10;
+            } else if (this._name == "east") {
+                this._leftY = this._startY - 10;
+            } else {
+                this._leftX = this._startX - 10;
+            }
+            let car = new Car(this._carPos, this._leftX, this._leftY, colorGen(), this, direction);
+            this._leftLane[this._leftLane.length] = car;
+            car._myIndex = this._leftLane.length;
+        } else {
+            let car = new Car(this._carPos, this._startX, this._startY, colorGen(), this, direction);
+            this._maxIndex += 1;
+            car._myIndex = this._maxIndex;
+            this._straightLane[this._maxIndex] = car;
+        }
     }
     pastDottedLine(car) {
         if(this._pos == "x") {
@@ -75,6 +98,13 @@ class Lane {
             return car.y * this._sign > this._rightTurnLine * this._sign;   
         }   
     }
+    pastLeftTurnLine(car) {	
+        if(this._pos == "x") {	
+            return car.x * this._sign > this._leftTurnLine * this._sign;	
+        } else {	
+            return car.y * this._sign > this._leftTurnLine * this._sign;	
+        }	
+    }
     progress(){
     this._timer -= 1;
       randCarGen = [Math.floor(Math.random() * (40*this._frequency))];
@@ -88,19 +118,15 @@ class Lane {
 }
 
 class Car {
-    constructor(positionIndex, startX, startY, color, myIndex, lane, direction) {
+    constructor(positionIndex, startX, startY, color, lane, direction) {
 
-        //need an array of x initial positions
-        var xPosition = [265, w+5, 370, -5];
-        //need an array of y initial positions
-        var yPosition = [-5, 170, h+5, 270];
         this._direction = direction;
         this._x = startX;
         this._y = startY;
         this._color = color;
         this._moving = false;
         this._lane = lane;
-        this._myIndex = myIndex;
+        this._myIndex = null;
         this._turned = false;
 
         //setting speed of car (x and y direction)
@@ -176,25 +202,42 @@ class Car {
         this._x = this._x + this._xSpeed;
         this._y = this._y + this._ySpeed;
     }
-    turn(){ 
-        if(this._direction == "R" & this.lane.name == "north" & this._lane.pastRightTurnLine(this)) {   
-            this._xSpeed = -1;  
-            this._ySpeed = 0;   
-            this._turned = true;    
-        } else if(this._direction == "R" & this.lane.name == "east" & this._lane.pastRightTurnLine(this)){  
-            this._xSpeed = 0;   
-            this._ySpeed = -1;  
-            this._turned = true;    
-        } else if(this._direction == "R" & this.lane.name == "west" & this._lane.pastRightTurnLine(this)){  
-            this._xSpeed = 0;   
-            this._ySpeed = 1;   
-            this._turned = true;    
-        }   
-        else if(this._direction == "R" & this.lane.name == "south" & this._lane.pastRightTurnLine(this)){   
-            this._xSpeed = 1;   
-            this._ySpeed = 0;   
-            this._turned = true;    
-        }   
+    turn(){	
+        if(this._direction == "R" & this.lane.name == "north" & this._lane.pastRightTurnLine(this)) {	
+            this._xSpeed = -1;	
+            this._ySpeed = 0;	
+            this._turned = true;	
+        } else if(this._direction == "R" & this.lane.name == "east" & this._lane.pastRightTurnLine(this)){	
+            this._xSpeed = 0;	
+            this._ySpeed = -1;	
+            this._turned = true;	
+        } else if(this._direction == "R" & this.lane.name == "west" & this._lane.pastRightTurnLine(this)){	
+            this._xSpeed = 0;	
+            this._ySpeed = 1;	
+            this._turned = true;	
+        }	
+        else if(this._direction == "R" & this.lane.name == "south" & this._lane.pastRightTurnLine(this)){	
+            this._xSpeed = 1;	
+            this._ySpeed = 0;	
+            this._turned = true;	
+        } else if(this._direction == "L" & this.lane.name == "north" & this._lane.pastLeftTurnLine(this)) {	
+            this._xSpeed = 1;	
+            this._ySpeed = 0;	
+            this._turned = true;	
+        } else if(this._direction == "L" & this.lane.name == "east" & this._lane.pastLeftTurnLine(this)){	
+            this._xSpeed = 0;	
+            this._ySpeed = 1;	
+            this._turned = true;	
+        } else if(this._direction == "L" & this.lane.name == "west" & this._lane.pastLeftTurnLine(this)){	
+            this._xSpeed = 0;	
+            this._ySpeed = -1;	
+            this._turned = true;	
+        }	
+        else if(this._direction == "L" & this.lane.name == "south" & this._lane.pastLeftTurnLine(this)){	
+            this._xSpeed = -1;	
+            this._ySpeed = 0;	
+            this._turned = true;	
+        }	
     }
     update() {
         if(this.lane.light == 'G') {
@@ -227,6 +270,39 @@ class Car {
         }
         if(!this._turned){  
             this.turn();    
+        }
+    }
+    updateLeft() {
+        if(this.lane.light == 'L' || this.lane.light == 'A') {
+            this.move();
+        } else if(this._lane.pastDottedLine(this)) {
+            this.move();
+        } else {
+            let nextCar = this._lane._leftLane[this._myIndex - 1];
+            if (this._lane._pos == "x") {
+                if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
+                    if (this._x  * this.sign < (this._lane._dLine - (30 * this.sign)) * this.sign) {
+                        this.move();
+                    }
+                } else {
+                    if (!this._lane.pastDottedLine(nextCar) && this._x * this.sign < (nextCar._x - (30 * this.sign)) * this.sign) {
+                        this.move();
+                    }
+                }
+            } else if (this._lane._pos == "y") {
+                if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
+                    if (this._y  * this.sign < (this._lane._dLine - (30 * this.sign)) * this.sign) {
+                        this.move();
+                    }
+                } else {
+                    if (!this._lane.pastDottedLine(nextCar) && this._y * this.sign < (nextCar._y - (30 * this.sign)) * this.sign) {
+                        this.move();
+                    }
+                }
+            }
+        }
+        if(!this._turned){	
+            this.turn();	
         }
     }
     display() {
