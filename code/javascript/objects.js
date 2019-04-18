@@ -82,29 +82,23 @@ class Lane {
             this._straightLane[this._straightLane.length] = car;
         }
     }
-    compareX(car) {
-        
+    compare(car, reference) {
+        let dim;
+        if (this._pos == "x") {
+            dim = car.x;
+        } else {
+            dim = car.y;
+        }
+        return dim * this._sign > reference * this._sign;
     }
     pastDottedLine(car) {
-        if(this._pos == "x") {
-            return car.x * this._sign > this._dLine * this._sign;
-        } else {
-            return car.y * this._sign > this._dLine * this._sign;
-        }
+        return this.compare(car, this._dLine);
     }
-    pastRightTurnLine(car) {    
-        if(this._pos == "x") {  
-            return car.x * this._sign > this._rightTurnLine * this._sign;   
-        } else {    
-            return car.y * this._sign > this._rightTurnLine * this._sign;   
-        }   
+    pastRightTurnLine(car) {
+        return this.compare(car, this._rightTurnLine);
     }
     pastLeftTurnLine(car) {	
-        if(this._pos == "x") {	
-            return car.x * this._sign > this._leftTurnLine * this._sign;	
-        } else {	
-            return car.y * this._sign > this._leftTurnLine * this._sign;	
-        }	
+        return this.compare(car, this._leftTurnLine);	
     }
     progress(){
     this._timer -= 1;
