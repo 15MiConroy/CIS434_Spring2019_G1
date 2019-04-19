@@ -436,8 +436,10 @@ class LightControl {
                         trans = trans.replaceAt(i, "G");
                     } else if (prevState[i] == "L") {
                         trans = trans.replaceAt(i, "R");
-                    } else { // prevState[i] == "G"
-                        if (nextState[i] == "A") {
+                    } else {
+                        if (nextState[this.orthogonal()] == "L") {
+                            trans = trans.replaceAt(i, "R");
+                        } else if (nextState[i] == "A") {
                             trans = trans.replaceAt(i, "G");
                         } else {
                             trans = trans.replaceAt(i, "Y");
@@ -453,7 +455,7 @@ class LightControl {
                     trans = trans.replace("Y", "R");
                     this._q.unshift(trans);
                     this._q.unshift(180);
-                    prevPos += 4;
+                    prevPos += 2;
                 } else {
                     this._q.unshift(trans);
                     this._q.unshift(180);
