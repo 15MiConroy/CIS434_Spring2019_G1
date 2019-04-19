@@ -21,11 +21,11 @@ class Lane {
         if(this._name == "north") {
             this._leftX = this._startX + 95;
         } else if(this._name == "south"){
-            this._leftX = this._startX - 102;
+            this._leftX = this._startX - 100;
         } else if (this._name == "east") {
-            this._leftY = this._startY + 95;
+            this._leftY = this._startY + 93;
         } else if (this._name == "west"){
-            this._leftY = this._startY - 100;
+            this._leftY = this._startY - 90;
         }
     }
     get name() {
@@ -124,6 +124,8 @@ class Car {
         this._lane = lane;
         this._myIndex = null;
         this._turned = false;
+        this._carLength = 20;
+        this._carWidth = 40;
 
         //setting speed of car (x and y direction)
         if(positionIndex == 0){
@@ -234,6 +236,11 @@ class Car {
             this._ySpeed = 0;	
             this._turned = true;	
         }	
+        if(this._turned) {
+            let temp = this._carWidth;
+            this._carWidth = this._carLength;
+            this._carLength = temp;
+        }
     }
     update() {
         if(this.lane.light == 'G' || this.lane.light == 'A') {
@@ -244,21 +251,21 @@ class Car {
             let nextCar = this._lane._straightLane[this._myIndex - 1];
             if (this._lane._pos == "x") {
                 if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
-                    if (this._x  * this.sign < (this._lane._dLine - (30 * this.sign)) * this.sign) {
+                    if (this._x  * this.sign < (this._lane._dLine - (60 * this.sign)) * this.sign) {
                         this.move();
                     }
                 } else {
-                    if (!this._lane.pastDottedLine(nextCar) && this._x * this.sign < (nextCar._x - (30 * this.sign)) * this.sign) {
+                    if (!this._lane.pastDottedLine(nextCar) && this._x * this.sign < (nextCar._x - (60 * this.sign)) * this.sign) {
                         this.move();
                     }
                 }
             } else if (this._lane._pos == "y") {
                 if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
-                    if (this._y  * this.sign < (this._lane._dLine - (30 * this.sign)) * this.sign) {
+                    if (this._y  * this.sign < (this._lane._dLine - (60 * this.sign)) * this.sign) {
                         this.move();
                     }
                 } else {
-                    if (!this._lane.pastDottedLine(nextCar) && this._y * this.sign < (nextCar._y - (30 * this.sign)) * this.sign) {
+                    if (!this._lane.pastDottedLine(nextCar) && this._y * this.sign < (nextCar._y - (60* this.sign)) * this.sign) {
                         this.move();
                     }
                 }
@@ -277,21 +284,21 @@ class Car {
             let nextCar = this._lane._leftLane[this._myIndex - 1];
             if (this._lane._pos == "x") {
                 if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
-                    if (this._x  * this.sign < (this._lane._dLine - (30 * this.sign)) * this.sign) {
+                    if (this._x  * this.sign < (this._lane._dLine - (60 * this.sign)) * this.sign) {
                         this.move();
                     }
                 } else {
-                    if (!this._lane.pastDottedLine(nextCar) && this._x * this.sign < (nextCar._x - (30 * this.sign)) * this.sign) {
+                    if (!this._lane.pastDottedLine(nextCar) && this._x * this.sign < (nextCar._x - (60 * this.sign)) * this.sign) {
                         this.move();
                     }
                 }
             } else if (this._lane._pos == "y") {
                 if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
-                    if (this._y  * this.sign < (this._lane._dLine - (30 * this.sign)) * this.sign) {
+                    if (this._y  * this.sign < (this._lane._dLine - (60 * this.sign)) * this.sign) {
                         this.move();
                     }
                 } else {
-                    if (!this._lane.pastDottedLine(nextCar) && this._y * this.sign < (nextCar._y - (30 * this.sign)) * this.sign) {
+                    if (!this._lane.pastDottedLine(nextCar) && this._y * this.sign < (nextCar._y - (60 * this.sign)) * this.sign) {
                         this.move();
                     }
                 }
@@ -303,7 +310,14 @@ class Car {
     }
     display() {
         fill(this._color);
-        circle(this._x, this._y, 10);
+        if (this._lane._name == "west" || this._lane._name == "east" )
+        {
+            rect(this._x, this._y, this._carWidth, this._carLength);
+        }
+        else {
+            rect(this._x, this._y, this._carLength, this._carWidth);
+        }
+       // circle(this._x, this._y, 10);
     }
 }
 
@@ -436,8 +450,10 @@ class LightControl {
                         trans = trans.replaceAt(i, "G");
                     } else if (prevState[i] == "L") {
                         trans = trans.replaceAt(i, "R");
-                    } else { // prevState[i] == "G"
-                        if (nextState[i] == "A") {
+                    } else {
+                        if (nextState[this.orthogonal()] == "L") {
+                            trans = trans.replaceAt(i, "R");
+                        } else if (nextState[i] == "A") {
                             trans = trans.replaceAt(i, "G");
                         } else {
                             trans = trans.replaceAt(i, "Y");
@@ -453,7 +469,7 @@ class LightControl {
                     trans = trans.replace("Y", "R");
                     this._q.unshift(trans);
                     this._q.unshift(180);
-                    prevPos += 4;
+                    prevPos += 2;
                 } else {
                     this._q.unshift(trans);
                     this._q.unshift(180);
