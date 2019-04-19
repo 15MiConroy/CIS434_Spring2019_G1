@@ -35,10 +35,10 @@ class Lane {
         return this._light;
     }
     get numCars() {
-        return this._straightLane.length - 1;
+        return this._straightLane.length;
     }
     get numLeftCars() {
-        return this._leftLane.length - 1;
+        return this._leftLane.length;
     }
     get frontCar() {
         if (this._straightLane.length == 0) {
@@ -64,11 +64,14 @@ class Lane {
         }
         return !this.pastDottedLine(this._leftLane[this._leftLane.length - 1]);
     }
-    hasCar() {
+    hasStraight() {
         if (this._straightLane.length == 0) {
             return false;
         }
         return !this.pastDottedLine(this._straightLane[this._straightLane.length - 1]);
+    }
+    hasCar() {
+        return this.hasStraight() || this.hasLeft();
     }
     addCar() {
         let direction = directionGen();
