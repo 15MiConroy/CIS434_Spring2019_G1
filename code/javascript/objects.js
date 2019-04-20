@@ -40,12 +40,6 @@ class Lane {
     get numLeftCars() {
         return this._leftLane.length;
     }
-    get frontCar() {
-        if (this._straightLane.length == 0) {
-            return null;
-        }
-        return this._straightLane[0];
-    }
     get frequency() {
       return this._frequency;
     }
