@@ -11,11 +11,10 @@ String.prototype.replaceAt=function(index, replacement) {
 }
 
 /* Create the 4 Lanes */
-let laneN = new Lane("north", low, "y",  1, 210, 290, -20,   0);
-let laneE = new Lane("east",  low, "x", -1, 490, w+10,   255, 1);
-let laneS = new Lane("south", low, "y", -1, 455, 465, h+20,   2);
-let laneW = new Lane("west",  low, "x",  1, 240, -10,   420, 3);
-
+let laneN = new Lane("north", low, "y",  1, 210, 290,   -140,    0);
+let laneE = new Lane("east",  low, "x", -1, 490, w+100,  255,    1);
+let laneS = new Lane("south", low, "y", -1, 455, 465,   h+100,   2);
+let laneW = new Lane("west",  low, "x",  1, 240, -140,   420,    3);
 lanes = [laneN, laneE, laneS, laneW]
 
 function progress() {
