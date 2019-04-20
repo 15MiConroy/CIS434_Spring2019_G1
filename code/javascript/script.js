@@ -39,7 +39,7 @@ function setup() {
     for (let lane of lanes) {
         lane.addCar();
     }
-    noLoop();
+    stopSimulation();
 }
 
 function draw() {
