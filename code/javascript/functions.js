@@ -1,19 +1,19 @@
 function updateCars() {
-  for (let lane of lanes){
-    for (let i = 0; i < lane.numCars; i++) {
+  for (var lane of lanes){
+    for (var i = 0; i < lane.numCars; i++) {
       lane._straightLane[i].update();
     }
-    for (let i = 0; i < lane.numLeftCars; i++) {
+    for (var i = 0; i < lane.numLeftCars; i++) {
         lane._leftLane[i].updateLeft();
     }
   }
 }
 function displayCars() {
-  for (let lane of lanes) {
-    for (let i = 0; i < lane.numCars; i++) {
+  for (var lane of lanes) {
+    for (var i = 0; i < lane.numCars; i++) {
       lane._straightLane[i].display();
     }
-    for (let i = 0; i < lane.numLeftCars; i++) {
+    for (var i = 0; i < lane.numLeftCars; i++) {
         lane._leftLane[i].display();
     }
   }
@@ -168,7 +168,7 @@ function directionGen() {
     return direction;
 }
 function boxMuller() {
-  let x1, x2, w;
+  var x1, x2, w;
   do {
     do {
       x1 = (2.0 * Math.random()) - 1.0;
@@ -184,7 +184,7 @@ function changeSingleFrequency(lane, freq) {
   lane._frequency = freq;
 }
 function changeFrequency(freq) {
-  for (let lane of lanes) {
+  for (var lane of lanes) {
     changeSingleFrequency(lane, freq);
   }
 }

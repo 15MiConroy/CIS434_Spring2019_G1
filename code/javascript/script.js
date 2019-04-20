@@ -1,7 +1,7 @@
 /* Independent Global Parameters */
 var h = 700;
 var w = 800;
-let lightControl;
+var lightControl;
 var low=700;
 var high=325;
 var bigboi=7777777777777777777777777777777777777777777777777777777777;
@@ -11,10 +11,10 @@ String.prototype.replaceAt=function(index, replacement) {
 }
 
 /* Create the 4 Lanes */
-let laneN = new Lane("north", low, "y",  1, 210, 290,   -140,    0);
-let laneE = new Lane("east",  low, "x", -1, 490, w+100,  255,    1);
-let laneS = new Lane("south", low, "y", -1, 455, 465,   h+100,   2);
-let laneW = new Lane("west",  low, "x",  1, 240, -140,   420,    3);
+var laneN = new Lane("north", low, "y",  1, 210, 290,   -140,    0);
+var laneE = new Lane("east",  low, "x", -1, 490, w+100,  255,    1);
+var laneS = new Lane("south", low, "y", -1, 455, 465,   h+100,   2);
+var laneW = new Lane("west",  low, "x",  1, 240, -140,   420,    3);
 lanes = [laneN, laneE, laneS, laneW]
 
 function progress() {
@@ -36,7 +36,7 @@ function setup() {
     lightControl = new LightControl(laneN, laneE, laneS, laneW);
     createCanvas(w, h);
     background(00,66,45);
-    for (let lane of lanes) {
+    for (var lane of lanes) {
         lane.addCar();
     }
     stopSimulation();

@@ -66,19 +66,19 @@ class Lane {
         return this.hasStraight() || this.hasLeft();
     }
     addCar() {
-        let direction = directionGen();
+        var direction = directionGen();
         if(direction  == "L") {
-            let car = new Car(this._carPos, this._leftX, this._leftY, colorGen(), this, direction);
+            var car = new Car(this._carPos, this._leftX, this._leftY, colorGen(), this, direction);
             car._myIndex = this._leftLane.length;
             this._leftLane[this._leftLane.length] = car;
         } else {
-            let car = new Car(this._carPos, this._startX, this._startY, colorGen(), this, direction);
+            var car = new Car(this._carPos, this._startX, this._startY, colorGen(), this, direction);
             car._myIndex = this._straightLane.length;
             this._straightLane[this._straightLane.length] = car;
         }
     }
     compare(car, reference) {
-        let dim;
+        var dim;
         if (this._pos == "x") {
             dim = car.x;
         } else {
@@ -216,7 +216,7 @@ class Car {
             this._turned = true;	
         }	
         if(this._turned) {
-            let temp = this._carWidth;
+            var temp = this._carWidth;
             this._carWidth = this._carLength;
             this._carLength = temp;
         }
@@ -227,7 +227,7 @@ class Car {
         } else if(this._lane.pastDottedLine(this)) {
             this.move();
         } else {
-            let nextCar = this._lane._straightLane[this._myIndex - 1];
+            var nextCar = this._lane._straightLane[this._myIndex - 1];
             if (this._lane._pos == "x") {
                 if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
                     if (this._x  * this.sign < (this._lane._dLine - (60 * this.sign)) * this.sign) {
@@ -260,7 +260,7 @@ class Car {
         } else if(this._lane.pastDottedLine(this)) {
             this.move();
         } else {
-            let nextCar = this._lane._leftLane[this._myIndex - 1];
+            var nextCar = this._lane._leftLane[this._myIndex - 1];
             if (this._lane._pos == "x") {
                 if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
                     if (this._x  * this.sign < (this._lane._dLine - (60 * this.sign)) * this.sign) {
@@ -317,7 +317,7 @@ class LightControl {
             this.changeState(this._q.pop(), this._q.pop());
             return;
         }
-        for (let i = 0; i < 4; i++) {
+        for (var i = 0; i < 4; i++) {
             this._state = this._state.replaceAt(i, newState[i]);
             this._lanes[i].light = newState[i];
         }
@@ -331,22 +331,22 @@ class LightControl {
         return 1;
     }
     bothLeft() {
-        let s = "RRRR";
-        let ortho = this.orthogonal();
+        var s = "RRRR";
+        var ortho = this.orthogonal();
         s = s.replaceAt(ortho, "L");
         s = s.replaceAt(ortho + 2, "L");
         return s;
     }
     bothStraight() {
-        let s = "RRRR";
-        let ortho = this.orthogonal();
+        var s = "RRRR";
+        var ortho = this.orthogonal();
         s = s.replaceAt(ortho, "G");
         s = s.replaceAt(ortho + 2, "G");
         return s;
     }
     singleDisplay(n) {
-        let s = "RRRR";
-        let ortho = this.orthogonal();
+        var s = "RRRR";
+        var ortho = this.orthogonal();
         s = s.replaceAt(2 * n + ortho, "A");
         return s;
     }
@@ -361,7 +361,7 @@ class LightControl {
                 forceHandoff();
             }
         }
-        let gen;
+        var gen;
         if (command == "bothLeft") {
             gen = this.bothLeft();
         } else if (command == "bothStraight") {
@@ -382,7 +382,7 @@ class LightControl {
         }
     }
     forceHandoff() {
-        let temp = [this._a[0], this._a[1]];
+        var temp = [this._a[0], this._a[1]];
         this._a = [this._i[0], this._i[1]];
         this._i = [temp[0], temp[1]];
     }
@@ -398,12 +398,12 @@ class LightControl {
     }
     createPattern() {
         this._q = [];
-        let tQ = [];
+        var tQ = [];
         if (this._a[0].hasLeft() && this._a[1].hasLeft()) {
             tQ.unshift(this.bothLeft());
             tQ.unshift(180);
         } else if (this._a[0].hasLeft() || this._a[1].hasLeft()) {
-            let left = 0;
+            var left = 0;
             if (this._a[1].hasLeft()) {
                 left = 1;
             }
@@ -412,18 +412,18 @@ class LightControl {
         }
         tQ.unshift(this.bothStraight());
         tQ.unshift(300);
-        let prevPos = -1;
+        var prevPos = -1;
         while (tQ.length > 0) {
-            let nextState = tQ.pop();
-            let dur = tQ.pop();
-            let prevState;
+            var nextState = tQ.pop();
+            var dur = tQ.pop();
+            var prevState;
             if (prevPos == -1) {
                 prevState = this._state;
             } else {
                 prevState = this._q[prevPos];
             }
-            let trans = prevState;
-            for (let i = 0; i < 4; i++) {
+            var trans = prevState;
+            for (var i = 0; i < 4; i++) {
                 if (prevState[i] != "R" && prevState[i] != nextState[i]) {
                     if (prevState[i] == "A") {
                         trans = trans.replaceAt(i, "G");
