@@ -168,11 +168,6 @@ function directionGen() {
     var direction = directionArray[Math.floor(Math.random() * 3) - 1];
     return direction;
 }
-var freq;
-var randCarGen;
-var low=500;
-var high=250;
-var bigboi=7777777777777777777777777777777777777777777777777777777777;
 function changeSingleFrequency(lane, freq) {
   lane._timer = freq;
   lane._frequency = freq;
