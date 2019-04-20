@@ -37,6 +37,9 @@ function setup() {
     lightControl = new LightControl(laneN, laneE, laneS, laneW);
     createCanvas(w, h);
     background(00,66,45);
+    for (let lane of lanes) {
+        lane.addCar();
+    }
     noLoop();
 }
 
