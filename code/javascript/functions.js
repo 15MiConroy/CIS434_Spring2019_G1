@@ -168,6 +168,18 @@ function directionGen() {
     var direction = directionArray[Math.floor(Math.random() * 3) - 1];
     return direction;
 }
+function boxMuller() {
+  let x1, x2, w;
+  do {
+    do {
+      x1 = (2.0 * Math.random()) - 1.0;
+      x2 = (2.0 * Math.random()) - 1.0;
+      w  = (x1 * x1) + (x2 * x2);
+    } while (w >= 1.0);
+    w = Math.sqrt((-2.0 * Math.log(w)) / w);
+  } while (w > 1.5 || w < 0.5);
+  return w;
+}
 function changeSingleFrequency(lane, freq) {
   lane._timer = freq;
   lane._frequency = freq;

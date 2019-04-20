@@ -99,13 +99,9 @@ class Lane {
     }
     progress(){
     this._timer -= 1;
-      // randCarGen = [Math.floor(Math.random() * (40*this._frequency))];
       if (this._timer <= 0) {
-        this._timer += this._frequency;
+        this._timer += this._frequency * boxMuller();
         this.addCar();
-        // if (this._frequency>=randCarGen){
-        //   this.addCar();
-        // }
       }
     }
 }
