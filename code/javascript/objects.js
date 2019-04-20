@@ -95,18 +95,17 @@ class Lane {
     pastLeftTurnLine(car) {	
         return this.compare(car, this._leftTurnLine);	
     }
-    progress(){
-    this._timer -= 1;
-      if (this._timer <= 0) {
-        this._timer += this._frequency * boxMuller();
-        this.addCar();
-      }
+    progress() {
+        this._timer -= 1;
+        if (this._timer <= 0) {
+            this._timer += this._frequency * boxMuller();
+            this.addCar();
+        }
     }
 }
 
 class Car {
     constructor(positionIndex, startX, startY, color, lane, direction) {
-
         this._direction = direction;
         this._x = startX;
         this._y = startY;
@@ -179,7 +178,7 @@ class Car {
         this._x = this._x + this._xSpeed;
         this._y = this._y + this._ySpeed;
     }
-    turn(){	
+    turn() {
         if(this._direction == "R" & this.lane.name == "north" & this._lane.pastRightTurnLine(this)) {	
             this._xSpeed = -1;	
             this._ySpeed = 0;	
@@ -222,9 +221,9 @@ class Car {
         }
     }
     update() {
-        if(this.lane.light == 'G' || this.lane.light == 'A') {
+        if (this.lane.light == 'G' || this.lane.light == 'A') {
             this.move();
-        } else if(this._lane.pastDottedLine(this)) {
+        } else if (this._lane.pastDottedLine(this)) {
             this.move();
         } else {
             var nextCar = this._lane._straightLane[this._myIndex - 1];
@@ -250,14 +249,14 @@ class Car {
                 }
             }
         }
-        if(!this._turned){  
+        if(!this._turned) {  
             this.turn();    
         }
     }
     updateLeft() {
         if(this.lane.light == 'L' || this.lane.light == 'A') {
             this.move();
-        } else if(this._lane.pastDottedLine(this)) {
+        } else if (this._lane.pastDottedLine(this)) {
             this.move();
         } else {
             var nextCar = this._lane._leftLane[this._myIndex - 1];
@@ -283,17 +282,15 @@ class Car {
                 }
             }
         }
-        if(!this._turned){	
+        if (!this._turned) {	
             this.turn();	
         }
     }
     display() {
         fill(this._color);
-        if (this._lane._name == "west" || this._lane._name == "east" )
-        {
+        if (this._lane._name == "west" || this._lane._name == "east" ) {
             rect(this._x, this._y, this._carWidth, this._carLength);
-        }
-        else {
+        } else {
             rect(this._x, this._y, this._carLength, this._carWidth);
         }
        // circle(this._x, this._y, 10);
