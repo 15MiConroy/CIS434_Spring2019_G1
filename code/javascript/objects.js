@@ -184,12 +184,6 @@ class Car {
         return !this._moving;
     }
     move() {
-        this._moving = true;
-    }
-    stop() {
-        this._moving = false;
-    }
-    move() {
         this._x = this._x + this._xSpeed;
         this._y = this._y + this._ySpeed;
     }
