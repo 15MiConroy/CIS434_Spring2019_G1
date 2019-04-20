@@ -194,7 +194,3 @@ function changeSFrequency(freq) {
 function changeWFrequency(freq) {
   changeSingleFrequency(laneW, freq);
 }
-function startDeadSimulation() {
-  changeFrequency(bigboi);
-  startSimulation();
-}
