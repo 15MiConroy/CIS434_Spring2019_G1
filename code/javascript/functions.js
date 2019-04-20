@@ -32,6 +32,12 @@ function updateLightColor() {
         fill("yellow");
         circle(238, 111, 20);
     }
+    else if (laneN._light == "A"){
+      fill("green");
+      circle(238, 157, 20);
+      fill("blue");
+      circle(238, 203, 20);
+    }
     else if (laneN._light == "G")
     {
         fill("green");
@@ -39,8 +45,10 @@ function updateLightColor() {
     }
     else if (laneN._light == "L")
     {
-        fill("blue");
-        circle(238, 203, 20);
+    //    fill("blue");
+      //  circle(238, 203, 20);
+      fill("green");
+      triangle(226, 210, 226, 196, 238, 210)
     }
     //East
     if (laneE._light == "R")
@@ -53,6 +61,12 @@ function updateLightColor() {
         fill("yellow");
         circle(626, 204, 20);
     }
+    else if (laneE._light == "A"){
+      fill("green");
+      circle(580, 204, 20);
+      fill("blue");
+      circle(534, 204, 20);
+    }
     else if (laneE._light == "G")
     {
         fill("green");
@@ -61,7 +75,7 @@ function updateLightColor() {
     else if (laneE._light == "L")
     {
         fill("blue");
-        circle(532, 204, 20);
+        circle(534, 204, 20);
     }
     //West
     if (laneW._light == "R"){
@@ -72,6 +86,12 @@ function updateLightColor() {
     {
         fill("yellow");
         circle(142, 497, 20);
+    }
+    else if(laneW._light == "A"){
+      fill("green");
+      circle(188, 497, 20);
+      fill("blue");
+      circle(234, 497, 20);
     }
     else if (laneW._light == "G")
     {
@@ -92,6 +112,12 @@ function updateLightColor() {
     {
         fill("yellow");
         circle(530, 590, 20);
+    }
+    else if (laneS._light == "A"){
+      fill("green");
+      circle(530, 544, 20);
+      fill("blue");
+      circle(530, 498, 20);
     }
     else if (laneS._light == "G")
     {
@@ -144,8 +170,8 @@ function directionGen() {
 }
 var freq;
 var randCarGen;
-var low=15;
-var high=10;
+var low=500;
+var high=250;
 var bigboi=7777777777777777777777777777777777777777777777777777777777;
 function changeSingleFrequency(lane, freq) {
   lane._timer = freq;
