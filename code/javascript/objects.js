@@ -1,5 +1,3 @@
-let LANE_LENGTH = 5;
-
 class Lane {
     constructor(name, frequency = bigboi, pos, sign, dLine, startX, startY, carPos) {
         this._name = name;
@@ -176,12 +174,6 @@ class Car {
     }
     set ySpeed(ySpeed){
         this._ySpeed = ySpeed;
-    }
-    isMoving() {
-        return this._moving;
-    }
-    isNotMoving() {
-        return !this._moving;
     }
     move() {
         this._x = this._x + this._xSpeed;
