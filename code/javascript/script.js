@@ -4,7 +4,7 @@ var w = 800;
 var lightControl;
 var low = 700;
 var high = 325;
-var bigboi = 7777777777777777777777777777777777777777777777777777777777;
+var tinytim = -1;
 
 String.prototype.replaceAt=function(index, replacement) {
     return this.substr(0, index) + replacement+ this.substr(index + replacement.length);

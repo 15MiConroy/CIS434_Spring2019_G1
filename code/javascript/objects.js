@@ -1,5 +1,5 @@
 class Lane {
-    constructor(name, frequency = bigboi, pos, sign, dLine, startX, startY, carPos) {
+    constructor(name, frequency = tinytim, pos, sign, dLine, startX, startY, carPos) {
         this._name = name;
         this._frequency = frequency;
         this._pos = pos;
@@ -96,10 +96,12 @@ class Lane {
         return this.compare(car, this._leftTurnLine);	
     }
     progress() {
-        this._timer -= 1;
-        if (this._timer <= 0) {
-            this._timer += this._frequency * boxMuller();
-            this.addCar();
+        if (this._frequency > 0) {
+            this._timer -= 1;
+            if (this._timer <= 0) {
+                this._timer += this._frequency * boxMuller();
+                this.addCar();
+            }
         }
     }
 }
