@@ -170,8 +170,8 @@ function directionGen() {
 }
 var freq;
 var randCarGen;
-var low=15;
-var high=10;
+var low=500;
+var high=250;
 var bigboi=7777777777777777777777777777777777777777777777777777777777;
 function changeSingleFrequency(lane, freq) {
   lane._timer = freq;
