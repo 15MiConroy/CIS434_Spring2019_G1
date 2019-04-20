@@ -1,4 +1,3 @@
-lanes = [laneN, laneE, laneS, laneW]
 function updateCars() {
   for (let lane of lanes){
     for (let i = 0; i < lane.numCars; i++) {
