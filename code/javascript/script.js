@@ -5,6 +5,11 @@ var lightControl;
 var low = 700;
 var high = 325;
 var tinytim = -1;
+var gTime = 300;
+var rTime = 240;
+var yTime = 120;
+var lTime = 300;
+var aTime = 300;
 
 String.prototype.replaceAt=function(index, replacement) {
     return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
