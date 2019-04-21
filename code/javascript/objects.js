@@ -274,46 +274,14 @@ class Car {
             this._carLength = temp;
         }
     }
-    update() {
-        if (this.lane.light == 'G' || this.lane.light == 'A') {
+
+    update(goColor, lane) {
+        if (this.lane.light == goColor || this.lane.light == 'A') {
             this.move();
         } else if (this._lane.pastDottedLine(this)) {
             this.move();
         } else {
-            var nextCar = this._lane._straightLane[this._myIndex - 1];
-            if (this._lane._pos == "x") {
-                if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
-                    if (this._x  * this.sign < (this._lane._dLine - (60 * this.sign)) * this.sign) {
-                        this.move();
-                    }
-                } else {
-                    if (!this._lane.pastDottedLine(nextCar) && this._x * this.sign < (nextCar._x - (60 * this.sign)) * this.sign) {
-                        this.move();
-                    }
-                }
-            } else if (this._lane._pos == "y") {
-                if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
-                    if (this._y  * this.sign < (this._lane._dLine - (60 * this.sign)) * this.sign) {
-                        this.move();
-                    }
-                } else {
-                    if (!this._lane.pastDottedLine(nextCar) && this._y * this.sign < (nextCar._y - (60* this.sign)) * this.sign) {
-                        this.move();
-                    }
-                }
-            }
-        }
-        if(!this._turned) {  
-            this.turn();    
-        }
-    }
-    updateLeft() {
-        if(this.lane.light == 'L' || this.lane.light == 'A') {
-            this.move();
-        } else if (this._lane.pastDottedLine(this)) {
-            this.move();
-        } else {
-            var nextCar = this._lane._leftLane[this._myIndex - 1];
+            var nextCar = lane[this._myIndex - 1];
             if (this._lane._pos == "x") {
                 if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
                     if (this._x  * this.sign < (this._lane._dLine - (60 * this.sign)) * this.sign) {
@@ -336,9 +304,15 @@ class Car {
                 }
             }
         }
-        if (!this._turned) {	
-            this.turn();	
+        if (!this._turned) {  
+            this.turn();    
         }
+    }
+    updateStraight() {
+        this.update('G', this._lane._straightLane);
+    }
+    updateLeft() {
+        this.update('L', this._lane._leftLane);
     }
     display() {
         fill(this._color);
@@ -440,32 +414,22 @@ class LightControl {
         this._a = [this._i[0], this._i[1]];
         this._i = [temp[0], temp[1]];
     }
-    updateQueue() {
-        this._queue.unshift(180);
-        this._queue.unshift("RRRR");
-        this._queue.unshift(600);
-        if (this._lastState == "GRGR") {
-            this._queue.unshift("RGRG");
-        } else {
-            this._queue.unshift("GRGR");
-        }
-    }
     createPattern() {
         this._q = [];
         var tQ = [];
         if (this._a[0].hasLeft() && this._a[1].hasLeft()) {
             tQ.unshift(this.bothLeft());
-            tQ.unshift(180);
+            tQ.unshift(lTime);
         } else if (this._a[0].hasLeft() || this._a[1].hasLeft()) {
             var left = 0;
             if (this._a[1].hasLeft()) {
                 left = 1;
             }
             tQ.unshift(this.singleDisplay(left));
-            tQ.unshift(180);
+            tQ.unshift(aTime);
         }
         tQ.unshift(this.bothStraight());
-        tQ.unshift(300);
+        tQ.unshift(gTime);
         var prevPos = -1;
         while (tQ.length > 0) {
             var nextState = tQ.pop();
@@ -497,20 +461,20 @@ class LightControl {
             if (trans != nextState) {
                 if (trans.includes("Y")) {
                     this._q.unshift(trans);
-                    this._q.unshift(120);
+                    this._q.unshift(yTime);
                     trans = trans.replace("Y", "R");
                     trans = trans.replace("Y", "R");
                     this._q.unshift(trans);
-                    this._q.unshift(180);
+                    this._q.unshift(rTime);
                     prevPos += 2;
                 } else {
                     this._q.unshift(trans);
-                    this._q.unshift(180);
+                    this._q.unshift(rTime);
                     prevPos += 2;
                 }
             }
             this._q.unshift(nextState);
-            this._q.unshift(300);
+            this._q.unshift(dur);
             prevPos += 2;
         }
         this._q.unshift("handoff");
