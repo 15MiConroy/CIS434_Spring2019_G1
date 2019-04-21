@@ -1,20 +1,19 @@
-lanes = [laneN, laneE, laneS, laneW]
 function updateCars() {
-  for (let lane of lanes){
-    for (let i = 0; i < lane.numCars; i++) {
+  for (var lane of lanes){
+    for (var i = 0; i < lane.numCars; i++) {
       lane._straightLane[i].update();
     }
-    for (let i = 0; i < lane.numLeftCars; i++) {
+    for (var i = 0; i < lane.numLeftCars; i++) {
         lane._leftLane[i].updateLeft();
     }
   }
 }
 function displayCars() {
-  for (let lane of lanes) {
-    for (let i = 0; i < lane.numCars; i++) {
+  for (var lane of lanes) {
+    for (var i = 0; i < lane.numCars; i++) {
       lane._straightLane[i].display();
     }
-    for (let i = 0; i < lane.numLeftCars; i++) {
+    for (var i = 0; i < lane.numLeftCars; i++) {
         lane._leftLane[i].display();
     }
   }
@@ -182,17 +181,24 @@ function directionGen() {
     var direction = directionArray[Math.floor(Math.random() * 3) - 1];
     return direction;
 }
-var freq;
-var randCarGen;
-var low=500;
-var high=250;
-var bigboi=7777777777777777777777777777777777777777777777777777777777;
+function boxMuller() {
+  var x1, x2, w;
+  do {
+    do {
+      x1 = (2.0 * Math.random()) - 1.0;
+      x2 = (2.0 * Math.random()) - 1.0;
+      w  = (x1 * x1) + (x2 * x2);
+    } while (w >= 1.0);
+    w = Math.sqrt((-2.0 * Math.log(w)) / w);
+  } while (w > 1.5 || w < 0.5);
+  return w;
+}
 function changeSingleFrequency(lane, freq) {
   lane._timer = freq;
   lane._frequency = freq;
 }
 function changeFrequency(freq) {
-  for (let lane of lanes) {
+  for (var lane of lanes) {
     changeSingleFrequency(lane, freq);
   }
 }
@@ -207,8 +213,4 @@ function changeSFrequency(freq) {
 }
 function changeWFrequency(freq) {
   changeSingleFrequency(laneW, freq);
-}
-function startDeadSimulation() {
-  changeFrequency(bigboi);
-  startSimulation();
 }
