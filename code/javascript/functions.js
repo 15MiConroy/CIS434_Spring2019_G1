@@ -35,8 +35,10 @@ function updateLightColor() {
     else if (laneN._light == "A"){
       fill("green");
       circle(238, 157, 20);
-      fill("blue");
-      circle(238, 203, 20);
+      fill("green");
+      rect(225,197,20,11);
+      fill("green");
+      triangle(240, 215, 240, 191, 253, 203);
     }
     else if (laneN._light == "G")
     {
@@ -45,10 +47,10 @@ function updateLightColor() {
     }
     else if (laneN._light == "L")
     {
-    //    fill("blue");
-      //  circle(238, 203, 20);
       fill("green");
-      triangle(226, 210, 226, 196, 238, 210)
+      rect(225,197,20,11);
+      fill("green");
+      triangle(240, 215, 240, 191, 253, 203);
     }
     //East
     if (laneE._light == "R")
@@ -64,8 +66,10 @@ function updateLightColor() {
     else if (laneE._light == "A"){
       fill("green");
       circle(580, 204, 20);
-      fill("blue");
-      circle(534, 204, 20);
+      fill("green");
+      rect(528,191,11,15);
+      fill("green");
+      triangle(522, 206, 546, 206, 534, 219);
     }
     else if (laneE._light == "G")
     {
@@ -74,8 +78,10 @@ function updateLightColor() {
     }
     else if (laneE._light == "L")
     {
-        fill("blue");
-        circle(534, 204, 20);
+        fill("green");
+        rect(528,191,11,15);
+        fill("green");
+        triangle(522, 206, 546, 206, 534, 219);
     }
     //West
     if (laneW._light == "R"){
@@ -90,8 +96,10 @@ function updateLightColor() {
     else if(laneW._light == "A"){
       fill("green");
       circle(188, 497, 20);
-      fill("blue");
-      circle(234, 497, 20);
+    fill("green");
+    rect(228,494,11,16);
+    fill("green");
+    triangle(222, 495, 246, 495, 234, 482);
     }
     else if (laneW._light == "G")
     {
@@ -100,8 +108,10 @@ function updateLightColor() {
     }
     else if (laneW._light == "L")
     {
-        fill("blue");
-        circle(234, 497, 20);
+        fill("green");
+        rect(228,494,11,16);
+        fill("green");
+        triangle(222, 495, 246, 495, 234, 482);
     }
     //South
     if (laneS._light == "R"){
@@ -116,8 +126,10 @@ function updateLightColor() {
     else if (laneS._light == "A"){
       fill("green");
       circle(530, 544, 20);
-      fill("blue");
-      circle(530, 498, 20);
+      fill("green");
+      rect(527,492,16,11);
+      fill("green");
+      triangle(528, 486, 528, 510, 515, 498);
     }
     else if (laneS._light == "G")
     {
@@ -126,8 +138,10 @@ function updateLightColor() {
     }
     else if (laneS._light == "L")
     {
-        fill("blue");
-        circle(530, 498, 20);
+        fill("green");
+        rect(527,492,16,11);
+        fill("green");
+        triangle(528, 486, 528, 510, 515, 498);
     }
 }
 function greyLights() {
