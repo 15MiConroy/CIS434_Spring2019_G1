@@ -180,8 +180,8 @@ function boxMuller() {
   return w;
 }
 function changeSingleFrequency(lane, freq) {
-  lane._timer = freq;
-  lane._frequency = freq;
+  lane.timer = (lane.timer / lane.frequency) * freq;
+  lane.frequency = freq;
 }
 function changeFrequency(freq) {
   for (var lane of lanes) {

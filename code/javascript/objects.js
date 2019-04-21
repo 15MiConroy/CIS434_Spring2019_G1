@@ -48,11 +48,17 @@ class Lane {
     get sign() {
         return this._sign;
     }
+    get timer() {
+        return this._timer;
+    }
     set light(l) {
         this._light = l;
     }
     set frequency(f) {
       this._frequency = f;
+    }
+    set timer(t) {
+        this._timer = Math.floor(t);
     }
     hasLeft() {
         if (this._leftLane.length == 0) {
