@@ -383,11 +383,11 @@ class LightControl {
         if (laneReference == "N" || laneReference == "S") {
             // make sure N & S are active
             if (this._a[0] != this._lanes[0]) {
-                forceHandoff();
+                this.forceHandoff();
             }
         } else {
             if (this._a[0] != this._lanes[1]) {
-                forceHandoff();
+                this.forceHandoff();
             }
         }
         var gen;
@@ -403,7 +403,10 @@ class LightControl {
             }
         }
         this._q = [];
-        changeState(gen, 300);
+        this._q.unshift("handoff");
+        this._q.unshift(0);
+        this.changeState(gen, 300);
+        draw();
     }
     handoff() {
         if (this._i[0].hasCar() || this._i[1].hasCar()) {
