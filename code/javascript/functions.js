@@ -1,20 +1,19 @@
-lanes = [laneN, laneE, laneS, laneW]
 function updateCars() {
-  for (let lane of lanes){
-    for (let i = 0; i < lane.numCars; i++) {
+  for (var lane of lanes){
+    for (var i = 0; i < lane.numCars; i++) {
       lane._straightLane[i].update();
     }
-    for (let i = 0; i < lane.numLeftCars; i++) {
+    for (var i = 0; i < lane.numLeftCars; i++) {
         lane._leftLane[i].updateLeft();
     }
   }
 }
 function displayCars() {
-  for (let lane of lanes) {
-    for (let i = 0; i < lane.numCars; i++) {
+  for (var lane of lanes) {
+    for (var i = 0; i < lane.numCars; i++) {
       lane._straightLane[i].display();
     }
-    for (let i = 0; i < lane.numLeftCars; i++) {
+    for (var i = 0; i < lane.numLeftCars; i++) {
         lane._leftLane[i].display();
     }
   }
@@ -32,6 +31,14 @@ function updateLightColor() {
         fill("yellow");
         circle(238, 111, 20);
     }
+    else if (laneN._light == "A"){
+      fill("green");
+      circle(238, 157, 20);
+      fill("green");
+      rect(225,197,20,11);
+      fill("green");
+      triangle(240, 215, 240, 191, 253, 203);
+    }
     else if (laneN._light == "G")
     {
         fill("green");
@@ -39,8 +46,10 @@ function updateLightColor() {
     }
     else if (laneN._light == "L")
     {
-        fill("blue");
-        circle(238, 203, 20);
+      fill("green");
+      rect(225,197,20,11);
+      fill("green");
+      triangle(240, 215, 240, 191, 253, 203);
     }
     //East
     if (laneE._light == "R")
@@ -53,6 +62,14 @@ function updateLightColor() {
         fill("yellow");
         circle(626, 204, 20);
     }
+    else if (laneE._light == "A"){
+      fill("green");
+      circle(580, 204, 20);
+      fill("green");
+      rect(528,191,11,15);
+      fill("green");
+      triangle(522, 206, 546, 206, 534, 219);
+    }
     else if (laneE._light == "G")
     {
         fill("green");
@@ -60,8 +77,10 @@ function updateLightColor() {
     }
     else if (laneE._light == "L")
     {
-        fill("blue");
-        circle(532, 204, 20);
+        fill("green");
+        rect(528,191,11,15);
+        fill("green");
+        triangle(522, 206, 546, 206, 534, 219);
     }
     //West
     if (laneW._light == "R"){
@@ -73,6 +92,14 @@ function updateLightColor() {
         fill("yellow");
         circle(142, 497, 20);
     }
+    else if(laneW._light == "A"){
+      fill("green");
+      circle(188, 497, 20);
+    fill("green");
+    rect(228,494,11,16);
+    fill("green");
+    triangle(222, 495, 246, 495, 234, 482);
+    }
     else if (laneW._light == "G")
     {
         fill("green");
@@ -80,8 +107,10 @@ function updateLightColor() {
     }
     else if (laneW._light == "L")
     {
-        fill("blue");
-        circle(234, 497, 20);
+        fill("green");
+        rect(228,494,11,16);
+        fill("green");
+        triangle(222, 495, 246, 495, 234, 482);
     }
     //South
     if (laneS._light == "R"){
@@ -93,6 +122,14 @@ function updateLightColor() {
         fill("yellow");
         circle(530, 590, 20);
     }
+    else if (laneS._light == "A"){
+      fill("green");
+      circle(530, 544, 20);
+      fill("green");
+      rect(527,492,16,11);
+      fill("green");
+      triangle(528, 486, 528, 510, 515, 498);
+    }
     else if (laneS._light == "G")
     {
         fill("green");
@@ -100,8 +137,10 @@ function updateLightColor() {
     }
     else if (laneS._light == "L")
     {
-        fill("blue");
-        circle(530, 498, 20);
+        fill("green");
+        rect(527,492,16,11);
+        fill("green");
+        triangle(528, 486, 528, 510, 515, 498);
     }
 }
 function greyLights() {
@@ -142,17 +181,24 @@ function directionGen() {
     var direction = directionArray[Math.floor(Math.random() * 3) - 1];
     return direction;
 }
-var freq;
-var randCarGen;
-var low=15;
-var high=10;
-var bigboi=7777777777777777777777777777777777777777777777777777777777;
+function boxMuller() {
+  var x1, x2, w;
+  do {
+    do {
+      x1 = (2.0 * Math.random()) - 1.0;
+      x2 = (2.0 * Math.random()) - 1.0;
+      w  = (x1 * x1) + (x2 * x2);
+    } while (w >= 1.0);
+    w = Math.sqrt((-2.0 * Math.log(w)) / w);
+  } while (w > 1.5 || w < 0.5);
+  return w;
+}
 function changeSingleFrequency(lane, freq) {
-  lane._timer = freq;
-  lane._frequency = freq;
+  lane.timer = (lane.timer / lane.frequency) * freq;
+  lane.frequency = freq;
 }
 function changeFrequency(freq) {
-  for (let lane of lanes) {
+  for (var lane of lanes) {
     changeSingleFrequency(lane, freq);
   }
 }
@@ -167,8 +213,4 @@ function changeSFrequency(freq) {
 }
 function changeWFrequency(freq) {
   changeSingleFrequency(laneW, freq);
-}
-function startDeadSimulation() {
-  changeFrequency(bigboi);
-  startSimulation();
 }

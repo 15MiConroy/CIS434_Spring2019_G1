@@ -1,18 +1,21 @@
 /* Independent Global Parameters */
 var h = 700;
 var w = 800;
+var lightControl;
+var low = 700;
+var high = 325;
+var tinytim = -1;
+
 String.prototype.replaceAt=function(index, replacement) {
     return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
 }
 
 /* Create the 4 Lanes */
-let lightControl;
-let laneN = new Lane("north", 275, "y",  1, 210, 290, -20,   0);
-let laneE = new Lane("east",  300, "x", -1, 490, w+10,   255, 1);
-let laneS = new Lane("south", 325, "y", -1, 455, 465, h+20,   2);
-let laneW = new Lane("west",  350, "x",  1, 240, -10,   420, 3);
-
-let x = 0;
+var laneN = new Lane("north", low, "y",  1, 210, 290,   -140,    0);
+var laneE = new Lane("east",  low, "x", -1, 490, w+100,  255,    1);
+var laneS = new Lane("south", low, "y", -1, 455, 465,   h+100,   2);
+var laneW = new Lane("west",  low, "x",  1, 240, -140,   420,    3);
+lanes = [laneN, laneE, laneS, laneW]
 
 function progress() {
     lightControl.progress();
@@ -33,7 +36,10 @@ function setup() {
     lightControl = new LightControl(laneN, laneE, laneS, laneW);
     createCanvas(w, h);
     background(00,66,45);
-    noLoop();
+    for (var lane of lanes) {
+        lane.timer = 20 * boxMuller();
+    }
+    stopSimulation();
 }
 
 function draw() {
