@@ -274,46 +274,14 @@ class Car {
             this._carLength = temp;
         }
     }
-    update() {
-        if (this.lane.light == 'G' || this.lane.light == 'A') {
+
+    update(goColor, lane) {
+        if (this.lane.light == goColor || this.lane.light == 'A') {
             this.move();
         } else if (this._lane.pastDottedLine(this)) {
             this.move();
         } else {
-            var nextCar = this._lane._straightLane[this._myIndex - 1];
-            if (this._lane._pos == "x") {
-                if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
-                    if (this._x  * this.sign < (this._lane._dLine - (60 * this.sign)) * this.sign) {
-                        this.move();
-                    }
-                } else {
-                    if (!this._lane.pastDottedLine(nextCar) && this._x * this.sign < (nextCar._x - (60 * this.sign)) * this.sign) {
-                        this.move();
-                    }
-                }
-            } else if (this._lane._pos == "y") {
-                if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
-                    if (this._y  * this.sign < (this._lane._dLine - (60 * this.sign)) * this.sign) {
-                        this.move();
-                    }
-                } else {
-                    if (!this._lane.pastDottedLine(nextCar) && this._y * this.sign < (nextCar._y - (60* this.sign)) * this.sign) {
-                        this.move();
-                    }
-                }
-            }
-        }
-        if(!this._turned) {  
-            this.turn();    
-        }
-    }
-    updateLeft() {
-        if(this.lane.light == 'L' || this.lane.light == 'A') {
-            this.move();
-        } else if (this._lane.pastDottedLine(this)) {
-            this.move();
-        } else {
-            var nextCar = this._lane._leftLane[this._myIndex - 1];
+            var nextCar = lane[this._myIndex - 1];
             if (this._lane._pos == "x") {
                 if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
                     if (this._x  * this.sign < (this._lane._dLine - (60 * this.sign)) * this.sign) {
@@ -336,9 +304,15 @@ class Car {
                 }
             }
         }
-        if (!this._turned) {	
-            this.turn();	
+        if (!this._turned) {  
+            this.turn();    
         }
+    }
+    updateStraight() {
+        this.update('G', this._lane._straightLane);
+    }
+    updateLeft() {
+        this.update('L', this._lane._leftLane);
     }
     display() {
         fill(this._color);

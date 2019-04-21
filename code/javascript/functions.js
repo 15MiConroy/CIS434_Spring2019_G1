@@ -1,7 +1,7 @@
 function updateCars() {
   for (var lane of lanes){
     for (var i = 0; i < lane.numCars; i++) {
-      lane._straightLane[i].update();
+      lane._straightLane[i].updateStraight();
     }
     for (var i = 0; i < lane.numLeftCars; i++) {
         lane._leftLane[i].updateLeft();
