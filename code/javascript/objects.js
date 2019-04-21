@@ -333,6 +333,11 @@ class LightControl {
         this._q = [];
         this._state = "GRGR";
         this._timer = 0;
+        this._gTime = 300;
+        this._rTime = 240;
+        this._yTime = 120;
+        this._lTime = 300;
+        this._aTime = 300;
         this.createPattern();
     }
     changeState(newState, duration) {
@@ -419,17 +424,17 @@ class LightControl {
         var tQ = [];
         if (this._a[0].hasLeft() && this._a[1].hasLeft()) {
             tQ.unshift(this.bothLeft());
-            tQ.unshift(180);
+            tQ.unshift(this._lTime);
         } else if (this._a[0].hasLeft() || this._a[1].hasLeft()) {
             var left = 0;
             if (this._a[1].hasLeft()) {
                 left = 1;
             }
             tQ.unshift(this.singleDisplay(left));
-            tQ.unshift(180);
+            tQ.unshift(this._aTime);
         }
         tQ.unshift(this.bothStraight());
-        tQ.unshift(300);
+        tQ.unshift(this._gTime);
         var prevPos = -1;
         while (tQ.length > 0) {
             var nextState = tQ.pop();
@@ -461,20 +466,20 @@ class LightControl {
             if (trans != nextState) {
                 if (trans.includes("Y")) {
                     this._q.unshift(trans);
-                    this._q.unshift(120);
+                    this._q.unshift(this._yTime);
                     trans = trans.replace("Y", "R");
                     trans = trans.replace("Y", "R");
                     this._q.unshift(trans);
-                    this._q.unshift(180);
+                    this._q.unshift(this._rTime);
                     prevPos += 2;
                 } else {
                     this._q.unshift(trans);
-                    this._q.unshift(180);
+                    this._q.unshift(this._rTime);
                     prevPos += 2;
                 }
             }
             this._q.unshift(nextState);
-            this._q.unshift(300);
+            this._q.unshift(dur);
             prevPos += 2;
         }
         this._q.unshift("handoff");
