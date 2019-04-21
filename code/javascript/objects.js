@@ -414,16 +414,6 @@ class LightControl {
         this._a = [this._i[0], this._i[1]];
         this._i = [temp[0], temp[1]];
     }
-    updateQueue() {
-        this._queue.unshift(180);
-        this._queue.unshift("RRRR");
-        this._queue.unshift(600);
-        if (this._lastState == "GRGR") {
-            this._queue.unshift("RGRG");
-        } else {
-            this._queue.unshift("GRGR");
-        }
-    }
     createPattern() {
         this._q = [];
         var tQ = [];
