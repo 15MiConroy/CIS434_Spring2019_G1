@@ -25,6 +25,10 @@ class Lane {
         } else if (this._name == "west"){
             this._leftY = this._startY - 90;
         }
+        this._maxLine = startX;
+        if (this._pos == "y") {
+            this._maxLine = startY;
+        }
     }
     get name() {
         return this._name;
@@ -65,8 +69,34 @@ class Lane {
     hasCar() {
         return this.hasStraight() || this.hasLeft();
     }
+    lastCar(lane) {
+        return lane[lane.length - 1];
+    }
+    withinBounds(car, reference) {
+        var dim;
+        if (this._pos == "x") {
+            dim = car.x;
+        } else {
+            dim = car.y;
+        }
+        return dim * this._sign < reference * this._sign;
+    }
+    arrayMaxed(lane) {
+        var lastCar = this.lastCar(lane);
+        return lastCar != null && this.withinBounds(lastCar, this._maxLine + 60);
+    }
     addCar() {
-        var direction = directionGen();
+        var sMax = this.arrayMaxed(this._straightLane);
+        var lMax = this.arrayMaxed(this._leftLane);
+        if (sMax && lMax) return;
+        var direction;
+        if (sMax) {
+            direction = "L";
+        } else if (lMax) {
+            direction = "S";
+        } else {
+            direction = directionGen();
+        }
         if(direction  == "L") {
             var car = new Car(this._carPos, this._leftX, this._leftY, colorGen(), this, direction);
             car._myIndex = this._leftLane.length;
