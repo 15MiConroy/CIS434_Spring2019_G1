@@ -48,11 +48,17 @@ class Lane {
     get sign() {
         return this._sign;
     }
+    get timer() {
+        return this._timer;
+    }
     set light(l) {
         this._light = l;
     }
     set frequency(f) {
       this._frequency = f;
+    }
+    set timer(t) {
+        this._timer = Math.floor(t);
     }
     hasLeft() {
         if (this._leftLane.length == 0) {
@@ -85,6 +91,14 @@ class Lane {
         var lastCar = this.lastCar(lane);
         return lastCar != null && this.withinBounds(lastCar, this._maxLine + 60);
     }
+    cleanLane(lane) {
+        if (lane.length > 20) {
+            lane.splice(0, 10);
+            for (var i = 0; i < lane.length; i++) {
+                lane[i].index = i;
+            }
+        }
+    }
     addCar() {
         var sMax = this.arrayMaxed(this._straightLane);
         var lMax = this.arrayMaxed(this._leftLane);
@@ -101,10 +115,12 @@ class Lane {
             var car = new Car(this._carPos, this._leftX, this._leftY, colorGen(), this, direction);
             car._myIndex = this._leftLane.length;
             this._leftLane[this._leftLane.length] = car;
+            this.cleanLane(this._leftLane);
         } else {
             var car = new Car(this._carPos, this._startX, this._startY, colorGen(), this, direction);
             car._myIndex = this._straightLane.length;
             this._straightLane[this._straightLane.length] = car;
+            this.cleanLane(this._straightLane);
         }
     }
     compare(car, reference) {
@@ -176,6 +192,9 @@ class Car {
     get lane() {
         return this._lane;
     }
+    get index() {
+        return this._myIndex
+    }
     get color() {
         return this._color;
     }
@@ -196,6 +215,9 @@ class Car {
     }
     set y(newY) {
         this._y = newY;
+    }
+    set index(i) {
+        this._myIndex = i;
     }
     set color(color) {
         this._color = color;

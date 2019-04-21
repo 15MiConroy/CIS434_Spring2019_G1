@@ -37,7 +37,7 @@ function setup() {
     createCanvas(w, h);
     background(00,66,45);
     for (var lane of lanes) {
-        lane.addCar();
+        lane.timer = 20 * boxMuller();
     }
     stopSimulation();
 }
