@@ -126,6 +126,7 @@ class Car {
         this._turned = false;
         this._carLength = 20;
         this._carWidth = 40;
+        this._angle = 2;
 
         //setting speed of car (x and y direction)
         if(positionIndex == 0){
@@ -200,6 +201,24 @@ class Car {
         this._x = this._x + this._xSpeed;
         this._y = this._y + this._ySpeed;
     }
+    turning() {
+        if(this._direction == "L" & this.lane.name == "south" & this._lane.pastDottedLine(this)) {	
+            this._xSpeed = this._xSpeed - 0.05;	
+            //this._ySpeed = this._ySpeed + 0.1;
+            push();
+            translate(this._x, this._y);
+            rotate(this._angle);
+            fill(this._color);
+            rect(0, 0, this._carWidth, this._carLength);
+            pop();
+            this._angle = this.angle + .01;
+            if(this._angle >= 90) {
+            this._ySpeed = 0;	
+            this._xSpeed = -1;
+            this._turned = true;
+            }	
+        }
+    }
     turn(){	
         if(this._direction == "R" & this.lane.name == "north" & this._lane.pastRightTurnLine(this)) {	
             this._xSpeed = -1;	
@@ -236,11 +255,11 @@ class Car {
             this._ySpeed = 0;	
             this._turned = true;	
         }	
-        if(this._turned) {
-            let temp = this._carWidth;
-            this._carWidth = this._carLength;
-            this._carLength = temp;
-        }
+      //  if(this._turned) {
+      //      let temp = this._carWidth;
+      //      this._carWidth = this._carLength;
+      //      this._carLength = temp;
+      //  }
     }
     update() {
         if(this.lane.light == 'G' || this.lane.light == 'A') {
@@ -305,19 +324,24 @@ class Car {
             }
         }
         if(!this._turned){	
-            this.turn();	
+            this.turning();	
         }
     }
     display() {
         fill(this._color);
         if (this._lane._name == "west" || this._lane._name == "east" )
         {
-            rect(this._x, this._y, this._carWidth, this._carLength);
+            push();
+            translate(this._x, this._y);
+            rotate(this._angle);
+            rect(0, 0, this._carWidth, this._carLength);
+            pop();
+            this._angle = this._angle + 1;
         }
-        else {
+        else if(!this._lane.pastDottedLine(this) & this._turned == false){
             rect(this._x, this._y, this._carLength, this._carWidth);
         }
-       // circle(this._x, this._y, 10);
+        //circle(this._x, this._y, 10);
     }
 }
 

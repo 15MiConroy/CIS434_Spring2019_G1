@@ -34,6 +34,7 @@ function setup() {
     createCanvas(w, h);
     background(00,66,45);
     noLoop();
+    angleMode(DEGREES);
 }
 
 function draw() {
