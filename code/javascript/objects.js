@@ -1,4 +1,8 @@
 class Lane {
+    /* Input:   Name, frequency, position (x or y), sign (1 or -1), dotted line,
+                car starting X position, car starting Y position, lane position in
+                lanes array (0 to 3)
+       Output:  Instantiates the Lane object */
     constructor(name, frequency = tinytim, pos, sign, dLine, startX, startY, carPos) {
         this._name = name;
         this._frequency = frequency;
@@ -30,6 +34,7 @@ class Lane {
             this._maxLine = startY;
         }
     }
+    /* Getters and Setters */
     get name() {
         return this._name;
     }
@@ -60,24 +65,32 @@ class Lane {
     set timer(t) {
         this._timer = Math.floor(t);
     }
+    /* Output:  Returns true if a car is present in the left lane array */
     hasLeft() {
         if (this._leftLane.length == 0) {
             return false;
         }
         return !this.pastDottedLine(this._leftLane[this._leftLane.length - 1]);
     }
+    /* Output:  Returns true if a car is present in the straight lane array */
     hasStraight() {
         if (this._straightLane.length == 0) {
             return false;
         }
         return !this.pastDottedLine(this._straightLane[this._straightLane.length - 1]);
     }
+    /* Output:  Returns true if a car is present in either lane array */
     hasCar() {
         return this.hasStraight() || this.hasLeft();
     }
+    /* Input:   A lane array (either straight or left)
+       Output:  Returns the last car in that array */
     lastCar(lane) {
         return lane[lane.length - 1];
     }
+    /* Input:   A car, a reference point
+       Output:  Returns true if the car is beyond the reference point (based on the
+                lane's dimension) */
     withinBounds(car, reference) {
         var dim;
         if (this._pos == "x") {
@@ -87,10 +100,44 @@ class Lane {
         }
         return dim * this._sign < reference * this._sign;
     }
+    /* Input:   A car, a reference point
+       Output:  Returns true if the car is behind the reference point (based on the
+                lane's dimension) */
+    compare(car, reference) {
+        var dim;
+        if (this._pos == "x") {
+            dim = car.x;
+        } else {
+            dim = car.y;
+        }
+        return dim * this._sign > reference * this._sign;
+    }
+    /* Input:   A car
+       Output:  Returns true if the car is beyond the line that divides the lane from
+                the intersection */
+    pastDottedLine(car) {
+        return this.compare(car, this._dLine);
+    }
+    /* Input:   A car
+       Output:  Returns true if the car is beyond this lane's right turn line  */
+    pastRightTurnLine(car) {
+        return this.compare(car, this._rightTurnLine);
+    }
+    /* Input:   A car
+       Output:  Returns true if the car is beyond this lane's left turn line */
+    pastLeftTurnLine(car) { 
+        return this.compare(car, this._leftTurnLine);   
+    }
+    /* Input:   A lane array (either straight or left)
+       Output:  Returns true if there is a car in an array and that car is within 60
+                units of the lane's starting position */
     arrayMaxed(lane) {
         var lastCar = this.lastCar(lane);
         return lastCar != null && this.withinBounds(lastCar, this._maxLine + 60);
     }
+    /* Input:   A lane array (either straight or left)
+       Output:  Removes the first 10 elements of the lane array if the array's length
+                is 20 or greater */
     cleanLane(lane) {
         if (lane.length > 20) {
             lane.splice(0, 10);
@@ -99,6 +146,10 @@ class Lane {
             }
         }
     }
+    /* Output:  Adds a car to the Lane object in one of the lane arrays. If one lane
+                array is unavailable, the other array is chosen. Otherwise the array
+                is chosen randomly. After the car is added, the lane is checked for
+                excess cars and "cleaned". */
     addCar() {
         var sMax = this.arrayMaxed(this._straightLane);
         var lMax = this.arrayMaxed(this._leftLane);
@@ -123,24 +174,8 @@ class Lane {
             this.cleanLane(this._straightLane);
         }
     }
-    compare(car, reference) {
-        var dim;
-        if (this._pos == "x") {
-            dim = car.x;
-        } else {
-            dim = car.y;
-        }
-        return dim * this._sign > reference * this._sign;
-    }
-    pastDottedLine(car) {
-        return this.compare(car, this._dLine);
-    }
-    pastRightTurnLine(car) {
-        return this.compare(car, this._rightTurnLine);
-    }
-    pastLeftTurnLine(car) {	
-        return this.compare(car, this._leftTurnLine);	
-    }
+    /* Output:  Updates the lane timer unless the lane is turned off If the timer
+                falls below 0, adds a car and resets the timer. */
     progress() {
         if (this._frequency > 0) {
             this._timer -= 1;
@@ -153,6 +188,9 @@ class Lane {
 }
 
 class Car {
+    /* Input:   Position index in lane array, starting X value, starting Y value,
+                color, lane, direction (Left, Straight, or Right)
+       Output:  Instantiates the Car object */
     constructor(positionIndex, startX, startY, color, lane, direction) {
         this._direction = direction;
         this._x = startX;
@@ -183,6 +221,7 @@ class Car {
             this.ySpeed = 0;
         }
     }
+    /* Getters and Setters */
     get x() {
         return this._x;
     }
@@ -228,10 +267,12 @@ class Car {
     set ySpeed(ySpeed){
         this._ySpeed = ySpeed;
     }
+    /* Output:  Updates the car's x and y coordinates based on its speed */
     move() {
         this._x = this._x + this._xSpeed;
         this._y = this._y + this._ySpeed;
     }
+    /* Output:  Updates the car's x and y speeds if it turns */
     turn() {
         if(this._direction == "R" & this.lane.name == "north" & this._lane.pastRightTurnLine(this)) {	
             this._xSpeed = -1;	
@@ -274,7 +315,13 @@ class Car {
             this._carLength = temp;
         }
     }
-
+    /* Input:   A light state, a lane array (either straight or left) 
+       Output:  Moves the car under 3 primary conditions:
+                 - the car's lane's light matches the input state (or the "All" state)
+                 - the car is beyond the line dividing the lane from the intersection
+                 - the car is sufficently far behind the car in front of it OR the line
+                   dividing the lane from the intersection.
+                If the car has not turned, it checks for turning conditions */
     update(goColor, lane) {
         if (this.lane.light == goColor || this.lane.light == 'A') {
             this.move();
@@ -308,12 +355,17 @@ class Car {
             this.turn();    
         }
     }
+    /* Output:  Updates a car's X and Y coordinates based on the status of the straight
+                lane array */
     updateStraight() {
         this.update('G', this._lane._straightLane);
     }
+    /* Output:  Updates a car's X and Y coordinates based on the status of the left
+                lane array */
     updateLeft() {
         this.update('L', this._lane._leftLane);
     }
+    /* Output:  Displays a car */
     display() {
         fill(this._color);
         if (this._lane._name == "west" || this._lane._name == "east" ) {
@@ -321,11 +373,12 @@ class Car {
         } else {
             rect(this._x, this._y, this._carLength, this._carWidth);
         }
-       // circle(this._x, this._y, 10);
     }
 }
 
 class LightControl {
+    /* Input:   North, east, south, and west cardinal Lane objects
+       Output:  Instantiates the Light Control object */
     constructor(n, e, s, w) {
         this._a = [n, s];
         this._i = [e, w];
@@ -335,6 +388,10 @@ class LightControl {
         this._timer = 0;
         this.createPattern();
     }
+    /* Input:   A new light state, a duration for the light state
+       Output:  Updates the 4 lanes lights to the new state nad sets the timer to the
+                new duration. If the light state is a handoff: checks for swapping
+                active and inactive lights, and then creates a new queue of light states*/
     changeState(newState, duration) {
         if (newState == "handoff") {
             this.handoff();
@@ -348,13 +405,15 @@ class LightControl {
         }
         this._timer = duration;
     }
+    /* Output:  Returns 0 the active lanes are North & South, 1 otherwise */
     orthogonal() {
-        // returns 0 if N/S, 1 if E/W
         if (this._a[0] == this._lanes[0]) {
             return 0;
         }
         return 1;
     }
+    /* Output:  Returns a new string representing the 4 lane lights when both active 
+                lanes display left turn lights */
     bothLeft() {
         var s = "RRRR";
         var ortho = this.orthogonal();
@@ -362,6 +421,8 @@ class LightControl {
         s = s.replaceAt(ortho + 2, "L");
         return s;
     }
+    /* Output:  Returns a new string representing the 4 lane lights when both active 
+                lanes display green lights */
     bothStraight() {
         var s = "RRRR";
         var ortho = this.orthogonal();
@@ -369,12 +430,17 @@ class LightControl {
         s = s.replaceAt(ortho + 2, "G");
         return s;
     }
+    /* Output:  Returns a new string representing the 4 lane lights when one lane displays
+                a left turn light and a green light */
     singleDisplay(n) {
         var s = "RRRR";
         var ortho = this.orthogonal();
         s = s.replaceAt(2 * n + ortho, "A");
         return s;
     }
+    /* Input:   A string representing one of the lanes, and string command
+       Output:  Manually updates the light control's state to any legal state based on the
+                inputs */
     manualUpdate(laneReference, command) {
         if (laneReference == "N" || laneReference == "S") {
             // make sure N & S are active
@@ -404,16 +470,20 @@ class LightControl {
         this.changeState(gen, 300);
         draw();
     }
+    /* Output:  If the inactive lanes have any cars, swaps the active and inactive lanes */
     handoff() {
         if (this._i[0].hasCar() || this._i[1].hasCar()) {
             this.forceHandoff();
         }
     }
+    /* Output:  Swaps the active and inactive lanes */
     forceHandoff() {
         var temp = [this._a[0], this._a[1]];
         this._a = [this._i[0], this._i[1]];
         this._i = [temp[0], temp[1]];
     }
+    /* Output:  Creates a new queue of traffic light patterns and pattern durations based on
+                the presence of cars in the active lanes */
     createPattern() {
         this._q = [];
         var tQ = [];
@@ -480,6 +550,7 @@ class LightControl {
         this._q.unshift("handoff");
         this._q.unshift(0);
     }
+    /* Output:  Updates the light timer, and changes states with the timer reaches 0 */
     progress() {
         this._timer -= 1;
         if (this._timer <= 0) {
