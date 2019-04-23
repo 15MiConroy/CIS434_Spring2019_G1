@@ -123,24 +123,10 @@ class Lane {
     pastRightTurnLine(car) {
         return this.compare(car, this._rightTurnLine);
     }
-<<<<<<< HEAD
-    pastLeftTurnLine(car) {
-        return this.compare(car, this._leftTurnLine);
-    }
-    progress(){
-    this._timer -= 1;
-      randCarGen = [Math.floor(Math.random() * (10*this._frequency))];
-      if (this._timer <= 0) {
-        this._timer += this._frequency;
-         if (this._frequency>=randCarGen){
-           this.addCar();
-         }
-      }
-=======
     /* Input:   A car
        Output:  Returns true if the car is beyond this lane's left turn line */
-    pastLeftTurnLine(car) { 
-        return this.compare(car, this._leftTurnLine);   
+    pastLeftTurnLine(car) {
+        return this.compare(car, this._leftTurnLine);
     }
     /* Input:   A lane array (either straight or left)
        Output:  Returns true if there is a car in an array and that car is within 60
@@ -198,7 +184,6 @@ class Lane {
                 this.addCar();
             }
         }
->>>>>>> f839eca682426c02575c8dbeb4058038034f62ee
     }
 }
 
@@ -287,8 +272,8 @@ class Car {
         this._x = this._x + this._xSpeed;
         this._y = this._y + this._ySpeed;
     }
-<<<<<<< HEAD
-    turn(){
+    /* Output:  Updates the car's x and y speeds if it turns */
+    turn() {
         if(this._direction == "R" & this.lane.name == "north" & this._lane.pastRightTurnLine(this)) {
             this._xSpeed = -1;
             this._ySpeed = 0;
@@ -324,52 +309,13 @@ class Car {
             this._ySpeed = 0;
             this._turned = true;
         }
-=======
-    /* Output:  Updates the car's x and y speeds if it turns */
-    turn() {
-        if(this._direction == "R" & this.lane.name == "north" & this._lane.pastRightTurnLine(this)) {	
-            this._xSpeed = -1;	
-            this._ySpeed = 0;	
-            this._turned = true;	
-        } else if(this._direction == "R" & this.lane.name == "east" & this._lane.pastRightTurnLine(this)){	
-            this._xSpeed = 0;	
-            this._ySpeed = -1;	
-            this._turned = true;	
-        } else if(this._direction == "R" & this.lane.name == "west" & this._lane.pastRightTurnLine(this)){	
-            this._xSpeed = 0;	
-            this._ySpeed = 1;	
-            this._turned = true;	
-        }	
-        else if(this._direction == "R" & this.lane.name == "south" & this._lane.pastRightTurnLine(this)){	
-            this._xSpeed = 1;	
-            this._ySpeed = 0;	
-            this._turned = true;	
-        } else if(this._direction == "L" & this.lane.name == "north" & this._lane.pastLeftTurnLine(this)) {	
-            this._xSpeed = 1;	
-            this._ySpeed = 0;	
-            this._turned = true;	
-        } else if(this._direction == "L" & this.lane.name == "east" & this._lane.pastLeftTurnLine(this)){	
-            this._xSpeed = 0;	
-            this._ySpeed = 1;	
-            this._turned = true;	
-        } else if(this._direction == "L" & this.lane.name == "west" & this._lane.pastLeftTurnLine(this)){	
-            this._xSpeed = 0;	
-            this._ySpeed = -1;	
-            this._turned = true;	
-        }	
-        else if(this._direction == "L" & this.lane.name == "south" & this._lane.pastLeftTurnLine(this)){	
-            this._xSpeed = -1;	
-            this._ySpeed = 0;	
-            this._turned = true;	
-        }	
->>>>>>> f839eca682426c02575c8dbeb4058038034f62ee
         if(this._turned) {
             var temp = this._carWidth;
             this._carWidth = this._carLength;
             this._carLength = temp;
         }
     }
-    /* Input:   A light state, a lane array (either straight or left) 
+    /* Input:   A light state, a lane array (either straight or left)
        Output:  Moves the car under 3 primary conditions:
                  - the car's lane's light matches the input state (or the "All" state)
                  - the car is beyond the line dividing the lane from the intersection
@@ -405,13 +351,8 @@ class Car {
                 }
             }
         }
-<<<<<<< HEAD
-        if(!this._turned){
+        if (!this._turned) {
             this.turn();
-=======
-        if (!this._turned) {  
-            this.turn();    
->>>>>>> f839eca682426c02575c8dbeb4058038034f62ee
         }
     }
     /* Output:  Updates a car's X and Y coordinates based on the status of the straight
@@ -422,41 +363,7 @@ class Car {
     /* Output:  Updates a car's X and Y coordinates based on the status of the left
                 lane array */
     updateLeft() {
-<<<<<<< HEAD
-        if(this.lane.light == 'L' || this.lane.light == 'A') {
-            this.move();
-        } else if(this._lane.pastDottedLine(this)) {
-            this.move();
-        } else {
-            let nextCar = this._lane._leftLane[this._myIndex - 1];
-            if (this._lane._pos == "x") {
-                if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
-                    if (this._x  * this.sign < (this._lane._dLine - (60 * this.sign)) * this.sign) {
-                        this.move();
-                    }
-                } else {
-                    if (!this._lane.pastDottedLine(nextCar) && this._x * this.sign < (nextCar._x - (60 * this.sign)) * this.sign) {
-                        this.move();
-                    }
-                }
-            } else if (this._lane._pos == "y") {
-                if (this._myIndex == 0 || this._lane.pastDottedLine(nextCar)) {
-                    if (this._y  * this.sign < (this._lane._dLine - (60 * this.sign)) * this.sign) {
-                        this.move();
-                    }
-                } else {
-                    if (!this._lane.pastDottedLine(nextCar) && this._y * this.sign < (nextCar._y - (60 * this.sign)) * this.sign) {
-                        this.move();
-                    }
-                }
-            }
-        }
-        if(!this._turned){
-            this.turn();
-        }
-=======
         this.update('L', this._lane._leftLane);
->>>>>>> f839eca682426c02575c8dbeb4058038034f62ee
     }
     /* Output:  Displays a car */
     display() {
@@ -505,7 +412,7 @@ class LightControl {
         }
         return 1;
     }
-    /* Output:  Returns a new string representing the 4 lane lights when both active 
+    /* Output:  Returns a new string representing the 4 lane lights when both active
                 lanes display left turn lights */
     bothLeft() {
         var s = "RRRR";
@@ -514,7 +421,7 @@ class LightControl {
         s = s.replaceAt(ortho + 2, "L");
         return s;
     }
-    /* Output:  Returns a new string representing the 4 lane lights when both active 
+    /* Output:  Returns a new string representing the 4 lane lights when both active
                 lanes display green lights */
     bothStraight() {
         var s = "RRRR";
