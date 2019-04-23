@@ -1,5 +1,4 @@
-
-  function drawBackground() {
+function drawBackground() {
     //x street
     fill(51);
     rect(0,h/3,w,h/3);
@@ -54,4 +53,4 @@
     //West Light Box
     fill(0)
     rect(66,468,200,58)
- }
+}

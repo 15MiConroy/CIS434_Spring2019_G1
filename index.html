@@ -9,41 +9,45 @@
   </head>
   <body style="margin: 0; display: flex;  justify-content: center;">
     <div>
+<<<<<<< HEAD
       <h3> Start/Stop Simulation</h3>
+=======
+            <h1>TrafficSimulator.org</h1>
+>>>>>>> f839eca682426c02575c8dbeb4058038034f62ee
       <p>
         <input id="Start" type="button" value="Start Simulation" onclick="startSimulation();" />
         <input id="Stop" type="button" value="Stop Simulation" onclick="stopSimulation();" />
       </p>
       <h3> Traffic Levels- All Lanes</h3>
       <p>
-        <input id="No" type="button" value="No Traffic" onclick="changeFrequency(bigboi);" />
+        <input id="No" type="button" value="No Traffic" onclick="changeFrequency(tinytim);" />
         <input type="range" min="10" max="200" value="50" step="5" oninput="changeNFrequency(this.value)" />
         <!--<input id="Low" type="button" value="Low Traffic" onclick="changeFrequency(low);" />
         <input id="High" type="button" value="High Traffic" onclick="changeFrequency(high);" />-->
       </p>
       <h3> Traffic levels- Each Lane</h3>
       <p>
-        <input id="No" type="button" value="North No Traffic" onclick="changeNFrequency(bigboi);" />
+        <input id="No" type="button" value="North No Traffic" onclick="changeNFrequency(tinytim);" />
         <input type="range" min="10" max="200" value="50" step="5" oninput="changeNFrequency(this.value)" />
         <!--<input id="Low" type="button" value="Low Traffic" onclick="changeNFrequency(low);" />
         <input id="High" type="button" value="High Traffic" onclick="changeNFrequency(high);" />-->
       </p>
       <p>
-        <input id="No" type="button" value="East No Traffic" onclick="changeEFrequency(bigboi);" />
+        <input id="No" type="button" value="East No Traffic" onclick="changeEFrequency(tinytim);" />
         <input type="range" min="10" max="200" value="50" step="5" oninput="changeEFrequency(this.value)" />
         <!--
         <input id="Low" type="button" value="Low Traffic" onclick="changeEFrequency(low);" />
         <input id="High" type="button" value="High Traffic" onclick="changeEFrequency(high);" />-->
       </p>
         <p>
-        <input id="No" type="button" value="South No Traffic" onclick="changeSFrequency(bigboi);" />
+        <input id="No" type="button" value="South No Traffic" onclick="changeSFrequency(tinytim);" />
         <input type="range" min="10" max="200" value="50" step="5" oninput="changeSFrequency(this.value)" />
         <!--<input id="No" type="button" value="South No Traffic" onclick="changeSFrequency(bigboi);" />
         <input id="Low" type="button" value="Low Traffic" onclick="changeSFrequency(low);" />
         <input id="High" type="button" value="High Traffic" onclick="changeSFrequency(high);" />-->
       </p>
       <p>
-        <input id="No" type="button" value="West No Traffic" onclick="changeWFrequency(bigboi);" />
+        <input id="No" type="button" value="West No Traffic" onclick="changeWFrequency(tinytim);" />
         <input type="range" min="10" max="200" value="50" step="5" oninput="changeWFrequency(this.value)" />
         <!--
         <input id="Low" type="button" value="Low Traffic" onclick="changeWFrequency(low);" />
@@ -51,20 +55,20 @@
       </p>
       <h3>Light State- Lefts</h3>
       <p>
-        <input id="NSLefts" type="button" value="North South Lefts" onclick="lightcontrol.manualUpdate("N", "bothLeft");" />
-        <input id="EWLefts" type="button" value="East West Lefts" onclick="lightcontrol.manualUpdate("E", "bothLeft");" />
+        <input id="NSLefts" type="button" value="North South Lefts" onclick="lightControl.manualUpdate('N', 'bothLeft');" />
+        <input id="EWLefts" type="button" value="East West Lefts" onclick="lightControl.manualUpdate('E', 'bothLeft');" />
       </p>
       <h3>Light State- Straights</h3>
       <p>
-        <input id="NSStraight" type="button" value="North South Straight" onclick="lightcontrol.manualUpdate("N", "bothStraight");" />
-        <input id="EWStraight" type="button" value="East West Straight" onclick="lightcontrol.manualUpdate("E", "bothStaright");" />
+        <input id="NSStraight" type="button" value="North South Straight" onclick="lightControl.manualUpdate('N', 'bothStraight');" />
+        <input id="EWStraight" type="button" value="East West Straight" onclick="lightControl.manualUpdate('E', 'bothStraight');" />
       </p>
       <h3>Light State- All Traffic For Each Lane</h3>
       <p>
-        <input id="NAll" type="button" value="North All" onclick="lightcontrol.manualUpdate("N", "singleDisplay");" />
-        <input id="EAll" type="button" value="East All" onclick="lightcontrol.manualUpdate("E", "singleDisplay");" />
-        <input id="SAll" type="button" value="South All" onclick="lightcontrol.manualUpdate("S", "singleDisplay");" />
-        <input id="WAll" type="button" value="West All" onclick="lightcontrol.manualUpdate("W", "singleDisplay")" />
+        <input id="NAll" type="button" value="North All" onclick="lightControl.manualUpdate('N', 'singleDisplay');" />
+        <input id="EAll" type="button" value="East All" onclick="lightControl.manualUpdate('E', 'singleDisplay');" />
+        <input id="SAll" type="button" value="South All" onclick="lightControl.manualUpdate('S', 'singleDisplay');" />
+        <input id="WAll" type="button" value="West All" onclick="lightControl.manualUpdate('W', 'singleDisplay')" />
       </p>
     </div>
   </body>
