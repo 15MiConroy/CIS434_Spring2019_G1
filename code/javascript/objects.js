@@ -100,18 +100,17 @@ class Lane {
     pastRightTurnLine(car) {
         return this.compare(car, this._rightTurnLine);
     }
-    pastLeftTurnLine(car) {	
-        return this.compare(car, this._leftTurnLine);	
+    pastLeftTurnLine(car) {
+        return this.compare(car, this._leftTurnLine);
     }
     progress(){
     this._timer -= 1;
-      // randCarGen = [Math.floor(Math.random() * (40*this._frequency))];
+      randCarGen = [Math.floor(Math.random() * (10*this._frequency))];
       if (this._timer <= 0) {
         this._timer += this._frequency;
-        this.addCar();
-        // if (this._frequency>=randCarGen){
-        //   this.addCar();
-        // }
+         if (this._frequency>=randCarGen){
+           this.addCar();
+         }
       }
     }
 }
@@ -203,42 +202,42 @@ class Car {
         this._x = this._x + this._xSpeed;
         this._y = this._y + this._ySpeed;
     }
-    turn(){	
-        if(this._direction == "R" & this.lane.name == "north" & this._lane.pastRightTurnLine(this)) {	
-            this._xSpeed = -1;	
-            this._ySpeed = 0;	
-            this._turned = true;	
-        } else if(this._direction == "R" & this.lane.name == "east" & this._lane.pastRightTurnLine(this)){	
-            this._xSpeed = 0;	
-            this._ySpeed = -1;	
-            this._turned = true;	
-        } else if(this._direction == "R" & this.lane.name == "west" & this._lane.pastRightTurnLine(this)){	
-            this._xSpeed = 0;	
-            this._ySpeed = 1;	
-            this._turned = true;	
-        }	
-        else if(this._direction == "R" & this.lane.name == "south" & this._lane.pastRightTurnLine(this)){	
-            this._xSpeed = 1;	
-            this._ySpeed = 0;	
-            this._turned = true;	
-        } else if(this._direction == "L" & this.lane.name == "north" & this._lane.pastLeftTurnLine(this)) {	
-            this._xSpeed = 1;	
-            this._ySpeed = 0;	
-            this._turned = true;	
-        } else if(this._direction == "L" & this.lane.name == "east" & this._lane.pastLeftTurnLine(this)){	
-            this._xSpeed = 0;	
-            this._ySpeed = 1;	
-            this._turned = true;	
-        } else if(this._direction == "L" & this.lane.name == "west" & this._lane.pastLeftTurnLine(this)){	
-            this._xSpeed = 0;	
-            this._ySpeed = -1;	
-            this._turned = true;	
-        }	
-        else if(this._direction == "L" & this.lane.name == "south" & this._lane.pastLeftTurnLine(this)){	
-            this._xSpeed = -1;	
-            this._ySpeed = 0;	
-            this._turned = true;	
-        }	
+    turn(){
+        if(this._direction == "R" & this.lane.name == "north" & this._lane.pastRightTurnLine(this)) {
+            this._xSpeed = -1;
+            this._ySpeed = 0;
+            this._turned = true;
+        } else if(this._direction == "R" & this.lane.name == "east" & this._lane.pastRightTurnLine(this)){
+            this._xSpeed = 0;
+            this._ySpeed = -1;
+            this._turned = true;
+        } else if(this._direction == "R" & this.lane.name == "west" & this._lane.pastRightTurnLine(this)){
+            this._xSpeed = 0;
+            this._ySpeed = 1;
+            this._turned = true;
+        }
+        else if(this._direction == "R" & this.lane.name == "south" & this._lane.pastRightTurnLine(this)){
+            this._xSpeed = 1;
+            this._ySpeed = 0;
+            this._turned = true;
+        } else if(this._direction == "L" & this.lane.name == "north" & this._lane.pastLeftTurnLine(this)) {
+            this._xSpeed = 1;
+            this._ySpeed = 0;
+            this._turned = true;
+        } else if(this._direction == "L" & this.lane.name == "east" & this._lane.pastLeftTurnLine(this)){
+            this._xSpeed = 0;
+            this._ySpeed = 1;
+            this._turned = true;
+        } else if(this._direction == "L" & this.lane.name == "west" & this._lane.pastLeftTurnLine(this)){
+            this._xSpeed = 0;
+            this._ySpeed = -1;
+            this._turned = true;
+        }
+        else if(this._direction == "L" & this.lane.name == "south" & this._lane.pastLeftTurnLine(this)){
+            this._xSpeed = -1;
+            this._ySpeed = 0;
+            this._turned = true;
+        }
         if(this._turned) {
             let temp = this._carWidth;
             this._carWidth = this._carLength;
@@ -274,8 +273,8 @@ class Car {
                 }
             }
         }
-        if(!this._turned){  
-            this.turn();    
+        if(!this._turned){
+            this.turn();
         }
     }
     updateLeft() {
@@ -307,8 +306,8 @@ class Car {
                 }
             }
         }
-        if(!this._turned){	
-            this.turn();	
+        if(!this._turned){
+            this.turn();
         }
     }
     display() {
