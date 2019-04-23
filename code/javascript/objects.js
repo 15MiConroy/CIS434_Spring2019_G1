@@ -125,8 +125,8 @@ class Lane {
     }
     /* Input:   A car
        Output:  Returns true if the car is beyond this lane's left turn line */
-    pastLeftTurnLine(car) { 
-        return this.compare(car, this._leftTurnLine);   
+    pastLeftTurnLine(car) {
+        return this.compare(car, this._leftTurnLine);
     }
     /* Input:   A lane array (either straight or left)
        Output:  Returns true if there is a car in an array and that car is within 60
@@ -274,48 +274,48 @@ class Car {
     }
     /* Output:  Updates the car's x and y speeds if it turns */
     turn() {
-        if(this._direction == "R" & this.lane.name == "north" & this._lane.pastRightTurnLine(this)) {	
-            this._xSpeed = -1;	
-            this._ySpeed = 0;	
-            this._turned = true;	
-        } else if(this._direction == "R" & this.lane.name == "east" & this._lane.pastRightTurnLine(this)){	
-            this._xSpeed = 0;	
-            this._ySpeed = -1;	
-            this._turned = true;	
-        } else if(this._direction == "R" & this.lane.name == "west" & this._lane.pastRightTurnLine(this)){	
-            this._xSpeed = 0;	
-            this._ySpeed = 1;	
-            this._turned = true;	
-        }	
-        else if(this._direction == "R" & this.lane.name == "south" & this._lane.pastRightTurnLine(this)){	
-            this._xSpeed = 1;	
-            this._ySpeed = 0;	
-            this._turned = true;	
-        } else if(this._direction == "L" & this.lane.name == "north" & this._lane.pastLeftTurnLine(this)) {	
-            this._xSpeed = 1;	
-            this._ySpeed = 0;	
-            this._turned = true;	
-        } else if(this._direction == "L" & this.lane.name == "east" & this._lane.pastLeftTurnLine(this)){	
-            this._xSpeed = 0;	
-            this._ySpeed = 1;	
-            this._turned = true;	
-        } else if(this._direction == "L" & this.lane.name == "west" & this._lane.pastLeftTurnLine(this)){	
-            this._xSpeed = 0;	
-            this._ySpeed = -1;	
-            this._turned = true;	
-        }	
-        else if(this._direction == "L" & this.lane.name == "south" & this._lane.pastLeftTurnLine(this)){	
-            this._xSpeed = -1;	
-            this._ySpeed = 0;	
-            this._turned = true;	
-        }	
+        if(this._direction == "R" & this.lane.name == "north" & this._lane.pastRightTurnLine(this)) {
+            this._xSpeed = -1;
+            this._ySpeed = 0;
+            this._turned = true;
+        } else if(this._direction == "R" & this.lane.name == "east" & this._lane.pastRightTurnLine(this)){
+            this._xSpeed = 0;
+            this._ySpeed = -1;
+            this._turned = true;
+        } else if(this._direction == "R" & this.lane.name == "west" & this._lane.pastRightTurnLine(this)){
+            this._xSpeed = 0;
+            this._ySpeed = 1;
+            this._turned = true;
+        }
+        else if(this._direction == "R" & this.lane.name == "south" & this._lane.pastRightTurnLine(this)){
+            this._xSpeed = 1;
+            this._ySpeed = 0;
+            this._turned = true;
+        } else if(this._direction == "L" & this.lane.name == "north" & this._lane.pastLeftTurnLine(this)) {
+            this._xSpeed = 1;
+            this._ySpeed = 0;
+            this._turned = true;
+        } else if(this._direction == "L" & this.lane.name == "east" & this._lane.pastLeftTurnLine(this)){
+            this._xSpeed = 0;
+            this._ySpeed = 1;
+            this._turned = true;
+        } else if(this._direction == "L" & this.lane.name == "west" & this._lane.pastLeftTurnLine(this)){
+            this._xSpeed = 0;
+            this._ySpeed = -1;
+            this._turned = true;
+        }
+        else if(this._direction == "L" & this.lane.name == "south" & this._lane.pastLeftTurnLine(this)){
+            this._xSpeed = -1;
+            this._ySpeed = 0;
+            this._turned = true;
+        }
         if(this._turned) {
             var temp = this._carWidth;
             this._carWidth = this._carLength;
             this._carLength = temp;
         }
     }
-    /* Input:   A light state, a lane array (either straight or left) 
+    /* Input:   A light state, a lane array (either straight or left)
        Output:  Moves the car under 3 primary conditions:
                  - the car's lane's light matches the input state (or the "All" state)
                  - the car is beyond the line dividing the lane from the intersection
@@ -351,8 +351,8 @@ class Car {
                 }
             }
         }
-        if (!this._turned) {  
-            this.turn();    
+        if (!this._turned) {
+            this.turn();
         }
     }
     /* Output:  Updates a car's X and Y coordinates based on the status of the straight
@@ -412,7 +412,7 @@ class LightControl {
         }
         return 1;
     }
-    /* Output:  Returns a new string representing the 4 lane lights when both active 
+    /* Output:  Returns a new string representing the 4 lane lights when both active
                 lanes display left turn lights */
     bothLeft() {
         var s = "RRRR";
@@ -421,7 +421,7 @@ class LightControl {
         s = s.replaceAt(ortho + 2, "L");
         return s;
     }
-    /* Output:  Returns a new string representing the 4 lane lights when both active 
+    /* Output:  Returns a new string representing the 4 lane lights when both active
                 lanes display green lights */
     bothStraight() {
         var s = "RRRR";
